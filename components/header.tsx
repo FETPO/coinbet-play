@@ -1,20 +1,15 @@
-import { Box, Container, Text, Group } from "@mantine/core"
-import ThemeToggleButton from "./buttons/theme-toggle-button"
+import { Box, Container, Text } from "@chakra-ui/react"
 import WalletConnectionButton from "./buttons/wallet-connection-button"
 import Link from "next/link"
 import WalletDisplayButton from "./buttons/wallet-display-button"
-import { FC } from "react"
 
-const Header: FC = () => {
+const Header = () => {
   return (
-    <Box component="header" py="md" sx={{ textAlign: "center", borderBottom: "1px solid lightgray" }}>
+    <Box  py="md" sx={{ textAlign: "center", borderBottom: "1px solid lightgray" }}>
       <Container>
-        <Group>
           <Text
             variant="gradient"
-            gradient={{ from: "primary", to: "secondary", deg: 45 }}
             sx={{ fontSize: "1.5em", fontWeight: 800 }}
-            inline
           >
             <Link href="/">Coinbet</Link>
           </Text>
@@ -24,8 +19,6 @@ const Header: FC = () => {
 
           <WalletConnectionButton />
           <WalletDisplayButton />
-          <ThemeToggleButton />
-        </Group>
       </Container>
     </Box>
   )

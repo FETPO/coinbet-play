@@ -1,20 +1,16 @@
 import type { NextPage } from "next"
-import Layout from "../components/layout"
-import { Text, Title, Anchor, Button, Group, Badge, Box } from "@mantine/core"
-import Link from "next/link"
+import { Text, Heading, Box } from "@chakra-ui/react"
+import Head from "next/head"
 
 const Home: NextPage = () => {
   return (
-    <Layout>
-      <>
-        <Box sx={{ width: "80%", textAlign: "center", margin: "auto" }} my="xl">
-          <Title>Coinbet</Title>
-          <Text>
-              Coinbet protocol brings DeFi to online betting. Permissionless and Decentralised.
-          </Text>
-        </Box>
-      </>
-    </Layout>
+    <>       
+    <Head>
+      <title>NextJS + Web3 Starter</title>
+      <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+      <meta name="description" content="A NextJS + Web3 starter template, supporting Hardhat with TypeScript." />
+    </Head>
+    </>
   )
 }
 

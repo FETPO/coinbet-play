@@ -3,7 +3,6 @@ import type { FC, ReactNode } from "react"
 import Web3Modal from "web3modal"
 import { ethers } from "ethers"
 import { hexToDecimal, truncateAddress } from "../utils/utility"
-import { notify } from "../utils/notify"
 import type { WalletContextType, WalletType } from "../types/wallet"
 
 const WalletContext = createContext<WalletContextType>({
@@ -44,10 +43,8 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({ children }) 
           chainId: network.chainId,
         })
       } else {
-        notify("Error", "Could not find any accounts!", "error")
       }
     } catch (error) {
-      notify("Error", "Could not connect wallet properly!", "error")
       console.log(error)
     }
   }
@@ -58,7 +55,6 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({ children }) 
       web3Modal?.clearCachedProvider()
       setWallet(undefined)
     } catch (error) {
-      notify("Error", "Could not disconnect wallet properly!", "error")
     }
   }
 
@@ -69,21 +65,18 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({ children }) 
     const handleAccountsChanged = (accounts: string[]) => {
       if (!(accounts && accounts.length > 0)) return
       setWallet({ ...wallet, address: accounts[0] })
-      notify("Account Change", `${truncateAddress(wallet.address)} changed to ${truncateAddress(accounts[0])}.`, "info")
     }
 
     // network chain changed
     const handleChainChanged = (chainId: number) => {
       const newChainId = hexToDecimal(chainId)
       setWallet({ ...wallet, chainId: newChainId })
-      notify("Network Change", "You have changed to chain " + newChainId, "success")
       // @note: you can add a "supported-chain check" here if you want
     }
 
     // wallet is disconnected from the injected provider
     const handleDisconnect = () => {
       setWallet(undefined)
-      notify("Wallet Disconnect", "You have disconnected your wallet.", "success")
     }
 
     wallet.provider.on("accountsChanged", handleAccountsChanged)

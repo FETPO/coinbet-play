@@ -1,11 +1,11 @@
-import { Anchor, Box, Text } from "@mantine/core"
+import { Box, Text } from "@chakra-ui/react"
 import { FC } from "react"
 
 const Footer: FC = () => {
   return (
-    <Box component="footer" my="md" py="md" sx={{ textAlign: "center", borderTop: "1px solid lightgray" }}>
+    <Box  my="md" py="md" sx={{ textAlign: "center", borderTop: "1px solid lightgray" }}>
       <Text>
-        Made with &hearts; by <Anchor href="https://coinbet.finance">coinbet</Anchor>
+        Made with &hearts; by <a href="https://coinbet.finance">coinbet</a>
       </Text>
     </Box>
   )
