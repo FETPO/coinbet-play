@@ -1,7 +1,7 @@
 import { Container } from "@chakra-ui/react"
 import type { FC, ReactNode } from "react"
 import Footer from "./footer"
-import Header from "./header"
+import Header from "./Header/Header"
 import styles from "../styles/layout.module.scss"
 import { ChakraProvider } from "@chakra-ui/react"
 import { Theme } from "../theme"

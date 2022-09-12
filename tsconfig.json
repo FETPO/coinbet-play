@@ -19,7 +19,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "theme/overrides/button.jss"
+    "theme/overrides/button.jss",
+    "components/Header/GameTab.jsx"
   ],
   "exclude": ["node_modules", ".next"]
 }
