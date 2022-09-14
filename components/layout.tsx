@@ -1,24 +1,21 @@
-import { Container } from "@chakra-ui/react"
-import type { FC, ReactNode } from "react"
-import Footer from "./footer"
-import Header from "./Header/Header"
-import styles from "../styles/layout.module.scss"
-import { ChakraProvider } from "@chakra-ui/react"
-import { Theme } from "../theme"
+import { Container } from "@chakra-ui/react";
+import type { FC, ReactNode } from "react";
+import Header from "./Header/Header";
+import styles from "./layout.module.scss";
+import { ChakraProvider } from "@chakra-ui/react";
+import { Theme } from "../theme";
 
 const Layout: FC<{
-  children: ReactNode
+  children: ReactNode;
 }> = ({ children }) => {
   return (
     <Theme>
       <div className={styles["layout"]}>
         <Header />
-        <Container>{children}</Container>
-        <div style={{ flexGrow: 1 }} />
-        <Footer />
+        <div className={styles["layout-section-wrapper"]}>{children}</div>
       </div>
     </Theme>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;
