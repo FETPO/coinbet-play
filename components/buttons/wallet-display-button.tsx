@@ -1,4 +1,4 @@
-import { Popover, Button, Title, Group, Stack, Text, Image } from "@mantine/core"
+import { Popover, Button, Stack, Text, Image, Heading, Box } from "@chakra-ui/react"
 import { BigNumber } from "ethers"
 import { formatEther } from "ethers/lib/utils"
 import { useState, useEffect, FC } from "react"
@@ -25,45 +25,32 @@ const WalletDisplayButton: FC = () => {
   }, [wallet])
 
   return (
-    <Popover
-      opened={opened}
-      onClose={() => setOpened(false)}
-      target={
-        <Button disabled={wallet === undefined} variant="subtle" size="xs" onClick={() => setOpened((o) => !o)}>
-          <Wallet />
-        </Button>
-      }
-      width="min(90vw,500px)"
-      position="bottom"
-      withArrow
-      withCloseButton
-    >
-      {wallet ? (
-        <Group position="apart">
+    <>      {wallet ? (
+        <Box>
           <Stack>
             {/* Network Details */}
-            <Title order={2}>Network</Title>
+            <Heading order={2}>Network</Heading>
             <Text size="xl">{network.chainName}</Text>
             <Text color="dimmed">Chain ID: {wallet.chainId}</Text>
 
             {/* Wallet Details */}
-            <Title order={2} mt="md">
+            <Heading order={2} mt="md">
               Wallet ID
-            </Title>
+            </Heading>
             <Text>{truncateAddress(wallet.address)}</Text>
 
             {/* Balance */}
-            <Title order={2} mt="md">
+            <Heading order={2} mt="md">
               Balance
-            </Title>
+            </Heading>
             <Text>{formatEther(balance) + " " + network.nativeCurrency.symbol}</Text>
           </Stack>
           <Image src={network.iconURL} alt="network icon" m="md" width={150} height={200} fit="contain" />
-        </Group>
+        </Box>
       ) : (
-        <Title p="lg">Wallet not connected.</Title>
-      )}
-    </Popover>
+        <Heading p="lg">Wallet not connected.</Heading>
+      )}</>
+
   )
 }
 

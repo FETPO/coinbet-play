@@ -1,20 +1,23 @@
-import { Container } from "@mantine/core"
-import type { FC, ReactNode } from "react"
-import Footer from "./footer"
-import Header from "./header"
-import styles from "../styles/layout.module.scss"
+import { Container } from "@chakra-ui/react";
+import type { FC, ReactNode } from "react";
+import Header from "./Header/Header";
+import styles from "./layout.module.scss";
+import { ChakraProvider } from "@chakra-ui/react";
+import { Theme } from "../theme";
 
 const Layout: FC<{
-  children: ReactNode
+  children: ReactNode;
 }> = ({ children }) => {
   return (
-    <div className={styles["layout"]}>
-      <Header />
-      <Container>{children}</Container>
-      <div style={{ flexGrow: 1 }} />
-      <Footer />
-    </div>
-  )
-}
+    <Theme>
+      <div className={styles["layout"]}>
+        <Header />
+        <div className={styles["layout-sections-wrapper"]}>
+          <div className={styles["layout-sections-container"]}>{children}</div>
+        </div>
+      </div>
+    </Theme>
+  );
+};
 
-export default Layout
+export default Layout;

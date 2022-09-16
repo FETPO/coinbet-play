@@ -15,6 +15,12 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "theme/overrides/button.jss",
+    "components/Header/GameTab.jsx"
+  ],
   "exclude": ["node_modules", ".next"]
 }

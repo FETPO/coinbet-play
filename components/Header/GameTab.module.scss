@@ -1,0 +1,19 @@
+.game-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #20222a;
+  border-radius: 12px;
+  padding: 10px 20px;
+  margin-right: 12px;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 22px;
+  span {
+    margin-right: 8px !important;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+}
