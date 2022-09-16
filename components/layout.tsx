@@ -12,7 +12,9 @@ const Layout: FC<{
     <Theme>
       <div className={styles["layout"]}>
         <Header />
-        <div className={styles["layout-section-wrapper"]}>{children}</div>
+        <div className={styles["layout-sections-wrapper"]}>
+          <div className={styles["layout-sections-container"]}>{children}</div>
+        </div>
       </div>
     </Theme>
   );

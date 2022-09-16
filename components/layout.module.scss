@@ -6,9 +6,15 @@
   height: 100%;
   width: 100%;
 }
-.layout-section-wrapper {
+.layout-sections-wrapper {
   display: flex;
   justify-content: center;
   position: relative;
   top: 88px;
+  width: 100%;
+
+  .layout-sections-container {
+    width: 100%;
+    max-width: $maxSectionWidth;
+  }
 }

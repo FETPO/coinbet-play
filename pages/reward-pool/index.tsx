@@ -1,4 +1,6 @@
-const RewardPool = () => {
-  return <></>;
+import RewardPool from "../../components/RewardPool/RewardPool";
+
+const RewardPoolPage = () => {
+  return <RewardPool />;
 };
-export default RewardPool;
+export default RewardPoolPage;

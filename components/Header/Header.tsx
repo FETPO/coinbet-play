@@ -20,7 +20,10 @@ const Header = () => {
   return (
     <div className={classes["header-wrapper"]}>
       <div className={classes["header-container"]}>
-        <div className={classes["logo-container"]}>
+        <div
+          className={classes["logo-container"]}
+          onClick={() => router.push("/")}
+        >
           <Image src={logo} width={117} height={17} />
         </div>
         <div className={classes["tabs"]}>
