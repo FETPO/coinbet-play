@@ -1,0 +1,35 @@
+@import "../../../assets/scss/variables";
+
+.app-menu {
+    margin-left: 48px;
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(3, auto);
+    grid-gap: 4px;
+    > div {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        padding: 10px 20px;
+        &.active {
+            background-color: var(--app-menu-background);
+            border-radius: 12px;
+            span {
+                color: var(--foreground);
+            }
+            svg path {
+                fill: var(--foreground);
+            }
+        }
+        svg {
+            margin-right: 10px;
+        }
+        span {
+            font-style: normal;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 22px;
+            color: #ADB4BD;
+        }
+    }
+}

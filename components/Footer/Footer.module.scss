@@ -1,0 +1,47 @@
+@import "../../assets/scss/variables";
+
+.footer-wrapper {
+    padding: 19px 36px;
+
+    > div {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .gas-section {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        grid-gap: 8px;
+        align-items: center;
+        > div:nth-child(1) {
+            display: flex;
+            align-items: center;
+            svg {
+                margin-right: 6px;
+                path {
+                    fill: var(--foreground);
+                }
+            }
+            span {
+                font-style: normal;
+                font-weight: 500;
+                font-size: 12px;
+                line-height: 18px;
+                color: var(--foreground);
+            }
+        }
+        > div:nth-child(2) {
+            width: 4px;
+            height: 4px;
+            background-color: var(--foreground);
+            border-radius: 50%;
+        }
+        > div:nth-child(3) {
+            font-style: normal;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 18px;
+            color: #02B087;
+        }
+    }
+}

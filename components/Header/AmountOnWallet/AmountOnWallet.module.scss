@@ -1,0 +1,31 @@
+@import "../../../assets/scss/variables";
+
+.amount-on-wallet {
+    display: flex;
+    align-items: center;
+    background-color: var(--app-menu-background);
+    border-radius: 12px;
+    padding: 3px 16px;
+    > div:nth-of-type(1) {
+        svg {
+            margin-top: 7px;
+        }
+    } 
+    > div:nth-of-type(2) {
+        margin-left: 9px;
+        span {
+            font-style: normal;
+            font-weight: 700;
+            font-size: 12px;
+            line-height: 18px;
+            color: var(--foreground);
+        }
+        p {
+            font-style: normal;
+            font-weight: 500;
+            font-size: 10px;
+            line-height: 14px;
+            color: #ADB4BD;
+        }
+    }
+}
