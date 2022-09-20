@@ -1,20 +1,7 @@
 @import "../assets/scss/variables";
-// The layout is a column flexbox, so that header and layout is consequent and footer is pushed to the bottom
-.layout {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-}
-.layout-sections-wrapper {
-  display: flex;
-  justify-content: center;
-  position: relative;
-  top: 88px;
-  width: 100%;
 
-  .layout-sections-container {
-    width: 100%;
-    max-width: $maxSectionWidth;
-  }
+.layout {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 80px 1fr 58px;
 }

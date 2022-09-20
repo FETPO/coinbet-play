@@ -1,0 +1,17 @@
+@import "../../../assets/scss/variables";
+
+.theme-changer {
+    button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        cursor: pointer;
+        padding: 12px 20px;
+        background-color: var(--app-menu-background);
+        border-radius: 12px;
+        svg path {
+            fill: var(--foreground);
+        }
+    }
+}

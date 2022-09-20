@@ -1,5 +1,38 @@
 @import "../assets/scss/_variables.scss";
-@import "../assets/scss/fonts.scss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #15151c;
+  --app-background: #F3F5F8;
+  --app-menu-background: #ffffff;
+  --account-details-background: #ffffff;
+  --border-color: #E3E4EC;
+}
+
+[data-theme='dark'] {
+  --background: #15151c;
+  --foreground: #ffffff;
+  --app-background: #15151c;
+  --app-menu-background: #20222A;
+  --account-details-background: #282A35;
+  --border-color: #333744;
+}
+
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  &:focus {
+    outline: none;
+  }
+}
+
+body {
+  background-color: var(--app-background);
+  font-family: 'Satoshi', sans-serif;
+}
+
+.container {
+  max-width: $containerWidth;
+  margin: 0 auto;
 }
