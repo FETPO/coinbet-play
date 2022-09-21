@@ -1,1 +1,114 @@
 @import "../../assets/scss/variables";
+
+.button-wrapper {
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    transition: .3s ease-in-out;
+  
+    &.primary {
+      border: 1px solid transparent;
+      background: #7451FF;
+      color: $white;
+      &:hover {
+        background: #6446DC;
+      }
+      &:disabled {
+        background: #6446DC;
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+      > svg {
+        path {
+          fill: $white;
+        }
+      }
+    }
+
+    &.secondary {
+      border: 1px solid var(--secondary-button-border-color);
+      background: var(--secondary-button-background);
+      color: var(--foreground);
+      &:hover {
+        background: var(--secondary-button-hover-color);
+      }
+      &:disabled {
+        background: var(--secondary-button-disabled-color);
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+    }
+
+    &.outlined {
+      border: 1px solid var(--outlined-button-border-color);
+      background: var(--outlined-button-background);
+      color: var(--foreground);
+      &:hover {
+        background: var(--outlined-button-hover-color);
+      }
+      &:disabled {
+        background: var(--outlined-button-disabled-color);
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+    }
+
+    &.transparent {
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--foreground);
+      &:hover {
+        opacity: 0.6;
+      }
+      &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+    }
+  
+    &.large {
+      font-size: 16px;
+      padding: 13px 24px;
+    }
+    &.medium {
+      font-size: 14px;
+      padding: 9px 24px;
+    }
+    &.small {
+      font-size: 14px;
+      padding: 6px 16px;
+    }
+    > svg {
+      margin-right: 10px;
+      path {
+        fill: var(--foreground);
+      }
+    }
+
+    &.only-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      padding: 0;
+      &.transparent {
+        &:hover {
+          opacity: 1;
+          background: var(--transparent-button-hover-color);
+        }
+      }
+      > svg {
+        margin-right: 0px;
+      }
+    }
+  }
+}

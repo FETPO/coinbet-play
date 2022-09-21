@@ -1,11 +1,11 @@
 import React, { useRef, useState } from "react";
 import { useOnClickOutside } from "../../../hooks/useOnClickOutside";
 import { formatAddress } from "../../../utils/format";
-import { EthIcon } from "../../svgs/EthIcon";
 import { MiniMetamaskIcon } from "../../svgs/MiniMetamaskIcon";
 import styles from "./ConnectWallet.module.scss";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { IOption } from "../../../types/dropdown";
+import Button from "../../Button/Button";
 
 const WALLET_ADDRESS: string = "0x6d592909746d2d80C5384E0ECB673B24053057A1";
 
@@ -35,12 +35,13 @@ const ConnectWallet = ({ selectedOption }: IAmountOnWalletProps) => {
           <span>{formatAddress(WALLET_ADDRESS)}</span>
         </div>
       ) : (
-        <div
-          className={styles["connect-btn"]}
+        <Button
+          variant="secondary"
+          size="medium"
           onClick={() => setIsLoggedIn(true)}
         >
           Connect wallet
-        </div>
+        </Button>
       )}
       {showAccountDetailsPopover && (
         <div className={styles["account-details-popover"]}>
@@ -75,15 +76,16 @@ const ConnectWallet = ({ selectedOption }: IAmountOnWalletProps) => {
             </div>
             <div>$ 3825.68</div>
           </div>
-          <div
-            className={styles["disconnect-btn-section"]}
+          <Button
+            variant="secondary"
+            size="medium"
             onClick={() => {
               setIsLoggedIn(false);
               setShowAccountDetailsPopover(false);
             }}
           >
             Disconnect
-          </div>
+          </Button>
         </div>
       )}
     </div>
