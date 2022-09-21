@@ -7,6 +7,15 @@
   --app-menu-background: #ffffff;
   --account-details-background: #ffffff;
   --border-color: #E3E4EC;
+  --secondary-button-background: transparent;
+  --secondary-button-border-color: #E3E4EC;
+  --secondary-button-hover-color: #F8F9FC;
+  --secondary-button-disabled-color: transparent;
+  --outlined-button-background: transparent;
+  --outlined-button-border-color: #E3E4EC;
+  --outlined-button-hover-color: #F8F9FC;
+  --outlined-button-disabled-color: transparent;
+  --transparent-button-hover-color: #F8F9FC;
 }
 
 [data-theme='dark'] {
@@ -16,6 +25,15 @@
   --app-menu-background: #20222A;
   --account-details-background: #282A35;
   --border-color: #333744;
+  --secondary-button-background: #333744;
+  --secondary-button-border-color: transparent;
+  --secondary-button-hover-color: #2A2E39;
+  --secondary-button-disabled-color: #15191E;
+  --outlined-button-background: transparent;
+  --outlined-button-border-color: #333744;
+  --outlined-button-hover-color: #2A2E39;
+  --outlined-button-disabled-color: #15191E;
+  --transparent-button-hover-color: #1D2129;
 }
 
 * {

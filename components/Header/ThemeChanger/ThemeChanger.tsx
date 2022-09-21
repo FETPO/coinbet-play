@@ -1,5 +1,6 @@
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import Button from "../../Button/Button";
 import { DarkModeIcon } from "../../svgs/DarkModeIcon";
 import { LightModeIcon } from "../../svgs/LightModeIcon";
 import styles from "./ThemeChanger.module.scss";
@@ -19,13 +20,19 @@ const ThemeChanger = () => {
   return (
     <div className={styles["theme-changer"]}>
       {theme === "dark" ? (
-        <button title="Switch to light mode" onClick={() => setTheme("light")}>
-          <LightModeIcon />
-        </button>
+        <Button
+          variant="secondary"
+          size="medium"
+          onClick={() => setTheme("light")}
+          icon={<LightModeIcon />}
+        ></Button>
       ) : (
-        <button title="Switch to dark mode" onClick={() => setTheme("dark")}>
-          <DarkModeIcon />
-        </button>
+        <Button
+          variant="secondary"
+          size="medium"
+          onClick={() => setTheme("dark")}
+          icon={<DarkModeIcon />}
+        ></Button>
       )}
     </div>
   );
