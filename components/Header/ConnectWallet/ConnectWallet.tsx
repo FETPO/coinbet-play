@@ -1,21 +1,31 @@
 import React, { useRef, useState } from "react";
 import { useOnClickOutside } from "../../../hooks/useOnClickOutside";
 import { formatAddress } from "../../../utils/format";
-import { MiniMetamaskIcon } from "../../svgs/MiniMetamaskIcon";
 import styles from "./ConnectWallet.module.scss";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { IOption } from "../../../types/dropdown";
 import Button from "../../Button/Button";
+import Modal from "../../Modal/Modal";
+import ConnectWalletModal from "../../Modal/ConnectWalletModal/ConnectWalletModal";
 
 const WALLET_ADDRESS: string = "0x6d592909746d2d80C5384E0ECB673B24053057A1";
 
 interface IAmountOnWalletProps {
   selectedOption: IOption;
+  availableWallets: IOption[];
+  selectedWallet: IOption | null;
+  setSelectedWallet: (wallet: IOption) => void;
 }
 
-const ConnectWallet = ({ selectedOption }: IAmountOnWalletProps) => {
+const ConnectWallet = ({
+  selectedOption,
+  availableWallets,
+  selectedWallet,
+  setSelectedWallet,
+}: IAmountOnWalletProps) => {
   const ref = useRef(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showConnectWalletModal, setShowConnectWalletModal] = useState(false);
   const [showAccountDetailsPopover, setShowAccountDetailsPopover] =
     useState(false);
   const [addressCopied, setAddressCopied] = useState(false);
@@ -38,7 +48,7 @@ const ConnectWallet = ({ selectedOption }: IAmountOnWalletProps) => {
         <Button
           variant="secondary"
           size="medium"
-          onClick={() => setIsLoggedIn(true)}
+          onClick={() => setShowConnectWalletModal(true)}
         >
           Connect wallet
         </Button>
@@ -46,11 +56,9 @@ const ConnectWallet = ({ selectedOption }: IAmountOnWalletProps) => {
       {showAccountDetailsPopover && (
         <div className={styles["account-details-popover"]}>
           <div className={styles["wallet-address-section"]}>
-            <div className={styles["wallet-icon"]}>
-              <MiniMetamaskIcon />
-            </div>
+            <div className={styles["wallet-icon"]}>{selectedWallet?.icon}</div>
             <div className={styles["wallet-type-address"]}>
-              <p>Ethereum</p>
+              <p>{selectedOption.name}</p>
               <CopyToClipboard
                 text={WALLET_ADDRESS}
                 onCopy={() => {
@@ -88,6 +96,17 @@ const ConnectWallet = ({ selectedOption }: IAmountOnWalletProps) => {
           </Button>
         </div>
       )}
+      <Modal
+        open={showConnectWalletModal}
+        onClose={() => setShowConnectWalletModal(false)}
+      >
+        <ConnectWalletModal
+          onClose={() => setShowConnectWalletModal(false)}
+          availableWallets={availableWallets}
+          setSelectedWallet={setSelectedWallet}
+          setIsLoggedIn={setIsLoggedIn}
+        />
+      </Modal>
     </div>
   );
 };

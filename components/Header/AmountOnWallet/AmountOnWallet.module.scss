@@ -25,7 +25,10 @@
             font-weight: 500;
             font-size: 10px;
             line-height: 14px;
-            color: #ADB4BD;
+            color: var(--gray);
         }
+    }
+    @include lg {
+        display: none;
     }
 }

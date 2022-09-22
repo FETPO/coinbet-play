@@ -1,0 +1,94 @@
+@import "../../assets/scss/variables"; 
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 999;
+  .modal-overlay {
+    width: 100%;
+    height: 100%;
+    background: #20222A;
+    opacity: 0.9;
+  }
+  .modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--background);
+    border-radius: 16px;
+    padding: 32px;
+    min-width: 320px;
+    min-height: 150px;
+    .close-modal {
+      position: absolute;
+      top: 27px;
+      right: 20px;
+      @include sm {
+        display: none;
+      }
+    }
+    .close-modal-mobile {
+      background: var(--gray);
+      opacity: 0.4;
+      border-radius: 20px;
+      width: 32px;
+      height: 3px;
+      display: none;
+      margin: 0 auto 24px;
+      @include sm {
+        display: block;
+      }
+    }
+    .modal-footer {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      margin-top: 30px;
+      .footer-text {
+        display: flex;
+        align-items: center;
+        margin-bottom: 13px;
+        svg {
+          margin-right: 5px;
+          path {
+            fill: var(--foreground);
+            opacity: 0.5;
+          }
+        }
+        span {
+          font-style: normal;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 100%;
+          letter-spacing: -0.005em;
+          color: var(--foreground);
+          opacity: 0.8;
+        }
+      }
+      .footer-line {
+        width: 135px;
+        height: 5px;
+        background: var(--foreground);
+        border-radius: 100px;
+      }
+      @include sm {
+        display: flex;
+      }
+    }
+
+    @include sm {
+      bottom: 0;
+      top: unset;
+      left: 0;
+      transform: unset;
+      width: 100%;
+      border-radius: 16px 16px 0px 0px;
+      padding: 16px;
+    }
+  }
+}

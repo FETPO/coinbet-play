@@ -1,0 +1,27 @@
+.loader {
+  margin-top: 8px;
+  margin-bottom: 32px;
+  position: relative;
+  background: linear-gradient(155deg, var(--transparent-button-hover-color) 25.64%, rgba(116, 81, 255, 0.18) 46.37%, #7451FF 98.58%);
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: load 2s linear infinite;
+  &::before {
+    content: '';
+    position: absolute;
+    width: 75%;
+    height: 75%;
+    border-radius: 50%;
+    background-color: var(--background);
+  }
+}
+
+@keyframes load {
+  100% {
+    transform: rotate(360deg);
+  }
+}

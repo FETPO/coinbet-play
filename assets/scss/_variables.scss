@@ -1,23 +1,16 @@
-// Colors
 $white: #ffffff;
 $black: #15151c;
 
-// Fonts
-
-// Max-width of sections
 $containerWidth: 1440px;
 
-// Small tablets and large smartphones (landscape view)
-$screen-sm-max: 576px;
+@mixin sm {
+  @media (max-width: 576px) { @content; }
+}
 
-// Small tablets (portrait view)
-$screen-md-max: 768px;
+@mixin md {
+  @media (max-width: 993px) { @content; }
+}
 
-// Tablets and small desktops
-$screen-lg-max: 992px;
-
-// Large tablets and desktops
-$screen-xl-max: 1230px;
-
-// Extra large desktops
-$screen-xxl-max: 1440px;
+@mixin lg {
+  @media (max-width: 1200px) { @content; }
+}

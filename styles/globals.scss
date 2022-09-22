@@ -16,6 +16,10 @@
   --outlined-button-hover-color: #F8F9FC;
   --outlined-button-disabled-color: transparent;
   --transparent-button-hover-color: #F8F9FC;
+  --select-wallet-hover-color: #F8F9FC;
+  --select-wallet-border-color: #EEF1F8;
+  --deposit-modal-content-background-color: #F8F9FC;
+  --gray: #67707B;
 }
 
 [data-theme='dark'] {
@@ -34,6 +38,10 @@
   --outlined-button-hover-color: #2A2E39;
   --outlined-button-disabled-color: #15191E;
   --transparent-button-hover-color: #1D2129;
+  --select-wallet-hover-color: #20222A;
+  --select-wallet-border-color: #282A35;
+  --deposit-modal-content-background-color: #282A35;
+  --gray: #ADB4BD;
 }
 
 * {

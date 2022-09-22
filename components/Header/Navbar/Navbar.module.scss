@@ -29,7 +29,10 @@
             font-weight: 700;
             font-size: 14px;
             line-height: 22px;
-            color: #ADB4BD;
+            color: var(--gray);
         }
+    }
+    @include lg {
+        display: none;
     }
 }

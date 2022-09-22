@@ -2,4 +2,7 @@
 
 .slot-game-wrapper {
   padding: 16px 36px;
+  @include sm {
+    padding: 16px 16px;
+  }
 }

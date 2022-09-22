@@ -2,12 +2,13 @@
 
 .connect-wallet {
     position: relative;
-    background-color: var(--app-menu-background);
     border-radius: 12px;
     .account-address {
         display: flex;
         align-items: center;
         padding: 10px 16px;
+        background-color: var(--app-menu-background);
+        border-radius: 12px;
         cursor: pointer;
         .avatar {
             width: 20px;
@@ -15,6 +16,9 @@
             border-radius: 50%;
             background: linear-gradient(136.85deg, #DA5E5E 11.29%, #371794 88.87%);
             margin-right: 8px;
+            @include lg {
+                margin-right: 0;
+            }
         }
         span {
             font-style: normal;
@@ -22,6 +26,9 @@
             font-size: 14px;
             line-height: 22px;
             color: var(--foreground);
+            @include lg {
+                display: none;
+            }
         }
     }
     .connect-btn {
@@ -55,7 +62,7 @@
                     font-weight: 500;
                     font-size: 12px;
                     line-height: 18px;
-                    color: #ADB4BD;
+                    color: var(--gray);
                     margin-bottom: 2px;
                     &::after {
                         content: '';
@@ -118,7 +125,7 @@
                 font-weight: 500;
                 font-size: 14px;
                 line-height: 22px;
-                color: #ADB4BD;
+                color: var(--gray);
             }
         }
     }

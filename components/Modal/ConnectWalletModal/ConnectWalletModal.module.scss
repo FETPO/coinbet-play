@@ -1,0 +1,46 @@
+@import "../../../assets/scss/variables";
+
+.connect-wallet-popup-content {
+  h1 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 32px;
+    color: var(--foreground);
+    margin-bottom: 30px;
+    
+    @include sm {
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+  }
+
+  .wallets {
+    display: grid;
+    grid-gap: 16px;
+    > div {
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--select-wallet-border-color);
+      border-radius: 12px;
+      padding: 22px 30px;
+      transition: .3s ease-in-out;
+      cursor: pointer;
+      width: 376px;
+      &:hover {
+        background: var(--select-wallet-hover-color);
+      }
+      > span {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 24px;
+        color: var(--foreground);
+        margin-left: 16px;
+      }
+      @include sm {
+        width: 100%;
+      }
+    }
+  }
+}

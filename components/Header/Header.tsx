@@ -12,6 +12,9 @@ import { MaticIcon } from "../svgs/MaticIcon";
 import { BSCIcon } from "../svgs/BSCIcon";
 import { AvalancheIcon } from "../svgs/AvalancheIcon";
 import { IOption } from "../../types/dropdown";
+import { MiniMetamaskIcon } from "../svgs/MiniMetamaskIcon";
+import { MiniCoinbaseIcon } from "../svgs/MiniCoinbaseIcon";
+import { MiniWalletConnectIcon } from "../svgs/MiniWalletConnectIcon";
 
 const Header = () => {
   const router = useRouter();
@@ -38,9 +41,28 @@ const Header = () => {
     },
   ];
 
+  const availableWallets = [
+    {
+      id: useId(),
+      name: "MetaMask",
+      icon: <MiniMetamaskIcon />,
+    },
+    {
+      id: useId(),
+      name: "Coinbase Wallet",
+      icon: <MiniCoinbaseIcon />,
+    },
+    {
+      id: useId(),
+      name: "WalletConnect",
+      icon: <MiniWalletConnectIcon />,
+    },
+  ];
+
   const [selectedOption, setSelectedOption] = useState<IOption>(
     dropdownOptions[0]
   );
+  const [selectedWallet, setSelectedWallet] = useState<IOption | null>(null);
 
   return (
     <div className={styles["header-wrapper"]}>
@@ -58,7 +80,12 @@ const Header = () => {
             setSelectedOption={setSelectedOption}
           />
           <AmountOnWallet selectedOption={selectedOption} />
-          <ConnectWallet selectedOption={selectedOption} />
+          <ConnectWallet
+            selectedOption={selectedOption}
+            availableWallets={availableWallets}
+            selectedWallet={selectedWallet}
+            setSelectedWallet={setSelectedWallet}
+          />
           <ThemeChanger />
         </div>
       </div>

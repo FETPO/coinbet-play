@@ -1,0 +1,111 @@
+@import "../../../assets/scss/variables";
+
+.deposit-popup-content {
+  h1 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 32px;
+    color: var(--foreground);
+    margin-bottom: 25px;
+    
+    @include sm {
+      margin-bottom: 16px;
+      font-size: 18px;
+    }
+  }
+
+  .deposit-field-wrapper {
+    background: var(--deposit-modal-content-background-color);
+    border-radius: 16px;
+    padding: 20px 24px;
+    width: 376px;
+    margin-bottom: 20px;
+
+    .input-field {
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+      input {
+        width: 100%;
+        border: none;
+        background: none;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 32px;
+        color: var(--foreground);
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+        &[type=number] {
+          -moz-appearance: textfield;
+        }
+        &::placeholder {
+          color: var(--gray);
+        }
+      }
+      span {
+        display: flex;
+        align-items: center;
+        background: var(--app-menu-background);
+        border-radius: 12px;
+        padding: 7px 16px;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 160%;
+        color: var(--foreground);
+        > svg {
+          margin-right: 9px;
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+
+    .balance {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      > div:nth-of-type(1) {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 22px;
+        color: var(--gray);
+      }
+      > div:nth-of-type(2) {
+        display: flex;
+        align-items: center;
+        span {
+          cursor: pointer;
+          background: rgba(68, 139, 244, 0.1);
+          border-radius: 6px;
+          padding: 4px 6px;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 10px;
+          line-height: 14px;
+          color: #448BF4;
+        }
+        p {
+          font-style: normal;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 22px;
+          color: var(--gray);
+          margin-left: 8px;
+        }
+      }
+    }
+
+    @include sm {
+      width: 100%;
+    }
+  }
+}
