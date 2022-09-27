@@ -1,12 +1,15 @@
 import styles from "./SlotGame.module.scss";
 import Head from "next/head";
-import Button from "../Button/Button";
 import { useState } from "react";
 import Modal from "../Modal/Modal";
 import DepositModal from "../Modal/DepositModal/DepositModal";
+import LiveFeedSection from "./LiveFeedSection/LiveFeedSection";
+import BalanceSection from "./BalanceSection/BalanceSection";
+import CoinbetSlotsSection from "./CoinbetSlotsSection/CoinbetSlotsSection";
 
 const SlotGame = () => {
-  const [showModal, setShowModal] = useState(false);
+  const [showDepositModal, setShowDepositModal] = useState(false);
+  const [collapseDown, setCollapseDown] = useState(false);
 
   return (
     <>
@@ -16,16 +19,23 @@ const SlotGame = () => {
       </Head>
       <div className={styles["slot-game-wrapper"]}>
         <div className="container">
-          <Button
-            variant="secondary"
-            size="medium"
-            onClick={() => setShowModal(true)}
-          >
-            Open modal
-          </Button>
+          <div className={styles["slot-game-grid"]}>
+            <CoinbetSlotsSection />
+            <div>
+              <BalanceSection
+                collapseDown={collapseDown}
+                setCollapseDown={setCollapseDown}
+                setShowDepositModal={setShowDepositModal}
+              />
+              <LiveFeedSection collapseDown={collapseDown} />
+            </div>
+          </div>
         </div>
-        <Modal open={showModal} onClose={() => setShowModal(false)}>
-          <DepositModal onClose={() => setShowModal(false)} />
+        <Modal
+          open={showDepositModal}
+          onClose={() => setShowDepositModal(false)}
+        >
+          <DepositModal onClose={() => setShowDepositModal(false)} />
         </Modal>
       </div>
     </>

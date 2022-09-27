@@ -7,6 +7,7 @@ import { IOption } from "../../../types/dropdown";
 import Button from "../../Button/Button";
 import Modal from "../../Modal/Modal";
 import ConnectWalletModal from "../../Modal/ConnectWalletModal/ConnectWalletModal";
+import Tooltip from "../../Tooltip/Tooltip";
 
 const WALLET_ADDRESS: string = "0x6d592909746d2d80C5384E0ECB673B24053057A1";
 
@@ -21,7 +22,7 @@ const ConnectWallet = ({
   selectedOption,
   availableWallets,
   selectedWallet,
-  setSelectedWallet,
+  setSelectedWallet
 }: IAmountOnWalletProps) => {
   const ref = useRef(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -70,9 +71,7 @@ const ConnectWallet = ({
               >
                 <span title="Click to copy to clipboard">
                   {formatAddress(WALLET_ADDRESS)}
-                  {addressCopied ? (
-                    <span className={styles["copied-text"]}>Copied!</span>
-                  ) : null}
+                  {addressCopied ? <Tooltip text="Copied!" /> : null}
                 </span>
               </CopyToClipboard>
             </div>

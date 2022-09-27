@@ -20,6 +20,9 @@
   --select-wallet-border-color: #EEF1F8;
   --deposit-modal-content-background-color: #F8F9FC;
   --gray: #67707B;
+  --slot-statistics-background: rgba(248, 249, 252, 0.6);
+  --slot-background: #ffffff;
+  --slot-wrapper-background: url('../assets/images/slot-game-bg-light.png');
 }
 
 [data-theme='dark'] {
@@ -42,12 +45,16 @@
   --select-wallet-border-color: #282A35;
   --deposit-modal-content-background-color: #282A35;
   --gray: #ADB4BD;
+  --slot-statistics-background: rgba(32, 34, 42, 0.46);
+  --slot-background: #B0B4D0;
+  --slot-wrapper-background: url('../assets/images/slot-game-bg-dark.png');
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+
   &:focus {
     outline: none;
   }
@@ -61,4 +68,21 @@ body {
 .container {
   max-width: $containerWidth;
   margin: 0 auto;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(173, 180, 189, 0.4);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(173, 180, 189, 0.4);
 }

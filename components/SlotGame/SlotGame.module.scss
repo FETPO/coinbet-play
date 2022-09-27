@@ -2,6 +2,14 @@
 
 .slot-game-wrapper {
   padding: 16px 36px;
+
+  .slot-game-grid {
+    display: grid;
+    grid-template-columns: 1fr 556px;
+    grid-column-gap: 24px;
+    min-height: calc(100vh - 170px);
+  }
+
   @include sm {
     padding: 16px 16px;
   }

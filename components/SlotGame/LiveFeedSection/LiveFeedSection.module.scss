@@ -1,0 +1,60 @@
+.live-feed-section {
+  background: var(--app-menu-background);
+  border-radius: 16px;
+  padding: 20px 12px 0px;
+
+  .live-feed-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 12px;
+
+    .title {
+      display: flex;
+      align-items: center;
+
+      svg {
+        path {
+          fill: var(--foreground);
+        }
+      }
+
+      h3 {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 26px;
+        color: var(--foreground);
+        margin-left: 14px;
+      }
+    }
+
+    .tabs {
+      display: flex;
+      align-items: center;
+
+      h3 {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 22px;
+        color: #67707B;
+        cursor: pointer;
+        padding-bottom: 8px;
+
+        &:not(:last-of-type) {
+          margin-right: 32px;
+        }
+
+        &.active {
+          color: var(--foreground);
+          border-bottom: 2px solid #6446DC;
+        }
+      }
+    }
+  }
+
+  .live-feed-section-body {
+    margin-top: 20px;
+  }
+}

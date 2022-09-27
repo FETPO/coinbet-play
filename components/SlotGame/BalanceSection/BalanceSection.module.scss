@@ -1,0 +1,112 @@
+.balance-section {
+  background: var(--app-menu-background);
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+
+  .main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .main-left {
+      display: flex;
+      align-items: center;
+
+      h3 {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 22px;
+        color: var(--gray);
+      }
+
+      p {
+        display: flex;
+        align-items: center;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 26px;
+        color: var(--foreground);
+
+        svg {
+          margin-right: 9px;
+        }
+      }
+
+      .divider {
+        background: var(--border-color);
+        width: 1px;
+        height: 42px;
+        margin: 0px 24px;
+      }
+    }
+
+    .main-right {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      grid-gap: 8px;
+      align-items: center;
+
+      .arrow-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transform: rotate(180deg);
+        transition: .3s ease-in-out;
+        margin-left: 8px;
+
+        &.opened {
+          transform: rotate(0deg);
+        }
+
+        svg {
+          path {
+            fill: var(--foreground);
+          }
+        }
+      }
+    }
+  }
+
+  .details {
+    margin-top: 22px;
+
+    >div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &:not(:last-of-type) {
+        padding-bottom: 8px;
+        margin-bottom: 8px;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      h3 {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 18px;
+        text-transform: uppercase;
+        color: var(--gray);
+      }
+
+      p {
+        display: flex;
+        align-items: center;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 22px;
+        color: var(--foreground);
+
+        svg {
+          margin-right: 9px;
+        }
+      }
+    }
+  }
+}
