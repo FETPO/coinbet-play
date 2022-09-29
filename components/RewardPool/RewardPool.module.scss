@@ -2,6 +2,214 @@
 
 .reward-pool-wrapper {
   padding: 16px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+
+  .reward-pool-container {
+    background: var(--app-menu-background);
+    border-radius: 16px;
+    padding: 32px;
+
+    .reward-pool-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      .header-left {
+        display: grid;
+        grid-template-columns: auto auto;
+        align-items: center;
+        grid-column-gap: 15px;
+
+        >div {
+          &:nth-of-type(1) {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+
+            svg {
+              width: 43px;
+              height: 43px;
+            }
+          }
+
+          &:nth-of-type(2) {
+            h3 {
+              font-style: normal;
+              font-weight: 700;
+              font-size: 30px;
+              line-height: 38px;
+              color: var(--foreground);
+            }
+
+            p {
+              font-style: normal;
+              font-weight: 500;
+              font-size: 12px;
+              line-height: 18px;
+              text-transform: uppercase;
+              color: var(--gray);
+            }
+          }
+        }
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        background: var(--app-menu-background);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 9px 12px;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 18px;
+        color: var(--foreground);
+
+        svg {
+          margin-right: 8px;
+        }
+      }
+    }
+
+    .reward-pool-body {
+      background: var(--deposit-modal-content-background-color);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin: 24px 0px;
+      width: 492px;
+
+      .apy {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--border-color);
+
+        >div {
+          &:nth-of-type(1) {
+            display: flex;
+            align-items: center;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 18px;
+            text-transform: uppercase;
+            color: var(--gray);
+
+            >svg {
+              margin-left: 5px;
+            }
+          }
+
+          &:nth-of-type(2) {
+            font-style: normal;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 22px;
+            color: var(--foreground);
+          }
+        }
+      }
+
+      .staked-balance {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 10px;
+
+        >div {
+          &:nth-of-type(1) {
+            display: flex;
+            align-items: center;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 18px;
+            text-transform: uppercase;
+            color: var(--gray);
+          }
+
+          &:nth-of-type(2) {
+            font-style: normal;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 22px;
+            color: var(--foreground);
+          }
+        }
+      }
+
+      .actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 12px;
+        margin-top: 20px;
+
+        @include sm {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @include sm {
+        width: 100%;
+        padding: 22px 16px;
+      }
+    }
+
+    .reward-pool-footer {
+      background: var(--deposit-modal-content-background-color);
+      border-radius: 14px;
+      padding: 22px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      >div {
+        &:nth-of-type(1) {
+          h3 {
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 22px;
+            color: var(--gray);
+          }
+
+          p {
+            display: flex;
+            align-items: center;
+            font-style: normal;
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 32px;
+            color: var(--foreground);
+
+            >svg {
+              margin-right: 8px;
+            }
+          }
+
+          @include sm {
+            margin-bottom: 20px;
+          }
+        }
+      }
+
+      @include sm {
+        display: block;
+        padding: 22px 16px;
+      }
+    }
+
+    @include sm {
+      padding: 22px 16px;
+      width: 100%;
+    }
+  }
 
   @include sm {
     padding: 16px 16px;
