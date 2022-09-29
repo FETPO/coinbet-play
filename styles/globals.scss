@@ -86,3 +86,20 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(173, 180, 189, 0.4);
 }
+
+::-webkit-scrollbar:horizontal {
+  height: 4px;
+}
+
+::-webkit-scrollbar-track:horizontal {
+  background: none;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+  background: rgba(173, 180, 189, 0.4);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:horizontal:hover {
+  background: rgba(173, 180, 189, 0.4);
+}

@@ -1,37 +1,45 @@
 @import "../../assets/scss/variables";
 
 .header-wrapper {
-    padding: 19px 36px;
-    > div {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        .left {
-            display: flex;
-            align-items: center;
-            .app-logo {
-                cursor: pointer;
-                svg path:not(:nth-of-type(10)) {
-                    fill: var(--foreground);
-                }
-            }
+  padding: 19px 36px;
+
+  >div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .left {
+      display: flex;
+      align-items: center;
+
+      .app-logo {
+        cursor: pointer;
+
+        svg path:not(:nth-of-type(10)) {
+          fill: var(--foreground);
         }
-        .right {
-            display: grid;
-            align-items: center;
-            grid-template-columns: repeat(4, auto);
-            grid-gap: 12px;
-            > div:nth-of-type(1) {
-                @include lg {
-                    display: none;
-                }
-            }
-            @include lg {
-                grid-template-columns: repeat(2, auto);
-            }
+      }
+    }
+
+    .right {
+      display: grid;
+      align-items: center;
+      grid-template-columns: repeat(4, auto);
+      grid-gap: 12px;
+
+      >div:nth-of-type(2) {
+        @include lg {
+          display: none;
         }
+      }
+
+      @include lg {
+        grid-template-columns: repeat(2, auto);
+      }
     }
-    @include sm {
-        padding: 19px 16px;
-    }
+  }
+
+  @include sm {
+    padding: 19px 16px;
+  }
 }

@@ -22,41 +22,41 @@ const Header = () => {
     {
       id: useId(),
       name: "Ethereum",
-      icon: <EthIcon />,
+      icon: <EthIcon />
     },
     {
       id: useId(),
       name: "Polygon",
-      icon: <MaticIcon />,
+      icon: <MaticIcon />
     },
     {
       id: useId(),
       name: "BSC Mainnet",
-      icon: <BSCIcon />,
+      icon: <BSCIcon />
     },
     {
       id: useId(),
       name: "Avalance",
-      icon: <AvalancheIcon />,
-    },
+      icon: <AvalancheIcon />
+    }
   ];
 
   const availableWallets = [
     {
       id: useId(),
       name: "MetaMask",
-      icon: <MiniMetamaskIcon />,
+      icon: <MiniMetamaskIcon />
     },
     {
       id: useId(),
       name: "Coinbase Wallet",
-      icon: <MiniCoinbaseIcon />,
+      icon: <MiniCoinbaseIcon />
     },
     {
       id: useId(),
       name: "WalletConnect",
-      icon: <MiniWalletConnectIcon />,
-    },
+      icon: <MiniWalletConnectIcon />
+    }
   ];
 
   const [selectedOption, setSelectedOption] = useState<IOption>(
@@ -74,6 +74,7 @@ const Header = () => {
           <Navbar />
         </div>
         <div className={styles["right"]}>
+          <ThemeChanger />
           <Dropdown
             options={dropdownOptions}
             selectedOption={selectedOption}
@@ -86,7 +87,6 @@ const Header = () => {
             selectedWallet={selectedWallet}
             setSelectedWallet={setSelectedWallet}
           />
-          <ThemeChanger />
         </div>
       </div>
     </div>

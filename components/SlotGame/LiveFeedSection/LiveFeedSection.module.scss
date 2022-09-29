@@ -1,3 +1,5 @@
+@import '../../../assets/scss/variables';
+
 .live-feed-section {
   background: var(--app-menu-background);
   border-radius: 16px;
@@ -27,6 +29,10 @@
         color: var(--foreground);
         margin-left: 14px;
       }
+
+      @include sm {
+        margin-bottom: 20px;
+      }
     }
 
     .tabs {
@@ -52,9 +58,14 @@
         }
       }
     }
+
+    @include sm {
+      display: block;
+    }
   }
 
   .live-feed-section-body {
     margin-top: 20px;
+    overflow-x: auto;
   }
 }

@@ -8,6 +8,15 @@
     grid-template-columns: 1fr 556px;
     grid-column-gap: 24px;
     min-height: calc(100vh - 170px);
+
+    @include lg {
+      grid-template-columns: 1fr;
+      grid-row-gap: 24px;
+    }
+
+    @include sm {
+      display: block;
+    }
   }
 
   @include sm {

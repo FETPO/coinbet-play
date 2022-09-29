@@ -2,4 +2,98 @@
 
 .how-to-use-wrapper {
   padding: 16px 36px;
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+
+    .tabs {
+
+      h3 {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 30px;
+        color: var(--gray);
+        cursor: pointer;
+
+        &:not(:last-of-type) {
+          margin-bottom: 32px;
+
+          @include md {
+            margin-bottom: unset;
+            margin-right: 32px;
+          }
+
+          @include sm {
+            margin-right: 16px;
+          }
+        }
+
+        &.active {
+          color: var(--foreground);
+          padding-left: 16px;
+          border-left: 1px solid #7451FF;
+
+          @include md {
+            color: var(--foreground);
+            padding-left: unset;
+            border-left: unset;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #7451FF;
+          }
+        }
+
+        @include sm {
+          font-size: 14px;
+        }
+      }
+
+      @include md {
+        display: flex;
+        margin-bottom: 32px;
+      }
+    }
+
+    .tab-content {
+      .wrapper {
+        max-width: 672px;
+        margin: 0 auto;
+
+        >div {
+          margin-bottom: 32px;
+
+          h3 {
+            font-style: normal;
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 30px;
+            color: var(--foreground);
+            margin-bottom: 20px;
+          }
+
+          p {
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 22px;
+            color: var(--gray);
+          }
+        }
+
+        @include md {
+          max-width: unset;
+          margin: unset;
+        }
+      }
+    }
+
+    @include md {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @include sm {
+    padding: 16px 16px;
+  }
 }

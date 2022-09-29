@@ -2,11 +2,18 @@
 
 .footer-wrapper {
   padding: 19px 36px;
+  margin-top: auto;
 
   >div {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @include sm {
+      flex-wrap: wrap;
+      justify-content: center;
+      flex-direction: column-reverse;
+    }
   }
 
   .powered-by {
@@ -24,6 +31,12 @@
       path:not(:nth-of-type(10)) {
         fill: var(--foreground);
       }
+    }
+
+    @include sm {
+      width: 100%;
+      justify-content: center;
+      margin-top: 16px;
     }
   }
 

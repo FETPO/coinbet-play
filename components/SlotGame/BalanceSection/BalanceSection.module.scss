@@ -1,3 +1,5 @@
+@import '../../../assets/scss/variables';
+
 .balance-section {
   background: var(--app-menu-background);
   border-radius: 16px;
@@ -68,6 +70,15 @@
           }
         }
       }
+
+      @include sm {
+        grid-template-columns: 1fr 1fr auto;
+        margin-top: 16px;
+      }
+    }
+
+    @include sm {
+      display: block;
     }
   }
 
