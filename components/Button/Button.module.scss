@@ -20,7 +20,7 @@
 
     &.primary {
       border: 1px solid transparent;
-      background: #7451FF;
+      background: var(--primary-color);
       color: $white;
 
       &:hover {

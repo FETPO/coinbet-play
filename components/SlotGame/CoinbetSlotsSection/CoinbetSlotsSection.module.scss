@@ -137,7 +137,7 @@
 
         button {
           &:hover {
-            background: #7451FF;
+            background: var(--primary-color);
 
             &:before {
               content: "";

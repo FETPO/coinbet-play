@@ -33,14 +33,14 @@
         &.active {
           color: var(--foreground);
           padding-left: 16px;
-          border-left: 1px solid #7451FF;
+          border-left: 1px solid var(--primary-color);
 
           @include md {
             color: var(--foreground);
             padding-left: unset;
             border-left: unset;
             padding-bottom: 16px;
-            border-bottom: 1px solid #7451FF;
+            border-bottom: 1px solid var(--primary-color);
           }
         }
 

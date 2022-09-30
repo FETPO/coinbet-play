@@ -23,6 +23,10 @@
   --slot-statistics-background: rgba(248, 249, 252, 0.6);
   --slot-background: #ffffff;
   --slot-wrapper-background: url('../assets/images/slot-game-bg-light.png');
+  --error-color: #FA4440;
+  --primary-color: #7451FF;
+  --input-disabled-border-color: #ECEDF3;
+  --input-disabled-background-color: #FBFBFD;
 }
 
 [data-theme='dark'] {
@@ -48,6 +52,10 @@
   --slot-statistics-background: rgba(32, 34, 42, 0.46);
   --slot-background: #B0B4D0;
   --slot-wrapper-background: url('../assets/images/slot-game-bg-dark.png');
+  --error-color: #FA4440;
+  --primary-color: #7451FF;
+  --input-disabled-border-color: #15191E;
+  --input-disabled-background-color: #15191E;
 }
 
 * {

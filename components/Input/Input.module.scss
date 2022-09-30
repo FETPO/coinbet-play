@@ -1,0 +1,104 @@
+.input-wrapper {
+  position: relative;
+
+  &.error {
+    input {
+      border: 1px solid var(--error-color);
+    }
+
+    .error-message {
+      margin-top: 6px;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 22px;
+      color: var(--error-color);
+    }
+  }
+
+  &:not(.error) {
+    input {
+      &:not(:disabled) {
+
+        &:hover,
+        &:focus {
+          border: 1px solid var(--primary-color);
+        }
+      }
+    }
+  }
+
+  &.with-icon {
+    input {
+      text-indent: 26px;
+    }
+
+    .input-icon {
+      svg {
+        path {
+          fill: var(--gray);
+        }
+      }
+    }
+  }
+
+  .input-icon {
+    position: absolute;
+    top: 12px;
+    left: 16px;
+
+    svg {
+      width: 14px;
+      height: 14px;
+
+      path {
+        fill: var(--gray);
+      }
+    }
+  }
+
+  input {
+    background: var(--secondary-button-background);
+    border-radius: 12px;
+    padding: 10px 16px;
+    border: 1px solid var(--border-color);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+    color: var(--foreground);
+    transition: .3s ease-in-out;
+    width: 100%;
+
+    &::placeholder {
+      color: var(--gray);
+    }
+
+    &:disabled {
+      background: var(--input-disabled-background-color);
+      border: 1px solid var(--input-disabled-border-color);
+      color: var(--gray);
+      cursor: not-allowed;
+
+      &::placeholder {
+        color: var(--gray);
+      }
+    }
+  }
+
+  .clear-input-value {
+    position: absolute;
+    right: 16px;
+    top: 10px;
+    cursor: pointer;
+
+    svg {
+      width: 10px;
+      height: 10px;
+
+      path {
+        fill: var(--gray);
+      }
+    }
+  }
+}
