@@ -119,12 +119,17 @@
         background: var(--slot-background);
         border-radius: 12px;
         height: 220px;
+        overflow: hidden;
 
         >span {
           @include sm {
             width: 44px !important;
             height: 44px !important;
           }
+        }
+
+        .boxes {
+          transition: transform 1s ease-in-out;
         }
 
         @include sm {

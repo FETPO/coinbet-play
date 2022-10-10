@@ -1,5 +1,4 @@
-import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "../../Button/Button";
 import { EthIcon } from "../../svgs/EthIcon";
 import { InfoIcon } from "../../svgs/InfoIcon";
@@ -8,8 +7,133 @@ import { ValueOffIcon } from "../../svgs/ValueOffIcon";
 import Tooltip from "../../Tooltip/Tooltip";
 import styles from "./CoinbetSlotsSection.module.scss";
 import coinImage from "../../../assets/images/coin.png";
+import BAYC_IMG from "../../../assets/images/BAYC_8817.png";
+import CBD_IMG from "../../../assets/images/CBD_139.png";
+import Doodles_IMG from "../../../assets/images/Doodles_6914.png";
+import MAYC_IMG from "../../../assets/images/MAYC_4849.png";
+import Moonbirds_IMG from "../../../assets/images/Moonbirds_2018.png";
+import PUNK_IMG from "../../../assets/images/PUNK_5822.png";
 
 const CoinbetSlotsSection = () => {
+  const items = [
+    BAYC_IMG,
+    CBD_IMG,
+    Doodles_IMG,
+    MAYC_IMG,
+    Moonbirds_IMG,
+    PUNK_IMG,
+    BAYC_IMG,
+    CBD_IMG,
+    Doodles_IMG,
+    MAYC_IMG,
+    Moonbirds_IMG,
+    PUNK_IMG,
+    BAYC_IMG,
+    CBD_IMG,
+    Doodles_IMG,
+    MAYC_IMG,
+    Moonbirds_IMG,
+    PUNK_IMG
+  ];
+
+  const shuffle = ([...arr]) => {
+    let m = arr.length;
+    while (m) {
+      const i = Math.floor(Math.random() * m--);
+      [arr[m], arr[i]] = [arr[i], arr[m]];
+    }
+    return arr;
+  };
+
+  const init = (firstInit = true, groups = 1, duration = 1) => {
+    let slots: any = document.querySelectorAll(".slot");
+
+    for (const slot of slots) {
+      if (firstInit) {
+        slot.dataset.spinned = "0";
+      }
+
+      const boxes = slot.querySelector(".boxes");
+      const boxesClone = boxes.cloneNode(false);
+      const pool = [];
+
+      // if (!firstInit) {
+      const arr = [];
+      for (let n = 0; n < (groups > 0 ? groups : 1); n++) {
+        arr.push(...items);
+      }
+      pool.push(...shuffle(arr));
+
+      boxesClone.addEventListener(
+        "transitionstart",
+        function () {
+          slot.dataset.spinned = "1";
+          // boxesClone.querySelectorAll(".box").forEach((box: HTMLElement) => {
+          //   box.style.filter = "blur(1px)";
+          // });
+        }
+        // { once: true }
+      );
+
+      // boxesClone.addEventListener(
+      //   "transitionend",
+      //   function () {
+      //     boxesClone
+      //       .querySelectorAll(".box")
+      //       .forEach((box: HTMLElement, index: number) => {
+      //         box.style.filter = "blur(0)";
+      //         if (index > 0) boxesClone.removeChild(box);
+      //       });
+      //   }
+      //   { once: true }
+      // );
+      // }
+
+      for (let i = pool.length - 1; i >= 0; i--) {
+        const img: HTMLImageElement = document.createElement("img");
+        img.src = pool[i].src;
+        img.style.width = "100%";
+        img.style.height = "100%";
+        const box = document.createElement("div");
+        box.classList.add("box");
+        box.style.width = slot.clientWidth + "px";
+        box.style.height = slot.clientHeight + "px";
+        box.style.display = "flex";
+        box.style.justifyContent = "center";
+        box.style.alignItems = "center";
+        box.appendChild(img);
+        boxesClone.appendChild(box);
+      }
+      boxesClone.style.transitionDuration = `${duration > 0 ? duration : 1}s`;
+      if (firstInit) {
+        boxesClone.style.transform = `translateY(${slot.clientHeight / 2}px)`;
+      } else {
+        boxesClone.style.transform = `translateY(-${
+          slot.clientHeight * (pool.length - 10)
+        }px)`;
+      }
+      slot.replaceChild(boxesClone, boxes);
+    }
+  };
+
+  const handleSpin = async () => {
+    init(false, 1, 2);
+
+    let slots: any = document.querySelectorAll(".slot");
+    if (slots && slots.length) {
+      for (const slot of slots) {
+        const boxes: HTMLElement = slot.querySelector(".boxes");
+        const duration = parseInt(boxes.style.transitionDuration);
+        boxes.style.transform = `translateY(${slot.clientHeight / 2}px)`;
+        await new Promise((resolve) => setTimeout(resolve, duration * 100));
+      }
+    }
+  };
+
+  useEffect(() => {
+    init();
+  }, []);
+
   return (
     <div className={styles["coinbet-slots-section"]}>
       <div className={styles["coinbet-slots-header"]}>
@@ -43,17 +167,23 @@ const CoinbetSlotsSection = () => {
       </div>
       <div className={styles["coinbet-slots-body"]}>
         <div className={styles["current-slots"]}>
-          <div className={styles["slot"]}>
-            <Image src={coinImage} alt="coin" />
+          <div className={`slot ${styles["slot"]}`}>
+            <div className={`boxes ${styles["boxes"]}`}>
+              {/* <Image src={coinImage} alt="coin" /> */}
+            </div>
           </div>
-          <div className={styles["slot"]}>
-            <Image src={coinImage} alt="coin" />
+          <div className={`slot ${styles["slot"]}`}>
+            <div className={`boxes ${styles["boxes"]}`}>
+              {/* <Image src={coinImage} alt="coin" /> */}
+            </div>
           </div>
-          <div className={styles["slot"]}>
-            <Image src={coinImage} alt="coin" />
+          <div className={`slot ${styles["slot"]}`}>
+            <div className={`boxes ${styles["boxes"]}`}>
+              {/* <Image src={coinImage} alt="coin" /> */}
+            </div>
           </div>
           <div className={styles["spin-btn"]}>
-            <Button variant="primary" size="medium">
+            <Button variant="primary" size="medium" onClick={handleSpin}>
               Spin
             </Button>
           </div>
