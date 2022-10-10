@@ -42,11 +42,16 @@
           display: flex;
           align-items: center;
 
+          .volume-icon {
+            display: flex;
+            align-items: center;
+          }
+
           >span {
             visibility: hidden;
           }
 
-          >svg {
+          svg {
             cursor: pointer;
 
             path {

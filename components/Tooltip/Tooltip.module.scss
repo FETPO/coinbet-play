@@ -1,7 +1,8 @@
 .copied-text {
   position: absolute;
   left: 50%;
-  top: -30px;
+  max-width: 176px;
+  bottom: 25px;
   transform: translateX(-50%);
   background-color: var(--foreground);
   border-radius: 4px;

@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../../Button/Button";
 import { EthIcon } from "../../svgs/EthIcon";
 import { InfoIcon } from "../../svgs/InfoIcon";
 import { TerminalIcon } from "../../svgs/TerminalIcon";
-import { ValueOffIcon } from "../../svgs/ValueOffIcon";
+import { VolumeOffIcon } from "../../svgs/VolumeOffIcon";
+import { VolumeOnIcon } from "../../svgs/VolumeOnIcon";
 import Tooltip from "../../Tooltip/Tooltip";
 import styles from "./CoinbetSlotsSection.module.scss";
 import coinImage from "../../../assets/images/coin.png";
@@ -15,6 +16,7 @@ import Moonbirds_IMG from "../../../assets/images/Moonbirds_2018.png";
 import PUNK_IMG from "../../../assets/images/PUNK_5822.png";
 
 const CoinbetSlotsSection = () => {
+  const [volumeOn, setVolumeOn] = useState(false);
   const items = [
     BAYC_IMG,
     CBD_IMG,
@@ -109,7 +111,7 @@ const CoinbetSlotsSection = () => {
         boxesClone.style.transform = `translateY(${slot.clientHeight / 2}px)`;
       } else {
         boxesClone.style.transform = `translateY(-${
-          slot.clientHeight * (pool.length - 10)
+          slot.clientHeight * (pool.length - 8)
         }px)`;
       }
       slot.replaceChild(boxesClone, boxes);
@@ -142,15 +144,28 @@ const CoinbetSlotsSection = () => {
           <div className={styles["coinbet-slots-header-left-icons"]}>
             <div className={styles["icon"]}>
               <InfoIcon />
-              <Tooltip text="View Contract" />
+              <Tooltip text="Pellentesque nunc nec et vel pellentesque interdum arcu" />
             </div>
             <div className={styles["icon"]}>
               <TerminalIcon />
               <Tooltip text="View Contract" />
             </div>
             <div className={styles["icon"]}>
-              <ValueOffIcon />
-              <Tooltip text="View Contract" />
+              {!volumeOn ? (
+                <div
+                  onClick={() => setVolumeOn(true)}
+                  className={styles["volume-icon"]}
+                >
+                  <VolumeOffIcon />
+                </div>
+              ) : (
+                <div
+                  onClick={() => setVolumeOn(false)}
+                  className={styles["volume-icon"]}
+                >
+                  <VolumeOnIcon />
+                </div>
+              )}
             </div>
           </div>
         </div>

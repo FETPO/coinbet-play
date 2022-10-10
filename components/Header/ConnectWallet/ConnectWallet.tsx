@@ -8,6 +8,7 @@ import Button from "../../Button/Button";
 import Modal from "../../Modal/Modal";
 import ConnectWalletModal from "../../Modal/ConnectWalletModal/ConnectWalletModal";
 import Tooltip from "../../Tooltip/Tooltip";
+import { LogoutIcon } from "../../svgs/LogoutIcon";
 
 const WALLET_ADDRESS: string = "0x6d592909746d2d80C5384E0ECB673B24053057A1";
 
@@ -90,6 +91,7 @@ const ConnectWallet = ({
               setIsLoggedIn(false);
               setShowAccountDetailsPopover(false);
             }}
+            icon={<LogoutIcon />}
           >
             Disconnect
           </Button>

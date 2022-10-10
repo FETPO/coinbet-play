@@ -1,4 +1,4 @@
-export const ValueOffIcon = () => {
+export const VolumeOffIcon = () => {
   return (
     <svg
       width="16"
