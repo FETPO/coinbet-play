@@ -69,16 +69,23 @@
             fill: var(--foreground);
           }
         }
+
+        @include sm {
+          position: absolute;
+          top: 20px;
+          right: 0;
+        }
       }
 
       @include sm {
-        grid-template-columns: 1fr 1fr auto;
+        grid-template-columns: 1fr 1fr;
         margin-top: 16px;
       }
     }
 
     @include sm {
       display: block;
+      position: relative;
     }
   }
 

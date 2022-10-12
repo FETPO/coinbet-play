@@ -1,0 +1,117 @@
+.jackpots-table {
+  min-width: 520px;
+
+  .jackpots-table-header {
+
+    .tr {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 3px;
+      align-items: center;
+
+      .th {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 18px;
+        text-transform: uppercase;
+        color: var(--gray);
+        padding: 12px;
+
+        &:nth-of-type(1) {
+          text-align: left;
+        }
+
+        &:nth-of-type(2) {
+          text-align: center;
+        }
+
+        &:nth-of-type(3) {
+          text-align: right;
+        }
+
+        &:nth-of-type(4) {
+          text-align: right;
+        }
+      }
+    }
+
+  }
+
+  .jackpots-table-body {
+    padding-right: 4px;
+    overflow-y: auto;
+    max-height: calc(100vh - 400px);
+
+    &.collapseDown {
+      max-height: calc(100vh - 600px);
+    }
+
+    .tr {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 3px;
+      align-items: center;
+      border-radius: 10px;
+
+      &.odd {
+        background: var(--deposit-modal-content-background-color);
+      }
+
+      .td {
+        padding: 12px;
+
+        &:nth-of-type(1) {
+          text-align: left;
+          font-style: normal;
+          font-weight: 700;
+          font-size: 14px;
+          line-height: 22px;
+          color: var(--foreground);
+        }
+
+        &:nth-of-type(2) {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-wrap: wrap;
+
+          >span {
+            border-radius: 6px !important;
+            width: 28px !important;
+            height: 28px !important;
+            object-fit: cover !important;
+
+            &:not(:last-of-type) {
+              margin-right: 4px !important;
+            }
+          }
+        }
+
+        &:nth-of-type(3) {
+          font-style: normal;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 22px;
+          text-align: right;
+          color: var(--gray);
+        }
+
+        &:nth-of-type(4) {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+
+          h3 {
+            font-style: normal;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 22px;
+            color: var(--foreground);
+            margin-left: 8px;
+          }
+        }
+      }
+    }
+  }
+}

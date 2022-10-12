@@ -17,6 +17,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
 
     .coinbet-slots-header-left {
       display: flex;
@@ -71,6 +72,11 @@
           }
         }
       }
+
+      @include sm {
+        width: 100%;
+        margin-bottom: 8px;
+      }
     }
 
     .coinbet-slots-header-right {
@@ -103,9 +109,9 @@
         }
       }
 
-      @include sm {
-        display: none;
-      }
+      // @include sm {
+      //   display: none;
+      // }
     }
   }
 
