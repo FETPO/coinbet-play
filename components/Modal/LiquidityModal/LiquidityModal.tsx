@@ -4,6 +4,7 @@ import { InfoIcon } from "../../svgs/InfoIcon";
 import styles from "./LiquidityModal.module.scss";
 import Button from "../../Button/Button";
 import Checkbox from "../../Checkbox/Checkbox";
+import Tooltip from "../../Tooltip/Tooltip";
 
 interface ILiquidityModalProps {
   onClose: () => void;
@@ -23,6 +24,7 @@ const LiquidityModal = ({ onClose, type }: ILiquidityModalProps) => {
     <div className={styles["liquidity-popup-content"]}>
       <div className={styles["info-icon"]}>
         <InfoIcon />
+        <Tooltip text="Pellentesque nunc nec et vel pellentesque interdum arcu" />
       </div>
       <h1 className={styles["title"]}>
         {type === "add" ? "Add Liquidity" : "Remove Liquidity"}

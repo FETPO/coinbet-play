@@ -8,6 +8,7 @@ import { MinusIcon } from "../svgs/MinusIcon";
 import Modal from "../Modal/Modal";
 import { useState } from "react";
 import LiquidityModal from "../Modal/LiquidityModal/LiquidityModal";
+import Tooltip from "../Tooltip/Tooltip";
 
 const RewardPool = () => {
   const [showAddLiquidityModal, setShowAddLiquidityModal] = useState(false);
@@ -42,6 +43,7 @@ const RewardPool = () => {
               <div>
                 APY
                 <InfoIcon />
+                <Tooltip text="Pellentesque nunc nec et vel pellentesque interdum arcu" />
               </div>
               <div>124.97%</div>
             </div>

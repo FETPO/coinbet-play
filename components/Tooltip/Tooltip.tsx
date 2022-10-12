@@ -6,7 +6,7 @@ interface ITooltipProps {
 }
 
 const Tooltip = ({ text }: ITooltipProps) => {
-  return <span className={styles["copied-text"]}>{text}</span>;
+  return <span className={styles["tooltip"]}>{text}</span>;
 };
 
 export default Tooltip;

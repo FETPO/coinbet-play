@@ -1,8 +1,10 @@
-.copied-text {
+@import '../../assets/scss/variables';
+
+.tooltip {
   position: absolute;
-  left: 50%;
   max-width: 176px;
   bottom: 25px;
+  left: 50%;
   transform: translateX(-50%);
   background-color: var(--foreground);
   border-radius: 4px;
@@ -14,4 +16,10 @@
   text-align: center;
   color: var(--background);
   width: max-content;
+  text-transform: initial;
+
+  @include sm {
+    left: 0;
+    transform: unset;
+  }
 }

@@ -92,6 +92,8 @@
 
         >div {
           &:nth-of-type(1) {
+            cursor: pointer;
+            position: relative;
             display: flex;
             align-items: center;
             font-style: normal;
@@ -101,8 +103,22 @@
             text-transform: uppercase;
             color: var(--gray);
 
+            >span {
+              visibility: hidden;
+            }
+
             >svg {
               margin-left: 5px;
+            }
+
+            &:hover {
+              svg path {
+                fill: var(--foreground);
+              }
+
+              >span {
+                visibility: visible;
+              }
             }
           }
 

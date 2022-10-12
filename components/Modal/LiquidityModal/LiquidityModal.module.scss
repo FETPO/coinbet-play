@@ -4,13 +4,22 @@
   position: relative;
 
   .info-icon {
+    position: relative;
     display: inline-block;
     padding-top: 7px;
     cursor: pointer;
 
+    >span {
+      visibility: hidden;
+    }
+
     &:hover {
       svg path {
         fill: var(--foreground);
+      }
+
+      >span {
+        visibility: visible;
       }
     }
   }
