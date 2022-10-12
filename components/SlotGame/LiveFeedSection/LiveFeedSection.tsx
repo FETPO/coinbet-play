@@ -43,9 +43,9 @@ const LiveFeedSection = ({ collapseDown }: ILiveFeedSectionProps) => {
         {selectedTabIndex === 0 ? (
           <AllRolls collapseDown={collapseDown} />
         ) : selectedTabIndex === 1 ? (
-          <JackPots />
+          <JackPots collapseDown={collapseDown} />
         ) : (
-          <MyRolls />
+          <MyRolls collapseDown={collapseDown} />
         )}
       </div>
     </div>
