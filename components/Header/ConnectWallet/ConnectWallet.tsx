@@ -9,6 +9,7 @@ import Modal from "../../Modal/Modal";
 import ConnectWalletModal from "../../Modal/ConnectWalletModal/ConnectWalletModal";
 import Tooltip from "../../Tooltip/Tooltip";
 import { LogoutIcon } from "../../svgs/LogoutIcon";
+import AccountDetailsModal from "../../Modal/AccountDetailsModal/AccountDetailsModal";
 
 const WALLET_ADDRESS: string = "0x6d592909746d2d80C5384E0ECB673B24053057A1";
 
@@ -31,17 +32,24 @@ const ConnectWallet = ({
   const [showAccountDetailsPopover, setShowAccountDetailsPopover] =
     useState(false);
   const [addressCopied, setAddressCopied] = useState(false);
+  const [showAccountDetailsPopup, setShowAccountDetailsPopup] = useState(false);
 
   useOnClickOutside(ref, () => setShowAccountDetailsPopover(false));
+
+  const handleAccountDetailsPopoverClick = () => {
+    if (window.screen.width > 576) {
+      setShowAccountDetailsPopover(!showAccountDetailsPopover);
+    } else {
+      setShowAccountDetailsPopup(true);
+    }
+  };
 
   return (
     <div className={styles["connect-wallet"]} ref={ref}>
       {isLoggedIn ? (
         <div
           className={styles["account-address"]}
-          onClick={() =>
-            setShowAccountDetailsPopover(!showAccountDetailsPopover)
-          }
+          onClick={handleAccountDetailsPopoverClick}
         >
           <div className={styles["avatar"]}></div>
           <span>{formatAddress(WALLET_ADDRESS)}</span>
@@ -105,6 +113,20 @@ const ConnectWallet = ({
           onClose={() => setShowConnectWalletModal(false)}
           availableWallets={availableWallets}
           setSelectedWallet={setSelectedWallet}
+          setIsLoggedIn={setIsLoggedIn}
+        />
+      </Modal>
+      <Modal
+        open={showAccountDetailsPopup}
+        onClose={() => setShowAccountDetailsPopup(false)}
+      >
+        <AccountDetailsModal
+          onClose={() => setShowAccountDetailsPopup(false)}
+          selectedWallet={selectedWallet}
+          selectedOption={selectedOption}
+          walletAddress={WALLET_ADDRESS}
+          addressCopied={addressCopied}
+          setAddressCopied={setAddressCopied}
           setIsLoggedIn={setIsLoggedIn}
         />
       </Modal>

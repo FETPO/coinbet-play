@@ -83,7 +83,11 @@
     }
   }
 
+  @include smd {
+    padding-bottom: 90px;
+  }
+
   @include sm {
-    padding: 19px 16px;
+    padding: 19px 16px 90px;
   }
 }

@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect } from "react";
 import Button from "../Button/Button";
 import { CloseIcon } from "../svgs/CloseIcon";
 import { LockIcon } from "../svgs/LockIcon";
@@ -11,6 +11,14 @@ interface IModalProps {
 }
 
 const Modal = ({ children, open, onClose }: IModalProps) => {
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [open]);
+
   return open ? (
     <div className={styles["modal"]}>
       <div className={styles["modal-overlay"]} />

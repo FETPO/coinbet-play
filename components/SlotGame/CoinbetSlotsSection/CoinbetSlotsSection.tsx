@@ -96,6 +96,7 @@ const CoinbetSlotsSection = () => {
         img.src = pool[i].src;
         img.style.width = "100%";
         img.style.height = "100%";
+        img.style.borderRadius = "12px";
         const box = document.createElement("div");
         box.classList.add("box");
         box.style.width = slot.clientWidth + "px";

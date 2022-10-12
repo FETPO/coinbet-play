@@ -1,0 +1,80 @@
+@import "../../../assets/scss/variables";
+
+.account-details-popover {
+  display: grid;
+  grid-gap: 20px;
+  width: 100%;
+  border-radius: 16px;
+
+  .wallet-address-section {
+    display: flex;
+    align-items: center;
+
+    .wallet-type-address {
+      margin-left: 20px;
+
+      p {
+        position: relative;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 18px;
+        color: var(--gray);
+        margin-bottom: 2px;
+
+        &::after {
+          content: '';
+          background: #99EBD8;
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          position: absolute;
+          margin-left: 8px;
+          margin-top: 7px;
+        }
+      }
+
+      >span {
+        position: relative;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 22px;
+        color: var(--foreground);
+        cursor: pointer;
+
+      }
+    }
+  }
+
+  .available-amount-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px 16px;
+
+    >div:nth-of-type(1) {
+      display: flex;
+      align-items: center;
+
+      span {
+        margin-left: 9px;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 22px;
+        color: var(--foreground);
+      }
+    }
+
+    >div:nth-of-type(2) {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 22px;
+      color: var(--gray);
+    }
+  }
+}

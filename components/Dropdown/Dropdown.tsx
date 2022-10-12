@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react";
 import { useOnClickOutside } from "../../hooks/useOnClickOutside";
 import { IOption } from "../../types/dropdown";
+import Modal from "../Modal/Modal";
+import SelectNetworkModal from "../Modal/SelectNetworkModal/SelectNetworkModal";
 import { ChevronIcon } from "../svgs/ChevronIcon";
 import styles from "./Dropdown.module.scss";
 
@@ -13,12 +15,21 @@ interface IDropdownProps {
 const Dropdown = ({
   options,
   selectedOption,
-  setSelectedOption,
+  setSelectedOption
 }: IDropdownProps) => {
   const ref = useRef(null);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [showDropdownPopup, setShowDropdownPopup] = useState(false);
 
   useOnClickOutside(ref, () => setShowDropdown(false));
+
+  const handleClick = () => {
+    if (window.screen.width > 576) {
+      setShowDropdown(!showDropdown);
+    } else {
+      setShowDropdownPopup(true);
+    }
+  };
 
   return (
     <div className={styles["dropdown"]} ref={ref}>
@@ -26,7 +37,7 @@ const Dropdown = ({
         className={`${styles["selected-item"]} ${
           showDropdown ? styles["open"] : ""
         }`}
-        onClick={() => setShowDropdown(!showDropdown)}
+        onClick={handleClick}
       >
         {selectedOption.icon || null}
         <span>{selectedOption.name}</span>
@@ -55,6 +66,18 @@ const Dropdown = ({
           })}
         </ul>
       ) : null}
+      <Modal
+        open={showDropdownPopup}
+        onClose={() => setShowDropdownPopup(false)}
+      >
+        <SelectNetworkModal
+          onClose={() => setShowDropdownPopup(false)}
+          options={options}
+          setSelectedOption={setSelectedOption}
+          setShowDropdown={setShowDropdown}
+          selectedOption={selectedOption}
+        />
+      </Modal>
     </div>
   );
 };

@@ -15,6 +15,7 @@ import { IOption } from "../../types/dropdown";
 import { MiniMetamaskIcon } from "../svgs/MiniMetamaskIcon";
 import { MiniCoinbaseIcon } from "../svgs/MiniCoinbaseIcon";
 import { MiniWalletConnectIcon } from "../svgs/MiniWalletConnectIcon";
+import { MiniLogoIcon } from "../svgs/MiniLogoIcon";
 
 const Header = () => {
   const router = useRouter();
@@ -69,12 +70,16 @@ const Header = () => {
       <div className="container">
         <div className={styles["left"]}>
           <div className={styles["app-logo"]} onClick={() => router.push("/")}>
-            <LogoIcon />
+            <div className={styles["desktop-logo"]}>
+              <LogoIcon />
+            </div>
+            <div className={styles["mobile-logo"]}>
+              <MiniLogoIcon />
+            </div>
           </div>
           <Navbar />
         </div>
         <div className={styles["right"]}>
-          <ThemeChanger />
           <Dropdown
             options={dropdownOptions}
             selectedOption={selectedOption}
@@ -87,6 +92,7 @@ const Header = () => {
             selectedWallet={selectedWallet}
             setSelectedWallet={setSelectedWallet}
           />
+          <ThemeChanger />
         </div>
       </div>
     </div>

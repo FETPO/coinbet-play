@@ -30,6 +30,10 @@
 
     span {
       margin: 0px 8px;
+
+      @include lg {
+        display: none;
+      }
     }
 
     svg {
@@ -39,6 +43,10 @@
 
         path {
           fill: var(--foreground);
+        }
+
+        @include lg {
+          display: none;
         }
       }
     }

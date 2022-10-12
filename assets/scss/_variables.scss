@@ -4,13 +4,25 @@ $black: #15151c;
 $containerWidth: 1440px;
 
 @mixin sm {
-  @media (max-width: 576px) { @content; }
+  @media (max-width: 576px) {
+    @content;
+  }
+}
+
+@mixin smd {
+  @media (max-width: 768px) {
+    @content;
+  }
 }
 
 @mixin md {
-  @media (max-width: 993px) { @content; }
+  @media (max-width: 993px) {
+    @content;
+  }
 }
 
 @mixin lg {
-  @media (max-width: 1200px) { @content; }
+  @media (max-width: 1200px) {
+    @content;
+  }
 }
