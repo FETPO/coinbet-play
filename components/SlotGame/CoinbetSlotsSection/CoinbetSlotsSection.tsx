@@ -14,8 +14,11 @@ import Doodles_IMG from "../../../assets/images/Doodles_6914.png";
 import MAYC_IMG from "../../../assets/images/MAYC_4849.png";
 import Moonbirds_IMG from "../../../assets/images/Moonbirds_2018.png";
 import PUNK_IMG from "../../../assets/images/PUNK_5822.png";
+import CongratulationModal from "../../Modal/CongratulationModal/CongratulationModal";
+import Modal from "../../Modal/Modal";
 
 const CoinbetSlotsSection = () => {
+  const [showCongratulationModal, setShowCongratulationModal] = useState(false);
   const [volumeOn, setVolumeOn] = useState(false);
   const items = [
     BAYC_IMG,
@@ -77,18 +80,9 @@ const CoinbetSlotsSection = () => {
         // { once: true }
       );
 
-      // boxesClone.addEventListener(
-      //   "transitionend",
-      //   function () {
-      //     boxesClone
-      //       .querySelectorAll(".box")
-      //       .forEach((box: HTMLElement, index: number) => {
-      //         box.style.filter = "blur(0)";
-      //         if (index > 0) boxesClone.removeChild(box);
-      //       });
-      //   }
-      //   { once: true }
-      // );
+      boxesClone.addEventListener("transitionend", function () {
+        setTimeout(() => setShowCongratulationModal(true), 1000);
+      });
       // }
 
       for (let i = pool.length - 1; i >= 0; i--) {
@@ -229,6 +223,14 @@ const CoinbetSlotsSection = () => {
           </p>
         </div>
       </div>
+      <Modal
+        open={showCongratulationModal}
+        onClose={() => setShowCongratulationModal(false)}
+      >
+        <CongratulationModal
+          onClose={() => setShowCongratulationModal(false)}
+        />
+      </Modal>
     </div>
   );
 };
