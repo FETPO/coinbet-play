@@ -1,6 +1,6 @@
 import React from "react";
-import Button from "../../Button/Button";
-import { GreenCheckIcon } from "../../svgs/GreenCheckIcon";
+import Button from "../../../Button/Button";
+import { GreenCheckIcon } from "../../../svgs/GreenCheckIcon";
 import styles from "./CongratsModal.module.scss";
 
 interface ICongratsModalProps {

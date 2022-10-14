@@ -1,10 +1,7 @@
-import Link from "next/link";
-import Image from "next/image";
 import styles from "./Footer.module.scss";
-import { formatAddress } from "../../utils/format";
 import { useRouter } from "next/router";
 import { GasIcon } from "../svgs/GasIcon";
-import { LogoIcon } from "../svgs/LogoIcon";
+import { ChainLinkIcon } from "../svgs/ChainLinkIcon";
 
 const Footer = () => {
   const router = useRouter();
@@ -13,7 +10,7 @@ const Footer = () => {
       <div className="container">
         <div className={styles["powered-by"]}>
           Powered by
-          <LogoIcon />
+          <ChainLinkIcon />
         </div>
         <div className={styles["gas-section"]}>
           <div>

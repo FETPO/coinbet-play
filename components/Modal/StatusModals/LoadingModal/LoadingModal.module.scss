@@ -1,20 +1,11 @@
-@import "../../../assets/scss/variables";
+@import "../../../../assets/scss/variables";
 
-.failed-popup-content {
+.loading-popup-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  .failed-icon {
-    background: rgba(250, 68, 64, 0.1);
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 24px;
-  }
+
   h1 {
     font-style: normal;
     font-weight: 700;
@@ -22,20 +13,21 @@
     line-height: 32px;
     color: var(--foreground);
     margin-bottom: 12px;
+    max-width: 316px;
+    text-align: center;
+
     @include sm {
       font-size: 20px;
     }
   }
+
   p {
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
     color: var(--foreground);
-    margin-bottom: 24px;
-    margin-left: 48px;
-    margin-right: 48px;
-    max-width: 222px;
+    max-width: 316px;
     text-align: center;
   }
 }

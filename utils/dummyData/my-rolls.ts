@@ -1,7 +1,7 @@
 import { useId } from "react";
-import NFT1 from "../../assets/images/NFT1.png";
-import NFT2 from "../../assets/images/NFT2.png";
-import NFT3 from "../../assets/images/NFT3.png";
+import NFT1 from "../../assets/images/BAYC_8817.png";
+import NFT2 from "../../assets/images/MAYC_4849.png";
+import NFT3 from "../../assets/images/Doodles_6914.png";
 
 export const MyRollsDummyData = () => {
   return [

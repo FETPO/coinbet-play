@@ -7,7 +7,7 @@
     display: grid;
     grid-template-columns: 1fr 556px;
     grid-column-gap: 24px;
-    min-height: calc(100vh - 170px);
+    min-height: calc(100vh - 200px);
 
     @include lg {
       grid-template-columns: 1fr;

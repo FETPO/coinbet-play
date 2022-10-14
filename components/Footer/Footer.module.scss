@@ -28,8 +28,8 @@
     svg {
       margin-left: 12px;
 
-      path:not(:nth-of-type(10)) {
-        fill: var(--foreground);
+      path {
+        fill: #375bd2;
       }
     }
 

@@ -41,10 +41,10 @@
   .all-rolls-table-body {
     padding-right: 4px;
     overflow-y: auto;
-    max-height: calc(100vh - 400px);
+    max-height: calc(100vh - 420px);
 
     &.collapseDown {
-      max-height: calc(100vh - 600px);
+      max-height: calc(100vh - 620px);
     }
 
     .tr {

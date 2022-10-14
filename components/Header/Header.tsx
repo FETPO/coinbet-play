@@ -1,6 +1,5 @@
 import styles from "./Header.module.scss";
 import { useRouter } from "next/router";
-import ThemeChanger from "./ThemeChanger/ThemeChanger";
 import { LogoIcon } from "../svgs/LogoIcon";
 import Navbar from "./Navbar/Navbar";
 import ConnectWallet from "./ConnectWallet/ConnectWallet";
@@ -16,6 +15,7 @@ import { MiniMetamaskIcon } from "../svgs/MiniMetamaskIcon";
 import { MiniCoinbaseIcon } from "../svgs/MiniCoinbaseIcon";
 import { MiniWalletConnectIcon } from "../svgs/MiniWalletConnectIcon";
 import { MiniLogoIcon } from "../svgs/MiniLogoIcon";
+import DropdownMenu from "./DropdownMenu/DropdownMenu";
 
 const Header = () => {
   const router = useRouter();
@@ -92,7 +92,7 @@ const Header = () => {
             selectedWallet={selectedWallet}
             setSelectedWallet={setSelectedWallet}
           />
-          <ThemeChanger />
+          <DropdownMenu />
         </div>
       </div>
     </div>

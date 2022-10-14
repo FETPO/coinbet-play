@@ -73,7 +73,7 @@
       transition: .3s ease-in-out;
 
       &:hover {
-        background: var(--border-color);
+        background: var(--app-menu-item-hover);
       }
 
       .selected-item-badge {

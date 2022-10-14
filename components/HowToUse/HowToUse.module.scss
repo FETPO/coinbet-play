@@ -20,7 +20,7 @@
         &:not(:last-of-type) {
           margin-bottom: 32px;
 
-          @include md {
+          @include smd {
             margin-bottom: unset;
             margin-right: 32px;
           }
@@ -35,7 +35,7 @@
           padding-left: 16px;
           border-left: 1px solid var(--primary-color);
 
-          @include md {
+          @include smd {
             color: var(--foreground);
             padding-left: unset;
             border-left: unset;
@@ -49,7 +49,7 @@
         }
       }
 
-      @include md {
+      @include smd {
         display: flex;
         margin-bottom: 32px;
       }
@@ -79,9 +79,53 @@
             line-height: 22px;
             color: var(--gray);
           }
+
+          &.example-list {
+            background-color: var(--app-menu-background);
+            border-radius: 16px;
+            padding: 24px;
+
+            h3 {
+              font-size: 18px;
+            }
+          }
+
+          .edge-rtp {
+            background-color: var(--app-menu-background);
+            border-radius: 16px;
+            padding: 24px;
+
+            h3 {
+              font-size: 16px;
+            }
+
+            .grid {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              grid-gap: 16px;
+              margin-bottom: 20px;
+
+              .column {
+                display: flex;
+                align-items: center;
+
+                >span {
+                  width: 28px !important;
+                  height: 28px !important;
+                  border: 1px solid var(--border-color) !important;
+                  border-radius: 6px;
+                  margin-right: 8px !important;
+                }
+              }
+
+              @include md {
+                grid-template-columns: 1fr;
+              }
+            }
+          }
         }
 
-        @include md {
+        @include smd {
           max-width: unset;
           margin: unset;
         }
@@ -89,6 +133,10 @@
     }
 
     @include md {
+      grid-template-columns: 240px 1fr;
+    }
+
+    @include smd {
       grid-template-columns: 1fr;
     }
   }

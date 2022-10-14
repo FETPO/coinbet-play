@@ -1,0 +1,32 @@
+.dropdown-menu {
+  padding: 8px;
+
+  .dropdown-menu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 9px;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: .3s ease-in-out;
+
+    &:hover {
+      background: var(--app-menu-item-hover);
+    }
+
+    svg {
+      margin-right: 8px;
+
+      path {
+        fill: var(--foreground);
+      }
+    }
+
+    p {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 22px;
+      color: var(--foreground);
+    }
+  }
+}

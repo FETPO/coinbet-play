@@ -1,6 +1,6 @@
 import React from "react";
-import Button from "../../Button/Button";
-import { RedFailIcon } from "../../svgs/RedFailIcon";
+import Button from "../../../Button/Button";
+import { RedFailIcon } from "../../../svgs/RedFailIcon";
 import styles from "./FailedModal.module.scss";
 
 interface IFailedModalProps {

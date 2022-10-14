@@ -60,7 +60,7 @@ const ConnectWallet = ({
           size="medium"
           onClick={() => setShowConnectWalletModal(true)}
         >
-          Connect wallet
+          Sign in
         </Button>
       )}
       {showAccountDetailsPopover && (
