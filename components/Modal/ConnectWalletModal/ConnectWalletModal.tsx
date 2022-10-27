@@ -1,4 +1,5 @@
 import React from "react";
+import { useWalletContext } from "../../../context/wallet.context";
 import { IOption } from "../../../types/dropdown";
 import styles from "./ConnectWalletModal.module.scss";
 
@@ -15,6 +16,7 @@ const ConnectWalletModal = ({
   setSelectedWallet,
   setIsLoggedIn,
 }: IConnectWalletModalProps) => {
+  const { connectWallet } = useWalletContext();
   return (
     <div className={styles["connect-wallet-popup-content"]}>
       <h1>Connect Wallet</h1>
@@ -23,7 +25,8 @@ const ConnectWalletModal = ({
           return (
             <div
               key={wallet.id}
-              onClick={() => {
+              onClick={async () => {
+                await connectWallet();
                 setSelectedWallet(wallet);
                 setIsLoggedIn(true);
                 onClose();

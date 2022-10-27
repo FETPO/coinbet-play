@@ -15,6 +15,7 @@ interface IAccountDetailsModalProps {
   addressCopied: boolean;
   setAddressCopied: (val: boolean) => void;
   setIsLoggedIn: (val: boolean) => void;
+  onDisconnectWallet: () => void;
 }
 
 const AccountDetailsModal = ({
@@ -24,7 +25,8 @@ const AccountDetailsModal = ({
   walletAddress,
   addressCopied,
   setAddressCopied,
-  setIsLoggedIn
+  setIsLoggedIn,
+  onDisconnectWallet,
 }: IAccountDetailsModalProps) => {
   return (
     <div className={styles["account-details-popover"]}>
@@ -59,6 +61,7 @@ const AccountDetailsModal = ({
         variant="secondary"
         size="medium"
         onClick={() => {
+          onDisconnectWallet();
           setIsLoggedIn(false);
           onClose();
         }}

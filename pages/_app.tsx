@@ -9,11 +9,11 @@ export default function App(props: AppProps) {
 
   return (
     <ThemeProvider>
-      <Layout>
-        <WalletContextWrapper>
+      <WalletContextWrapper>
+        <Layout>
           <Component {...pageProps} />
-        </WalletContextWrapper>
-      </Layout>
+        </Layout>
+      </WalletContextWrapper>
     </ThemeProvider>
   );
 }
