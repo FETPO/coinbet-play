@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { MyRollsDummyData } from "../../../../utils/dummyData/my-rolls";
 import { formatAddress } from "../../../../utils/format";
-import { EthIcon } from "../../../svgs/EthIcon";
+import { MaticIcon } from "../../../svgs/MaticIcon";
 import styles from "./MyRolls.module.scss";
 
 interface IMyRollsProps {
@@ -45,7 +45,7 @@ const MyRolls = ({ collapseDown }: IMyRollsProps) => {
               </div>
               <div className={styles["td"]}>{roll.date}</div>
               <div className={styles["td"]}>
-                <EthIcon />
+                <MaticIcon />
                 <h3>{roll.payout}</h3>
               </div>
             </div>

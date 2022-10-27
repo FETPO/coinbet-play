@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Button from "../../Button/Button";
-import { EthIcon } from "../../svgs/EthIcon";
+import { MaticIcon } from "../../svgs/MaticIcon";
 import styles from "./DepositModal.module.scss";
 
 interface IDepositModalProps {
@@ -27,8 +27,8 @@ const DepositModal = ({ onClose }: IDepositModalProps) => {
             onChange={handleChange}
           />
           <span>
-            <EthIcon />
-            ETH
+            <MaticIcon />
+            MATIC
           </span>
         </div>
         <div className={styles["balance"]}>

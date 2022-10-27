@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 import type { FC, ReactNode } from "react";
 import Web3Modal from "web3modal";
 import { ethers } from "ethers";
-import { hexToDecimal, truncateAddress } from "../utils/utility";
+import { hexToDecimal } from "../utils/utility";
 import type { WalletContextType, WalletType } from "../types/wallet";
 
 const WalletContext = createContext<WalletContextType>({
@@ -36,6 +36,7 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
         const library = new ethers.providers.Web3Provider(provider, "any");
         const accounts = await library.listAccounts();
         const network = await library.getNetwork();
+        const balance = await library.getBalance(accounts[0]);
         if (accounts.length) {
           setWallet({
             provider,
@@ -43,6 +44,7 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
             network,
             address: accounts[0], // always get the first account (topmost),
             chainId: network.chainId,
+            balance: balance,
           });
         } else {
         }
@@ -61,6 +63,7 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
       );
       const accounts = await library.listAccounts();
       const network = await library.getNetwork();
+      const balance = await library.getBalance(accounts[0]);
       if (accounts) {
         setWallet({
           provider,
@@ -68,6 +71,7 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
           network,
           address: accounts[0], // always get the first account (topmost),
           chainId: network.chainId,
+          balance: balance,
         });
       } else {
       }
@@ -88,9 +92,10 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
     if (!(wallet && wallet.provider.on)) return;
 
     // account changed
-    const handleAccountsChanged = (accounts: string[]) => {
+    const handleAccountsChanged = async (accounts: string[]) => {
       if (!(accounts && accounts.length > 0)) return;
-      setWallet({ ...wallet, address: accounts[0] });
+      const balance = await wallet.library.getBalance(accounts[0]);
+      setWallet({ ...wallet, address: accounts[0], balance: balance });
     };
 
     // network chain changed

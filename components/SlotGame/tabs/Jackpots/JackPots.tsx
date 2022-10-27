@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { JackpotsDummyData } from "../../../../utils/dummyData/jackpots";
 import { formatAddress } from "../../../../utils/format";
-import { EthIcon } from "../../../svgs/EthIcon";
+import { MaticIcon } from "../../../svgs/MaticIcon";
 import styles from "./JackPots.module.scss";
 
 interface IJackpotsProps {
@@ -45,7 +45,7 @@ const JackPots = ({ collapseDown }: IJackpotsProps) => {
               </div>
               <div className={styles["td"]}>{roll.date}</div>
               <div className={styles["td"]}>
-                <EthIcon />
+                <MaticIcon />
                 <h3>{roll.payout}</h3>
               </div>
             </div>

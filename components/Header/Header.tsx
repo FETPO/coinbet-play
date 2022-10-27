@@ -16,54 +16,58 @@ import { MiniCoinbaseIcon } from "../svgs/MiniCoinbaseIcon";
 import { MiniWalletConnectIcon } from "../svgs/MiniWalletConnectIcon";
 import { MiniLogoIcon } from "../svgs/MiniLogoIcon";
 import DropdownMenu from "./DropdownMenu/DropdownMenu";
+import { useWalletContext } from "../../context/wallet.context";
+import { usePolygonScanContext } from "../../context/polygonscan.context";
 
 const Header = () => {
   const router = useRouter();
   const dropdownOptions = [
     {
       id: useId(),
-      name: "Ethereum",
-      icon: <EthIcon />
+      name: "Polygon",
+      icon: <MaticIcon />,
     },
     {
       id: useId(),
-      name: "Polygon",
-      icon: <MaticIcon />
+      name: "Ethereum",
+      icon: <EthIcon />,
     },
     {
       id: useId(),
       name: "BSC Mainnet",
-      icon: <BSCIcon />
+      icon: <BSCIcon />,
     },
     {
       id: useId(),
       name: "Avalance",
-      icon: <AvalancheIcon />
-    }
+      icon: <AvalancheIcon />,
+    },
   ];
 
   const availableWallets = [
     {
       id: useId(),
       name: "MetaMask",
-      icon: <MiniMetamaskIcon />
+      icon: <MiniMetamaskIcon />,
     },
     {
       id: useId(),
       name: "Coinbase Wallet",
-      icon: <MiniCoinbaseIcon />
+      icon: <MiniCoinbaseIcon />,
     },
     {
       id: useId(),
       name: "WalletConnect",
-      icon: <MiniWalletConnectIcon />
-    }
+      icon: <MiniWalletConnectIcon />,
+    },
   ];
 
   const [selectedOption, setSelectedOption] = useState<IOption>(
     dropdownOptions[0]
   );
   const [selectedWallet, setSelectedWallet] = useState<IOption | null>(null);
+  const { wallet } = useWalletContext();
+  const { polygonScanData } = usePolygonScanContext();
 
   return (
     <div className={styles["header-wrapper"]}>
@@ -85,12 +89,18 @@ const Header = () => {
             selectedOption={selectedOption}
             setSelectedOption={setSelectedOption}
           />
-          <AmountOnWallet selectedOption={selectedOption} />
+          <AmountOnWallet
+            selectedOption={selectedOption}
+            balance={wallet?.balance}
+            polygonScanData={polygonScanData}
+          />
           <ConnectWallet
             selectedOption={selectedOption}
             availableWallets={availableWallets}
             selectedWallet={selectedWallet}
             setSelectedWallet={setSelectedWallet}
+            walletInfo={wallet}
+            polygonScanData={polygonScanData}
           />
           <DropdownMenu />
         </div>

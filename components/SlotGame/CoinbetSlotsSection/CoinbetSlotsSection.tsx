@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Button from "../../Button/Button";
-import { EthIcon } from "../../svgs/EthIcon";
+import { MaticIcon } from "../../svgs/MaticIcon";
 import { InfoIcon } from "../../svgs/InfoIcon";
 import { TerminalIcon } from "../../svgs/TerminalIcon";
 import { VolumeOffIcon } from "../../svgs/VolumeOffIcon";
@@ -211,14 +211,14 @@ const CoinbetSlotsSection = () => {
         <div>
           <h3>Volume</h3>
           <p>
-            <EthIcon />
+            <MaticIcon />
             10,000
           </p>
         </div>
         <div>
           <h3>Rewards</h3>
           <p>
-            <EthIcon />
+            <MaticIcon />
             12,000
           </p>
         </div>

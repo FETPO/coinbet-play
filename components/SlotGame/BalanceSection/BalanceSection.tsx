@@ -1,8 +1,11 @@
 import React from "react";
+import { useWalletContext } from "../../../context/wallet.context";
+import { formatBigNumber } from "../../../utils/utility";
 import Button from "../../Button/Button";
 import { ChevronIcon } from "../../svgs/ChevronIcon";
-import { EthIcon } from "../../svgs/EthIcon";
+import { MaticIcon } from "../../svgs/MaticIcon";
 import { PlusIcon } from "../../svgs/PlusIcon";
+import { SlotGameIcon } from "../../svgs/SlotGameIcon";
 import styles from "./BalanceSection.module.scss";
 
 interface IBalanceSectionProps {
@@ -16,6 +19,7 @@ const BalanceSection = ({
   setCollapseDown,
   setShowDepositModal
 }: IBalanceSectionProps) => {
+  const { wallet } = useWalletContext();
   return (
     <div className={styles["balance-section"]}>
       <div className={styles["main"]}>
@@ -23,13 +27,13 @@ const BalanceSection = ({
           <div>
             <h3>Your Balancе</h3>
             <p>
-              <EthIcon />
-              1.02
+              <MaticIcon />
+              {formatBigNumber(wallet?.balance)}
             </p>
           </div>
           <div className={styles["divider"]}></div>
           <div>
-            <h3>Rolls</h3>
+            <h3>Max Spins</h3>
             <p>102</p>
           </div>
         </div>
@@ -37,22 +41,22 @@ const BalanceSection = ({
           <Button
             variant="primary"
             size="medium"
-            icon={<PlusIcon />}
+            icon={<SlotGameIcon />}
             onClick={() => setShowDepositModal(true)}
           >
-            Deposit
+            Spin Now
           </Button>
-          <Button variant="secondary" size="medium">
+          {/* <Button variant="secondary" size="medium">
             Withdraw
-          </Button>
-          <div
+          </Button> */}
+          {/* <div
             className={`${styles["arrow-btn"]} ${
               collapseDown ? styles["opened"] : ""
             }`}
             onClick={() => setCollapseDown(!collapseDown)}
           >
             <ChevronIcon />
-          </div>
+          </div> */}
         </div>
       </div>
       {collapseDown ? (
@@ -60,12 +64,12 @@ const BalanceSection = ({
           <div>
             <h3>Price per roll:</h3>
             <p>
-              <EthIcon />
+              <MaticIcon />
               0.01
             </p>
           </div>
           <div>
-            <h3>Reward Pool</h3>
+            <h3>House Pool</h3>
             <p>16,911.5784 MATIC</p>
           </div>
           <div>

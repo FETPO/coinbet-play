@@ -1,6 +1,6 @@
 import styles from "./RewardPool.module.scss";
 import Head from "next/head";
-import { EthIcon } from "../svgs/EthIcon";
+import { MaticIcon } from "../svgs/MaticIcon";
 import { InfoIcon } from "../svgs/InfoIcon";
 import Button from "../Button/Button";
 import { PlusIcon } from "../svgs/PlusIcon";
@@ -18,15 +18,15 @@ const RewardPool = () => {
   return (
     <>
       <Head>
-        <title>Coinbet Play - Reward Pool</title>
-        <meta name="description" content="Reward Pool description" />
+        <title>Coinbet Play - House Pool</title>
+        <meta name="description" content="House Pool description" />
       </Head>
       <div className={styles["reward-pool-wrapper"]}>
         <div className={styles["reward-pool-container"]}>
           <div className={styles["reward-pool-header"]}>
             <div className={styles["header-left"]}>
               <div>
-                <EthIcon />
+                <MaticIcon />
               </div>
               <div>
                 <h3>24.230</h3>
@@ -34,8 +34,8 @@ const RewardPool = () => {
               </div>
             </div>
             <div className={styles["header-right"]}>
-              <EthIcon />
-              Ethereum
+              <MaticIcon />
+              Polygon
             </div>
           </div>
           <div className={styles["reward-pool-body"]}>
@@ -74,7 +74,7 @@ const RewardPool = () => {
             <div>
               <h3>Your Rewards</h3>
               <p>
-                <EthIcon />
+                <MaticIcon />
                 0.867
               </p>
             </div>

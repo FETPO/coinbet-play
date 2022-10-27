@@ -2,9 +2,11 @@ import styles from "./Footer.module.scss";
 import { useRouter } from "next/router";
 import { GasIcon } from "../svgs/GasIcon";
 import { ChainLinkIcon } from "../svgs/ChainLinkIcon";
+import { usePolygonScanContext } from "../../context/polygonscan.context";
 
 const Footer = () => {
   const router = useRouter();
+  const {polygonScanData} = usePolygonScanContext()
   return (
     <div className={styles["footer-wrapper"]}>
       <div className="container">
@@ -15,10 +17,10 @@ const Footer = () => {
         <div className={styles["gas-section"]}>
           <div>
             <GasIcon />
-            <span>19 gwei</span>
+            <span>{polygonScanData?.gasPrice} gwei</span>
           </div>
           <div></div>
-          <div>15255403</div>
+          <div>{polygonScanData?.latestBlock}</div>
         </div>
       </div>
     </div>

@@ -38,9 +38,9 @@ const HowToUse = () => {
               {selectedTabIndex === 0 ? (
                 <div className={styles["wrapper"]}>
                   <div>
-                    <h3>What is a Coinbet Reward Pool?</h3>
+                    <h3>What is a Coinbet House Pool?</h3>
                     <p>
-                      In simple terms, a Coinbet Reward Pool is a liquidity pool
+                      In simple terms, a Coinbet House Pool is a liquidity pool
                       where everyone can deposit funds to bankroll betting
                       activities of players playing our slot game. Participation
                       in the pool gives you the opportunity to earn yield from
@@ -54,8 +54,8 @@ const HowToUse = () => {
                   <div>
                     <h3>How does it work?</h3>
                     <p>
-                      Depositing funds to the Coinbet Reward Pool is
-                      straightforward. Navigate to the Reward Pool tab and click
+                      Depositing funds to the Coinbet House Pool is
+                      straightforward. Navigate to the House Pool tab and click
                       the Add Liquidity button. You’ll be prompted with the
                       amount you wish to deposit. Then click Supply and voilà -
                       you are now eligible to earn yield. Once you have

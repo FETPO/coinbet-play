@@ -10,20 +10,25 @@ import ConnectWalletModal from "../../Modal/ConnectWalletModal/ConnectWalletModa
 import Tooltip from "../../Tooltip/Tooltip";
 import { LogoutIcon } from "../../svgs/LogoutIcon";
 import AccountDetailsModal from "../../Modal/AccountDetailsModal/AccountDetailsModal";
-import { useWalletContext } from "../../../context/wallet.context";
+import { formatBigNumber, formatUsdPrice } from "../../../utils/utility";
+import { PolygonScanType } from "../../../types/polygonscan";
 
 interface IAmountOnWalletProps {
   selectedOption: IOption;
   availableWallets: IOption[];
   selectedWallet: IOption | null;
   setSelectedWallet: (wallet: IOption) => void;
+  walletInfo: any;
+  polygonScanData: PolygonScanType | undefined;
 }
 
 const ConnectWallet = ({
   selectedOption,
   availableWallets,
   selectedWallet,
-  setSelectedWallet
+  setSelectedWallet,
+  walletInfo,
+  polygonScanData,
 }: IAmountOnWalletProps) => {
   const ref = useRef(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -35,8 +40,6 @@ const ConnectWallet = ({
 
   useOnClickOutside(ref, () => setShowAccountDetailsPopover(false));
 
-  const { disconnectWallet, wallet } = useWalletContext();
-
   const handleAccountDetailsPopoverClick = () => {
     if (window.screen.width > 576) {
       setShowAccountDetailsPopover(!showAccountDetailsPopover);
@@ -46,11 +49,10 @@ const ConnectWallet = ({
   };
 
   useEffect(() => {
-    if (wallet) {
+    if (walletInfo) {
       setIsLoggedIn(true);
     }
-  }, [wallet]);
-
+  }, [walletInfo]);
 
   return (
     <div className={styles["connect-wallet"]} ref={ref}>
@@ -60,7 +62,7 @@ const ConnectWallet = ({
           onClick={handleAccountDetailsPopoverClick}
         >
           <div className={styles["avatar"]}></div>
-          <span>{formatAddress(wallet?.address)}</span>
+          <span>{formatAddress(walletInfo?.address)}</span>
         </div>
       ) : (
         <Button
@@ -78,7 +80,7 @@ const ConnectWallet = ({
             <div className={styles["wallet-type-address"]}>
               <p>{selectedOption.name}</p>
               <CopyToClipboard
-                text={wallet?.address || ''}
+                text={walletInfo?.address || ''}
                 onCopy={() => {
                   setAddressCopied(true);
                   setTimeout(() => {
@@ -87,7 +89,7 @@ const ConnectWallet = ({
                 }}
               >
                 <span title="Click to copy to clipboard">
-                  {formatAddress(wallet?.address)}
+                  {formatAddress(walletInfo?.address)}
                   {addressCopied ? <Tooltip text="Copied!" /> : null}
                 </span>
               </CopyToClipboard>
@@ -96,9 +98,9 @@ const ConnectWallet = ({
           <div className={styles["available-amount-section"]}>
             <div>
               {selectedOption.icon}
-              <span>2.234</span>
+              <span>{ formatBigNumber(walletInfo?.balance) }</span>
             </div>
-            <div>$ 3825.68</div>
+            <div>$ { formatUsdPrice(polygonScanData?.maticPriceUsd, walletInfo?.balance) }</div>
           </div>
           <Button
             variant="secondary"
@@ -132,11 +134,11 @@ const ConnectWallet = ({
           onClose={() => setShowAccountDetailsPopup(false)}
           selectedWallet={selectedWallet}
           selectedOption={selectedOption}
-          walletAddress={wallet?.address || ''}
+          walletAddress={walletInfo?.address || ''}
           addressCopied={addressCopied}
           setAddressCopied={setAddressCopied}
           setIsLoggedIn={setIsLoggedIn}
-          onDisconnectWallet={() => disconnectWallet()}
+          onDisconnectWallet={() => {console.log("Disconnected")}}
         />
       </Modal>
     </div>

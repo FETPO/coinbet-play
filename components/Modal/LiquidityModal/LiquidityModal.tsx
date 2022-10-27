@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { EthIcon } from "../../svgs/EthIcon";
+import { MaticIcon } from "../../svgs/MaticIcon";
 import { InfoIcon } from "../../svgs/InfoIcon";
 import styles from "./LiquidityModal.module.scss";
 import Button from "../../Button/Button";
@@ -38,8 +38,8 @@ const LiquidityModal = ({ onClose, type }: ILiquidityModalProps) => {
             onChange={handleChange}
           />
           <span>
-            <EthIcon />
-            ETH
+            <MaticIcon />
+            MATIC
           </span>
         </div>
         <div className={styles["balance"]}>
@@ -59,7 +59,7 @@ const LiquidityModal = ({ onClose, type }: ILiquidityModalProps) => {
         <div>
           <h3>New TVL</h3>
           <p>
-            <EthIcon />
+            <MaticIcon />
             10.01
           </p>
         </div>
@@ -69,7 +69,7 @@ const LiquidityModal = ({ onClose, type }: ILiquidityModalProps) => {
             <div>
               <h3>Fee</h3>
               <p>
-                <EthIcon />
+                <MaticIcon />
                 10.01
               </p>
             </div>

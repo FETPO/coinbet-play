@@ -44,7 +44,7 @@ const Navbar = () => {
         }}
       >
         <RewardPoolIcon />
-        <span>Reward Pool</span>
+        <span>House Pool</span>
       </div>
       <div
         className={selectedMenuIndex === 2 ? styles["active"] : ""}

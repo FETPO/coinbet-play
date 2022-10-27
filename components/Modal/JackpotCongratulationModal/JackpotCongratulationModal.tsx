@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import styles from "./JackpotCongratulationModal.module.scss";
 import JackpotCongratsModalImg from "../../../assets/images/JackpotCongratsModalImg.png";
-import { EthIcon } from "../../svgs/EthIcon";
+import { MaticIcon } from "../../svgs/MaticIcon";
 import Button from "../../Button/Button";
 
 interface IJackpotCongratulationModalProps {
@@ -18,7 +18,7 @@ const JackpotCongratulationModal = ({
       <h1>Congratulations!</h1>
       <p>
         You won a jackpot
-        <EthIcon />
+        <MaticIcon />
         <span>0.05</span>
       </p>
       <Button variant="outlined" size="medium" onClick={onClose}>

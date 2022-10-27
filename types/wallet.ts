@@ -7,6 +7,7 @@ export type WalletType = {
   chainId: number // Current chain ID (decimal)
   library: ethers.providers.Web3Provider // Web3Provider library
   address: string // Address of this wallet (i.e. account)
+  balance: ethers.BigNumber | undefined// The account balance in native currency
 }
 export type WalletContextType = {
   connectWallet: () => Promise<void>
