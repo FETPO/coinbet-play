@@ -41,10 +41,10 @@
   .jackpots-table-body {
     padding-right: 4px;
     overflow-y: auto;
-    max-height: calc(100vh - 420px);
+    max-height: calc(100vh - 426px);
 
     &.collapseDown {
-      max-height: calc(100vh - 620px);
+      max-height: calc(100vh - 509px);
     }
 
     .tr {

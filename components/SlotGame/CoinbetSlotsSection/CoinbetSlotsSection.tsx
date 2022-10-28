@@ -16,6 +16,7 @@ import Moonbirds_IMG from "../../../assets/images/Moonbirds_2018.png";
 import PUNK_IMG from "../../../assets/images/PUNK_5822.png";
 import CongratulationModal from "../../Modal/CongratulationModal/CongratulationModal";
 import Modal from "../../Modal/Modal";
+import { useContractsContext } from "../../../context/contract.context";
 
 const CoinbetSlotsSection = () => {
   const [showCongratulationModal, setShowCongratulationModal] = useState(false);
@@ -40,6 +41,8 @@ const CoinbetSlotsSection = () => {
     Moonbirds_IMG,
     PUNK_IMG
   ];
+
+  const { contracts } = useContractsContext();
 
   const shuffle = ([...arr]) => {
     let m = arr.length;
@@ -131,11 +134,19 @@ const CoinbetSlotsSection = () => {
     init();
   }, []);
 
+  const handleSpinTxn = async () => {
+    const coinbetTxn = await contracts?.coinbetSlotGame.coinbet(
+      { value: "1000000000000000" }
+    );
+    setTimeout(handleSpin, 1000);
+    const coinbetTxnReceipt = await coinbetTxn.wait();
+  }
+
   return (
     <div className={styles["coinbet-slots-section"]}>
       <div className={styles["coinbet-slots-header"]}>
         <div className={styles["coinbet-slots-header-left"]}>
-          <h3>Coinbet Slots</h3>
+          <h3>NFT Degen Slots</h3>
           <div className={styles["coinbet-slots-header-left-icons"]}>
             <div className={styles["icon"]}>
               <InfoIcon />
@@ -167,11 +178,11 @@ const CoinbetSlotsSection = () => {
         <div className={styles["coinbet-slots-header-right"]}>
           <div>
             <span>Win chance:</span>
-            <span>50%</span>
+            <span>44.44%</span>
           </div>
           <div>
             <span>House edge:</span>
-            <span>3%</span>
+            <span>2.8%</span>
           </div>
         </div>
       </div>
@@ -193,7 +204,7 @@ const CoinbetSlotsSection = () => {
             </div>
           </div>
           <div className={styles["spin-btn"]}>
-            <Button variant="primary" size="medium" onClick={handleSpin}>
+            <Button variant="primary" size="medium" onClick={handleSpinTxn}>
               Spin
             </Button>
           </div>

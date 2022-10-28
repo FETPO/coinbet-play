@@ -33,53 +33,74 @@ const BalanceSection = ({
           </div>
           <div className={styles["divider"]}></div>
           <div>
-            <h3>Max Spins</h3>
+            <h3>Min Bet</h3>
+            <p>
+              <MaticIcon />
+              1
+            </p>
+          </div>
+          <div className={styles["divider"]}></div>
+          <div>
+            <h3>Max Bet</h3>
+            <p>
+              <MaticIcon />
+              100
+            </p>
+          </div>
+          <div className={styles["divider"]}></div>
+          <div>
+            <h3>Spins</h3>
             <p>102</p>
+          </div>
+          <div className={styles["divider"]}></div>
+          <div>
+            <h3>RTP</h3>
+            <p>97.2</p>
           </div>
         </div>
         <div className={styles["main-right"]}>
-          <Button
+          {/* <Button
             variant="primary"
             size="medium"
             icon={<SlotGameIcon />}
             onClick={() => setShowDepositModal(true)}
           >
             Spin Now
-          </Button>
+          </Button> */}
           {/* <Button variant="secondary" size="medium">
             Withdraw
           </Button> */}
-          {/* <div
+          <div
             className={`${styles["arrow-btn"]} ${
               collapseDown ? styles["opened"] : ""
             }`}
             onClick={() => setCollapseDown(!collapseDown)}
           >
             <ChevronIcon />
-          </div> */}
+          </div>
         </div>
       </div>
       {collapseDown ? (
         <div className={styles["details"]}>
-          <div>
+          {/* <div>
             <h3>Price per roll:</h3>
             <p>
               <MaticIcon />
               0.01
             </p>
-          </div>
+          </div> */}
           <div>
             <h3>House Pool</h3>
             <p>16,911.5784 MATIC</p>
           </div>
-          <div>
+          {/* <div>
             <h3>Target payout:</h3>
             <p>~0 MATIC</p>
-          </div>
-          <div>
+          </div> */}
+          {/* <div>
             <h3>Min bet amount:</h3>
             <p>1 MATIC</p>
-          </div>
+          </div> */}
           <div>
             <h3>Max payout:</h3>
             <p>161.5784 MATIC</p>

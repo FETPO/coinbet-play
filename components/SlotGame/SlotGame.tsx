@@ -9,7 +9,7 @@ import CoinbetSlotsSection from "./CoinbetSlotsSection/CoinbetSlotsSection";
 
 const SlotGame = () => {
   const [showDepositModal, setShowDepositModal] = useState(false);
-  const [collapseDown, setCollapseDown] = useState(true);
+  const [collapseDown, setCollapseDown] = useState(false);
 
   return (
     <>
