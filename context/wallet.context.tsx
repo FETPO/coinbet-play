@@ -8,6 +8,7 @@ import type { WalletContextType, WalletType } from "../types/wallet";
 const WalletContext = createContext<WalletContextType>({
   connectWallet: async () => {},
   disconnectWallet: () => {},
+  updateBalance: async () => {},
   wallet: undefined,
 });
 
@@ -80,6 +81,13 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
     }
   };
 
+  const updateBalance = async () => {
+    if (!(wallet && wallet.provider.on)) return;
+    const balance = await wallet?.library.getBalance(wallet?.address);
+    setWallet({ ...wallet, balance: balance });
+    console.log(balance);
+  }
+
   // sets the wallet context to be undefined.
   const disconnectWallet = () => {
     try {
@@ -127,6 +135,7 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
         wallet,
         connectWallet,
         disconnectWallet,
+        updateBalance
       }}
     >
       {children}

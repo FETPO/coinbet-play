@@ -17,6 +17,8 @@ import PUNK_IMG from "../../../assets/images/PUNK_5822.png";
 import CongratulationModal from "../../Modal/CongratulationModal/CongratulationModal";
 import Modal from "../../Modal/Modal";
 import { useContractsContext } from "../../../context/contract.context";
+import { useWalletContext } from "../../../context/wallet.context";
+import { walletconnect } from "web3modal/dist/providers/connectors";
 
 const CoinbetSlotsSection = () => {
   const [showCongratulationModal, setShowCongratulationModal] = useState(false);
@@ -39,10 +41,13 @@ const CoinbetSlotsSection = () => {
     Doodles_IMG,
     MAYC_IMG,
     Moonbirds_IMG,
-    PUNK_IMG
+    PUNK_IMG,
   ];
 
+  const [bet, setBet] = useState({});
+
   const { contracts } = useContractsContext();
+  const { updateBalance, wallet } = useWalletContext();
 
   const shuffle = ([...arr]) => {
     let m = arr.length;
@@ -83,9 +88,9 @@ const CoinbetSlotsSection = () => {
         // { once: true }
       );
 
-      boxesClone.addEventListener("transitionend", function () {
-        setTimeout(() => setShowCongratulationModal(true), 1000);
-      });
+      // boxesClone.addEventListener("transitionend", function () {
+      //   setTimeout(() => setShowCongratulationModal(true), 1000);
+      // });
       // }
 
       for (let i = pool.length - 1; i >= 0; i--) {
@@ -130,16 +135,61 @@ const CoinbetSlotsSection = () => {
     }
   };
 
+  const listener = async (
+    firstReel: any,
+    secondReel: any,
+    thirdReel: any,
+    winAmount: any,
+    requestId: any,
+    player: any
+  ) => {
+    if (winAmount > 0 && player == wallet?.address) {
+      console.log("Bet Settled Еmited");
+      console.log(
+        firstReel,
+        secondReel,
+        thirdReel,
+        winAmount,
+        requestId,
+        player
+      );
+      setBet({
+        firstReel: firstReel,
+        secondReel: secondReel,
+        thirdReel: thirdReel,
+        winAmount: winAmount,
+        requestId: requestId,
+        player: player,
+      });
+      setTimeout(() => setShowCongratulationModal(true), 1000);
+    } else {
+      console.log("You lose!")
+    }
+  };
+
   useEffect(() => {
     init();
   }, []);
 
+  useEffect(() => {
+    contracts?.coinbetSlotGame.on("BetSettled", listener);
+    return () => {
+      contracts?.coinbetSlotGame.off("BetSettled", listener);
+    };
+  }, [contracts?.coinbetSlotGame]);
+
   const handleSpinTxn = async () => {
-    const coinbetTxn = await contracts?.coinbetSlotGame.coinbet(
-      { value: "1000000000000000" }
-    );
+    const coinbetTxn = await contracts?.coinbetSlotGame.coinbet({
+      value: "1000000000000000",
+    });
     setTimeout(handleSpin, 1000);
     const coinbetTxnReceipt = await coinbetTxn.wait();
+    setTimeout(updateBalance, 500);
+  };
+
+  const onModalClose = async () => {
+    setShowCongratulationModal(false);
+    updateBalance();
   }
 
   return (
@@ -239,7 +289,8 @@ const CoinbetSlotsSection = () => {
         onClose={() => setShowCongratulationModal(false)}
       >
         <CongratulationModal
-          onClose={() => setShowCongratulationModal(false)}
+          onClose={() => onModalClose()}
+          bet={bet}
         />
       </Modal>
     </div>
