@@ -5,6 +5,8 @@ import styles from "./LiquidityModal.module.scss";
 import Button from "../../Button/Button";
 import Checkbox from "../../Checkbox/Checkbox";
 import Tooltip from "../../Tooltip/Tooltip";
+import { useContractsContext } from "../../../context/contract.context";
+import { ethers } from "ethers";
 
 interface ILiquidityModalProps {
   onClose: () => void;
@@ -18,6 +20,17 @@ const LiquidityModal = ({ onClose, type }: ILiquidityModalProps) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLiquidityValue(e.target.value);
+  };
+
+
+  const { contracts } = useContractsContext();
+
+  const handleAddRewardsLiquidityTxn = async () => {
+    const addRewardsLiqidityTxn = await contracts?.coinbetHousePool.addRewardsLiquidity({
+      value: ethers.utils.parseEther(liquidityValue),
+    });
+    const success = await addRewardsLiqidityTxn.wait();
+    console.log(success);
   };
 
   return (
@@ -97,6 +110,7 @@ const LiquidityModal = ({ onClose, type }: ILiquidityModalProps) => {
             variant="primary"
             size="medium"
             disabled={!liquidityValue || !checked}
+            onClick={handleAddRewardsLiquidityTxn}
           >
             Supply
           </Button>

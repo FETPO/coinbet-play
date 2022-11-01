@@ -7,6 +7,7 @@ import { MaticIcon } from "../../svgs/MaticIcon";
 import { PlusIcon } from "../../svgs/PlusIcon";
 import { SlotGameIcon } from "../../svgs/SlotGameIcon";
 import styles from "./BalanceSection.module.scss";
+import slotConfig from "../../../coinbet.config.json";
 
 interface IBalanceSectionProps {
   collapseDown: boolean;
@@ -36,7 +37,7 @@ const BalanceSection = ({
             <h3>Min Bet</h3>
             <p>
               <MaticIcon />
-              1
+              { slotConfig.minBet }
             </p>
           </div>
           <div className={styles["divider"]}></div>
@@ -44,7 +45,7 @@ const BalanceSection = ({
             <h3>Max Bet</h3>
             <p>
               <MaticIcon />
-              100
+              { slotConfig.maxBet }
             </p>
           </div>
           <div className={styles["divider"]}></div>
@@ -55,7 +56,7 @@ const BalanceSection = ({
           <div className={styles["divider"]}></div>
           <div>
             <h3>RTP</h3>
-            <p>97.2</p>
+            <p>{ slotConfig.rtp }</p>
           </div>
         </div>
         <div className={styles["main-right"]}>

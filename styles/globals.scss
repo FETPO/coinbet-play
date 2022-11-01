@@ -117,3 +117,8 @@ body {
 ::-webkit-scrollbar-thumb:horizontal:hover {
   background: rgba(173, 180, 189, 0.4);
 }
+
+a {
+  color: var(--foreground);
+  text-decoration: none;
+}

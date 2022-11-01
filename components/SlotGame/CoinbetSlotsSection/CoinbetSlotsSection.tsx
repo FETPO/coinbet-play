@@ -18,7 +18,17 @@ import CongratulationModal from "../../Modal/CongratulationModal/CongratulationM
 import Modal from "../../Modal/Modal";
 import { useContractsContext } from "../../../context/contract.context";
 import { useWalletContext } from "../../../context/wallet.context";
-import { walletconnect } from "web3modal/dist/providers/connectors";
+import { Alchemy, Network } from "alchemy-sdk";
+import { ethers } from "ethers";
+import { hexToDecimal } from "../../../utils/utility";
+import slotConfig from "../../../coinbet.config.json";
+
+// TODO :: Refactor to get alchemy provider from separate context
+const settings = {
+  apiKey: `${process.env.ALCHEMY_API_KEY}`,
+  network: Network.MATIC_MUMBAI,
+};
+const alchemy = new Alchemy(settings);
 
 const CoinbetSlotsSection = () => {
   const [showCongratulationModal, setShowCongratulationModal] = useState(false);
@@ -48,6 +58,10 @@ const CoinbetSlotsSection = () => {
 
   const { contracts } = useContractsContext();
   const { updateBalance, wallet } = useWalletContext();
+
+  useEffect(() => {
+    init();
+  }, []);
 
   const shuffle = ([...arr]) => {
     let m = arr.length;
@@ -135,62 +149,58 @@ const CoinbetSlotsSection = () => {
     }
   };
 
-  const listener = async (
-    firstReel: any,
-    secondReel: any,
-    thirdReel: any,
-    winAmount: any,
-    requestId: any,
-    player: any
-  ) => {
-    if (winAmount > 0 && player == wallet?.address) {
-      console.log("Bet Settled Еmited");
-      console.log(
-        firstReel,
-        secondReel,
-        thirdReel,
-        winAmount,
-        requestId,
-        player
-      );
-      setBet({
-        firstReel: firstReel,
-        secondReel: secondReel,
-        thirdReel: thirdReel,
-        winAmount: winAmount,
-        requestId: requestId,
-        player: player,
-      });
-      setTimeout(() => setShowCongratulationModal(true), 1000);
-    } else {
-      console.log("You lose!")
-    }
-  };
-
   useEffect(() => {
-    init();
-  }, []);
-
-  useEffect(() => {
-    contracts?.coinbetSlotGame.on("BetSettled", listener);
-    return () => {
-      contracts?.coinbetSlotGame.off("BetSettled", listener);
+    // Define the event which Alchemy should listen to
+    const filter = {
+      address: `${process.env.COINBET_SLOT_GAME_CONTRACT}`,
+      topics: [
+        ethers.utils.id(
+          "BetSettled(uint256,uint256,uint256,uint256,uint256,address)"
+        ),
+      ],
     };
-  }, [contracts?.coinbetSlotGame]);
+    if (wallet) {
+      alchemy.ws.on(filter, (log) => {
+        // Decode the raw event data to readable data
+        const eventData = ethers.utils.defaultAbiCoder.decode(
+          ["uint256", "uint256", "uint256", "uint256", "uint256", "address"],
+          log.data
+        );
+        // Check if reward is grater than 0 and the current logged address is equal to the winner address
+        // in order to show the win modal
+        if (hexToDecimal(eventData[3]._hex) > 0 && eventData[5].toLowerCase() == wallet?.address.toLowerCase()) {
+          setBet({
+            firstReel: eventData[0],
+            secondReel: eventData[1],
+            thirdReel: eventData[2],
+            winAmount: eventData[3],
+            requestId: eventData[4],
+            player: eventData[5],
+          });
+          setTimeout(() => setShowCongratulationModal(true), 100);
+        } else {
+          console.log("You lose!");
+        }
+      });
+    }
+    return () => { 
+      alchemy.ws.off(filter);
+    }
+  }, [wallet]);
 
   const handleSpinTxn = async () => {
     const coinbetTxn = await contracts?.coinbetSlotGame.coinbet({
       value: "1000000000000000",
     });
-    setTimeout(handleSpin, 1000);
-    const coinbetTxnReceipt = await coinbetTxn.wait();
-    setTimeout(updateBalance, 500);
+    setTimeout(handleSpin, 100);
+    await coinbetTxn.wait();
+    setTimeout(updateBalance, 100);
   };
 
   const onModalClose = async () => {
     setShowCongratulationModal(false);
     updateBalance();
-  }
+  };
 
   return (
     <div className={styles["coinbet-slots-section"]}>
@@ -228,11 +238,11 @@ const CoinbetSlotsSection = () => {
         <div className={styles["coinbet-slots-header-right"]}>
           <div>
             <span>Win chance:</span>
-            <span>44.44%</span>
+            <span>{ slotConfig.winChance }</span>
           </div>
           <div>
             <span>House edge:</span>
-            <span>2.8%</span>
+            <span>{ slotConfig.houseEdge }</span>
           </div>
         </div>
       </div>
@@ -288,10 +298,7 @@ const CoinbetSlotsSection = () => {
         open={showCongratulationModal}
         onClose={() => setShowCongratulationModal(false)}
       >
-        <CongratulationModal
-          onClose={() => onModalClose()}
-          bet={bet}
-        />
+        <CongratulationModal onClose={() => onModalClose()} bet={bet} />
       </Modal>
     </div>
   );

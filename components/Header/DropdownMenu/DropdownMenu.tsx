@@ -1,4 +1,5 @@
 import { useTheme } from "next-themes";
+import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import { useOnClickOutside } from "../../../hooks/useOnClickOutside";
 import DropdownMenuModal from "../../Modal/DropdownMenuModal/DropdownMenuModal";
@@ -51,15 +52,27 @@ const DropdownMenu = () => {
           <div className={styles["dropdown-menu"]}>
             <div className={styles["dropdown-menu-item"]}>
               <WebsiteIcon />
-              <p>Website</p>
+              <p>
+                <Link href={"https://coinbet.finance"}>
+                  <a target={"_blank"}>Website</a>
+                </Link>
+              </p>
             </div>
             <div className={styles["dropdown-menu-item"]}>
               <DiscordIcon />
-              <p>Discord</p>
+              <p>
+                <Link href={"https://discord.com/invite/buZFPPKKYG"}>
+                  <a target={"_blank"}>Discord</a>
+                </Link>
+              </p>
             </div>
             <div className={styles["dropdown-menu-item"]}>
               <TwitterIcon />
-              <p>Twitter</p>
+              <p>
+                <Link href={"https://twitter.com/CoinbetFi"}>
+                  <a target={"_blank"}>Twitter</a>
+                </Link>
+              </p>
             </div>
             <div
               className={styles["dropdown-menu-item"]}
