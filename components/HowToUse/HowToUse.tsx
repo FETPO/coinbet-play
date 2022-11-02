@@ -80,7 +80,7 @@ const HowToUse = () => {
                     <p>
                       * Now yours 10% stake equals 110 MATIC, which you can
                       withdraw or claim just the difference (10 MATIC), by
-                      clicking Remove Liquidity and burning the Coinbet Reward
+                      clicking Withdraw Liquidity and burning the Coinbet Reward
                       Provider token.
                     </p>
                   </div>
