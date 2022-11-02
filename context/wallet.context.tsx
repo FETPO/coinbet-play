@@ -85,7 +85,6 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
     if (!(wallet && wallet.provider.on)) return;
     const balance = await wallet?.library.getBalance(wallet?.address);
     setWallet({ ...wallet, balance: balance });
-    console.log(balance);
   }
 
   // sets the wallet context to be undefined.

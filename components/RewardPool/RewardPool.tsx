@@ -6,14 +6,79 @@ import Button from "../Button/Button";
 import { PlusIcon } from "../svgs/PlusIcon";
 import { MinusIcon } from "../svgs/MinusIcon";
 import Modal from "../Modal/Modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LiquidityModal from "../Modal/LiquidityModal/LiquidityModal";
 import Tooltip from "../Tooltip/Tooltip";
+import { Alchemy, Network } from "alchemy-sdk";
+import { formatBigNumber, formatUsdPrice } from "../../utils/utility";
+import { usePolygonScanContext } from "../../context/polygonscan.context";
+import { BigNumber, ethers } from "ethers";
+import { useContractsContext } from "../../context/contract.context";
+import { useWalletContext } from "../../context/wallet.context";
+
+// TODO :: Refactor to get alchemy provider from separate context
+const settings = {
+  apiKey: `${process.env.ALCHEMY_API_KEY}`,
+  network: Network.MATIC_MUMBAI,
+};
+const alchemy = new Alchemy(settings);
 
 const RewardPool = () => {
   const [showAddLiquidityModal, setShowAddLiquidityModal] = useState(false);
   const [showRemoveLiquidityModal, setShowRemoveLiquidityModal] =
     useState(false);
+  const [housePoolBalance, setHousePoolBalance] = useState("0");
+  const [userLpBalanceMatic, setUserLpBalanceMatic] = useState("0");
+  const [userLpBalance, setUserLpBalance] = useState("0");
+  const [userPercentOfPool, setUserPercentOfPool] = useState("0");
+
+  const { polygonScanData } = usePolygonScanContext();
+  const { contracts } = useContractsContext();
+  const { wallet, updateBalance } = useWalletContext();
+
+  useEffect(() => {
+    const housePoolBalance = async () => {
+      const balance = await contracts?.coinbetHousePool.poolBalance();
+      setHousePoolBalance(balance?.toString());
+    };
+    if (contracts) {
+      housePoolBalance();
+    }
+  }, [contracts, contracts?.coinbetHousePool]);
+
+  useEffect(() => {
+    const userLpBalance = async () => {
+      const lpBalance = await contracts?.coinbetHousePool.balanceOf(
+        wallet?.address
+      );
+      const totalSupply = await contracts?.coinbetHousePool.totalSupply();
+      const formatedUserLpBalance =
+        (parseFloat(ethers.utils.formatEther(lpBalance)) /
+          parseFloat(ethers.utils.formatEther(totalSupply))) *
+        parseFloat(housePoolBalance);
+      setUserLpBalance(lpBalance.toString());
+      setUserLpBalanceMatic(formatedUserLpBalance.toString());
+      setUserPercentOfPool(
+        (
+          parseFloat(ethers.utils.formatEther(lpBalance)) /
+          parseFloat(ethers.utils.formatEther(totalSupply))
+        ).toString()
+      );
+    };
+    if (contracts && wallet?.address) {
+      userLpBalance();
+    }
+  }, [
+    contracts,
+    contracts?.coinbetHousePool,
+    housePoolBalance,
+    wallet?.address,
+  ]);
+
+  const handleModalClose = () => {
+    setShowAddLiquidityModal(false);
+    updateBalance();
+  };
 
   return (
     <>
@@ -29,8 +94,14 @@ const RewardPool = () => {
                 <MaticIcon />
               </div>
               <div>
-                <h3>24.230</h3>
-                <p>$56,345.00</p>
+                <h3>{formatBigNumber(BigNumber.from(housePoolBalance))}</h3>
+                <p>
+                  ${" "}
+                  {formatUsdPrice(
+                    polygonScanData?.maticPriceUsd,
+                    BigNumber.from(housePoolBalance)
+                  )}
+                </p>
               </div>
             </div>
             <div className={styles["header-right"]}>
@@ -43,13 +114,13 @@ const RewardPool = () => {
               <div>
                 APY
                 <InfoIcon />
-                <Tooltip text="Pellentesque nunc nec et vel pellentesque interdum arcu" />
+                <Tooltip text="APY is dynamic and it is based on the last epoch" />
               </div>
-              <div>124.97%</div>
+              <div>---.--%</div>
             </div>
             <div className={styles["staked-balance"]}>
               <div>Staked balance</div>
-              <div>0.00</div>
+              <div>{formatBigNumber(BigNumber.from(userLpBalanceMatic))}</div>
             </div>
             <div className={styles["actions"]}>
               <Button
@@ -75,7 +146,7 @@ const RewardPool = () => {
               <h3>Your Rewards</h3>
               <p>
                 <MaticIcon />
-                0.867
+                -.---
               </p>
             </div>
             <div>
@@ -85,13 +156,13 @@ const RewardPool = () => {
             </div>
           </div>
         </div>
-        <Modal
-          open={showAddLiquidityModal}
-          onClose={() => setShowAddLiquidityModal(false)}
-        >
+        <Modal open={showAddLiquidityModal} onClose={() => handleModalClose()}>
           <LiquidityModal
-            onClose={() => setShowAddLiquidityModal(false)}
+            onClose={() => handleModalClose()}
             type="add"
+            userPercentOfPool={userPercentOfPool}
+            housePoolBalance={housePoolBalance}
+            userLpBalanceMatic={userLpBalanceMatic}
           />
         </Modal>
         <Modal
@@ -101,6 +172,9 @@ const RewardPool = () => {
           <LiquidityModal
             onClose={() => setShowRemoveLiquidityModal(false)}
             type="remove"
+            userPercentOfPool={userPercentOfPool}
+            housePoolBalance={housePoolBalance}
+            userLpBalanceMatic={userLpBalanceMatic}
           />
         </Modal>
       </div>
