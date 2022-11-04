@@ -14,6 +14,7 @@ import slotConfig from "../../../coinbet.config.json";
 
 interface ILiquidityModalProps {
   onClose: () => void;
+  onLoading: () => Promise<void>;
   type: "add" | "remove";
   userPercentOfPool: string;
   housePoolBalance: string;
@@ -23,6 +24,7 @@ interface ILiquidityModalProps {
 
 const LiquidityModal = ({
   onClose,
+  onLoading,
   type,
   userPercentOfPool,
   housePoolBalance,
@@ -107,6 +109,7 @@ const LiquidityModal = ({
       await contracts?.coinbetHousePool.addRewardsLiquidity({
         value: ethers.utils.parseEther(liquidityValue),
       });
+      onLoading();
     await addRewardsLiqidityTxn.wait();
     onClose();
   };
@@ -116,6 +119,7 @@ const LiquidityModal = ({
       await contracts?.coinbetHousePool.removeRewardsLiquidity(
         userLpBalanceToWithdraw
       );
+      onLoading();
     await withdrawRewardsLiqidityTxn.wait();
     onClose();
   };

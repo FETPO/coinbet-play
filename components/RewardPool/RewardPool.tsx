@@ -14,9 +14,12 @@ import { usePolygonScanContext } from "../../context/polygonscan.context";
 import { BigNumber, ethers } from "ethers";
 import { useContractsContext } from "../../context/contract.context";
 import { useWalletContext } from "../../context/wallet.context";
+import { useAlchemyContext } from "../../context/alchemy.context";
+import LoadingModal from "../Modal/StatusModals/LoadingModal/LoadingModal";
 
 const RewardPool = () => {
   const [showAddLiquidityModal, setShowAddLiquidityModal] = useState(false);
+  const [showLoadingModal, setShowLoadingModal] = useState(false);
   const [showRemoveLiquidityModal, setShowRemoveLiquidityModal] =
     useState(false);
   const [housePoolBalance, setHousePoolBalance] = useState("0");
@@ -28,16 +31,18 @@ const RewardPool = () => {
   const { polygonScanData } = usePolygonScanContext();
   const { contracts } = useContractsContext();
   const { wallet, updateBalance } = useWalletContext();
+  const { alchemy } = useAlchemyContext();
 
   useEffect(() => {
     const housePoolBalance = async () => {
-      const balance = await contracts?.coinbetHousePool.poolBalance();
-      setHousePoolBalance(balance?.toString());
+      // const balance = await contracts?.coinbetHousePool.poolBalance();
+      const balance = alchemy?.coinbetHousePoolData?.poolBalance;
+      setHousePoolBalance(balance?.toString() || "0");
     };
-    if (contracts) {
+    if (alchemy) {
       housePoolBalance();
     }
-  }, [contracts, contracts?.coinbetHousePool]);
+  }, [contracts, alchemy]);
 
   useEffect(() => {
     const userLpBalance = async () => {
@@ -74,7 +79,16 @@ const RewardPool = () => {
   const handleModalClose = () => {
     setShowAddLiquidityModal(false);
     setShowRemoveLiquidityModal(false);
+    setShowLoadingModal(false);
     updateBalance();
+  };
+
+  const onLoadingModalClose = async () => {
+    setShowLoadingModal(false);
+  };
+
+  const handleShowLoadingModal = async () => {
+    setShowLoadingModal(true);
   };
 
   return (
@@ -158,6 +172,7 @@ const RewardPool = () => {
         <Modal open={showAddLiquidityModal} onClose={() => handleModalClose()}>
           <LiquidityModal
             onClose={() => handleModalClose()}
+            onLoading={handleShowLoadingModal}
             type="add"
             userPercentOfPool={userPercentOfPool}
             housePoolBalance={housePoolBalance}
@@ -171,12 +186,19 @@ const RewardPool = () => {
         >
           <LiquidityModal
             onClose={() => handleModalClose()}
+            onLoading={handleShowLoadingModal}
             type="remove"
             userPercentOfPool={userPercentOfPool}
             housePoolBalance={housePoolBalance}
             userLpTokenBalance={userLpBalance}
             lpTokenTotalSupply={lpTokenTotalSupply}
           />
+        </Modal>
+        <Modal
+          open={showLoadingModal}
+          onClose={() => setShowLoadingModal(false)}
+        >
+          <LoadingModal onClose={() => onLoadingModalClose()} />
         </Modal>
       </div>
     </>

@@ -205,7 +205,7 @@ const CoinbetSlotsSection = () => {
 
   const handleSpinTxn = async () => {
     const coinbetTxn = await contracts?.coinbetSlotGame.coinbet({
-      value: "1000000000000000",
+      value: "10000000000000000",
     });
     setTimeout(handleSpin, 100);
     await coinbetTxn.wait();
@@ -261,12 +261,12 @@ const CoinbetSlotsSection = () => {
         </div>
         <div className={styles["coinbet-slots-header-right"]}>
           <div>
-            <span>Win chance:</span>
-            <span>{slotConfig.winChance}</span>
+            <span>Hit Rate:</span>
+            <span>{slotConfig.hitRate}</span>
           </div>
           <div>
-            <span>House edge:</span>
-            <span>{slotConfig.houseEdge}</span>
+            <span>RTP:</span>
+            <span>{slotConfig.rtp}</span>
           </div>
         </div>
       </div>
@@ -288,8 +288,8 @@ const CoinbetSlotsSection = () => {
             </div>
           </div>
           <div className={styles["spin-btn"]}>
-            <Button variant="primary" size="medium" onClick={handleSpinTxn}>
-              LFG - Spin Now
+            <Button variant="primary" size="large" onClick={handleSpinTxn}>
+              Spin Now 
             </Button>
           </div>
         </div>

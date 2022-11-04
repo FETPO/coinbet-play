@@ -5,6 +5,7 @@ import Layout from "../components/layout";
 import { ThemeProvider } from "next-themes";
 import { PolygonScanContextWrapper } from "../context/polygonscan.context";
 import { ContractsContextWrapper } from "../context/contract.context";
+import { AlchemyContextWrapper } from "../context/alchemy.context";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -13,11 +14,13 @@ export default function App(props: AppProps) {
     <ThemeProvider>
       <PolygonScanContextWrapper>
         <WalletContextWrapper>
-          <ContractsContextWrapper>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </ContractsContextWrapper>
+          <AlchemyContextWrapper>
+            <ContractsContextWrapper>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </ContractsContextWrapper>
+          </AlchemyContextWrapper>
         </WalletContextWrapper>
       </PolygonScanContextWrapper>
     </ThemeProvider>

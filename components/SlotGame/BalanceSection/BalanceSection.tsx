@@ -8,6 +8,8 @@ import { PlusIcon } from "../../svgs/PlusIcon";
 import { SlotGameIcon } from "../../svgs/SlotGameIcon";
 import styles from "./BalanceSection.module.scss";
 import slotConfig from "../../../coinbet.config.json";
+import { BigNumber, ethers } from "ethers";
+import { useAlchemyContext } from "../../../context/alchemy.context";
 
 interface IBalanceSectionProps {
   collapseDown: boolean;
@@ -18,9 +20,10 @@ interface IBalanceSectionProps {
 const BalanceSection = ({
   collapseDown,
   setCollapseDown,
-  setShowDepositModal
+  setShowDepositModal,
 }: IBalanceSectionProps) => {
   const { wallet } = useWalletContext();
+  const { alchemy } = useAlchemyContext();
   return (
     <div className={styles["balance-section"]}>
       <div className={styles["main"]}>
@@ -37,7 +40,7 @@ const BalanceSection = ({
             <h3>Min Bet</h3>
             <p>
               <MaticIcon />
-              { slotConfig.minBet }
+              {formatBigNumber(alchemy?.coinbetGameData?.minBetAmount)}
             </p>
           </div>
           <div className={styles["divider"]}></div>
@@ -45,19 +48,33 @@ const BalanceSection = ({
             <h3>Max Bet</h3>
             <p>
               <MaticIcon />
-              { slotConfig.maxBet }
+              {formatBigNumber(
+                alchemy?.coinbetHousePoolData?.availableFundsForPayroll.div(
+                  BigNumber.from(slotConfig.maxMultiplier)
+                )
+              )}
             </p>
           </div>
           <div className={styles["divider"]}></div>
           <div>
-            <h3>Spins</h3>
-            <p>102</p>
+            <h3>Max Spins</h3>
+            <p>
+              {(
+                parseFloat(ethers.utils.formatUnits(wallet?.balance || 0, 18)) /
+                parseFloat(
+                  ethers.utils.formatUnits(
+                    alchemy?.coinbetGameData?.minBetAmount || 0,
+                    18
+                  )
+                )
+              ).toFixed(0)}
+            </p>
           </div>
-          <div className={styles["divider"]}></div>
+          {/* <div className={styles["divider"]}></div>
           <div>
             <h3>RTP</h3>
-            <p>{ slotConfig.rtp }</p>
-          </div>
+            <p>{slotConfig.rtp}</p>
+          </div> */}
         </div>
         <div className={styles["main-right"]}>
           {/* <Button
@@ -83,16 +100,14 @@ const BalanceSection = ({
       </div>
       {collapseDown ? (
         <div className={styles["details"]}>
-          {/* <div>
-            <h3>Price per roll:</h3>
-            <p>
-              <MaticIcon />
-              0.01
-            </p>
-          </div> */}
+          
           <div>
             <h3>House Pool</h3>
-            <p>16,911.5784 MATIC</p>
+            <p>
+              {" "}
+              {formatBigNumber(alchemy?.coinbetHousePoolData?.poolBalance)}{" "}
+              MATIC
+            </p>
           </div>
           {/* <div>
             <h3>Target payout:</h3>
@@ -104,7 +119,13 @@ const BalanceSection = ({
           </div> */}
           <div>
             <h3>Max payout:</h3>
-            <p>161.5784 MATIC</p>
+            <p>
+              {" "}
+              {formatBigNumber(
+                alchemy?.coinbetHousePoolData?.availableFundsForPayroll
+              )}{" "}
+              MATIC
+            </p>
           </div>
         </div>
       ) : null}

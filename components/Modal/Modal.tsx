@@ -36,7 +36,7 @@ const Modal = ({ children, open, onClose }: IModalProps) => {
         <div className={styles["modal-footer"]}>
           <div className={styles["footer-text"]}>
             <LockIcon />
-            <span>coinbetfi.com</span>
+            <span>coinbet.finance</span>
           </div>
           <div className={styles["footer-line"]} />
         </div>

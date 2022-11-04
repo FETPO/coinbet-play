@@ -56,8 +56,9 @@ const ConnectWallet = ({
       setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
+      setSelectedWallet(availableWallets[0]);
     }
-  }, [walletInfo]);
+  }, [availableWallets, setSelectedWallet, walletInfo]);
 
   return (
     <div className={styles["connect-wallet"]} ref={ref}>

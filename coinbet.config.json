@@ -1,8 +1,9 @@
 {
-  "winChance": "44.44%",
+  "hitRate": "44.44%",
   "houseEdge": "2.8%",
-  "rtp": "97.2",
+  "rtp": "97.22%",
   "minBet": "1",
   "maxBet": "100",
-  "lpWithdrawFee": "0.05"
+  "lpWithdrawFee": "0.05",
+  "maxMultiplier": "40"
 }

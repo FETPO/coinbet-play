@@ -31,10 +31,11 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
   }, []);
 
   useEffect(() => {
-    const updateConnectionOnFirstLogin = async () => {
+    const updateConnectionOnRefresh = async () => {
       if (typeof window.ethereum !== "undefined") {
         let provider = window.ethereum;
-        if (provider.selectedAddress) {
+        let selectedAddress = localStorage.getItem("coinbet-wallet");
+        if (selectedAddress) {
           const library = new ethers.providers.Web3Provider(provider, "any");
           const network = await library.getNetwork();
           const balance = await library.getBalance(provider.selectedAddress);
@@ -47,10 +48,11 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
             balance: balance,
           });
         } else {
+          console.log("No Web3 Provider detected");
         }
       }
     };
-    updateConnectionOnFirstLogin();
+    updateConnectionOnRefresh();
   }, []);
 
   const connectWallet = async () => {
@@ -69,6 +71,7 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
           chainId: network.chainId,
           balance: balance,
         });
+        localStorage.setItem("coinbet-wallet", accounts[0]);
       } else {
       }
     } catch (error) {
@@ -86,6 +89,7 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
     try {
       web3Modal?.clearCachedProvider();
       setWallet(undefined);
+      localStorage.removeItem("coinbet-wallet");
     } catch (error) {}
   };
 
@@ -100,6 +104,7 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
         try {
           web3Modal?.clearCachedProvider();
           setWallet(undefined);
+          localStorage.removeItem("coinbet-wallet");
         } catch (error) {
           console.log(error);
         }

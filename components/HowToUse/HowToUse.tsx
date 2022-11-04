@@ -8,6 +8,7 @@ import Doodles_IMG from "../../assets/images/Doodles_6914.png";
 import MAYC_IMG from "../../assets/images/MAYC_4849.png";
 import Moonbirds_IMG from "../../assets/images/Moonbirds_2018.png";
 import PUNK_IMG from "../../assets/images/PUNK_5822.png";
+import slotConfig from "../../coinbet.config.json";
 
 const HowToUse = () => {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
@@ -100,7 +101,7 @@ const HowToUse = () => {
                       After the successful release, we plan to incentivise
                       reward providers by creating a Yield Farming pool, where
                       you can stake your Coinbet Reward Provider ERC20 token,
-                      and farm $CBET - the governance and utility token of the
+                      and farm $CFI - the governance and utility token of the
                       Coinbet Protocol. Stay tuned.
                     </p>
                   </div>
@@ -162,7 +163,7 @@ const HowToUse = () => {
                     <h3>Edge and RTP</h3>
                     <div className={styles["edge-rtp"]}>
                       <h3>
-                        The RTP (Return to player) is 94%. Please see below the
+                        The RTP (Return to player) is {slotConfig.rtp}. Please see below the
                         multipliers:
                       </h3>
                       <div className={styles["grid"]}>
@@ -170,19 +171,19 @@ const HowToUse = () => {
                           <Image src={BAYC_IMG} alt="BAYC" />
                           <Image src={BAYC_IMG} alt="BAYC" />
                           <Image src={BAYC_IMG} alt="BAYC" />
+                          <p>- x40 reward</p>
+                        </div>
+                        <div className={styles["column"]}>
+                          <Image src={Doodles_IMG} alt="Doodles" />
+                          <Image src={Doodles_IMG} alt="Doodles" />
+                          <Image src={Doodles_IMG} alt="Doodles" />
+                          <p>- x15 reward</p>
+                        </div>
+                        <div className={styles["column"]}>
+                          <Image src={PUNK_IMG} alt="PUNK" />
+                          <Image src={PUNK_IMG} alt="PUNK" />
+                          <Image src={PUNK_IMG} alt="PUNK" />
                           <p>- x30 reward</p>
-                        </div>
-                        <div className={styles["column"]}>
-                          <Image src={Doodles_IMG} alt="Doodles" />
-                          <Image src={Doodles_IMG} alt="Doodles" />
-                          <Image src={Doodles_IMG} alt="Doodles" />
-                          <p>- x12 reward</p>
-                        </div>
-                        <div className={styles["column"]}>
-                          <Image src={PUNK_IMG} alt="PUNK" />
-                          <Image src={PUNK_IMG} alt="PUNK" />
-                          <Image src={PUNK_IMG} alt="PUNK" />
-                          <p>- x20 reward</p>
                         </div>
                         <div className={styles["column"]}>
                           <Image src={Moonbirds_IMG} alt="Moonbirds" />
@@ -194,7 +195,7 @@ const HowToUse = () => {
                           <Image src={MAYC_IMG} alt="MAYC" />
                           <Image src={MAYC_IMG} alt="MAYC" />
                           <Image src={MAYC_IMG} alt="MAYC" />
-                          <p>- x15 reward</p>
+                          <p>- x20 reward</p>
                         </div>
                         <div className={styles["column"]}>
                           <Image src={CBD_IMG} alt="CBD" />
@@ -210,9 +211,9 @@ const HowToUse = () => {
                     <h3>Incentives</h3>
                     <p>
                       In order to incentivise the first players, on every spin 5
-                      $CBET tokens will be credited to players, no matter if
+                      $CFI tokens will be credited to players, no matter if
                       they have a winning or losing bet. The total amount of
-                      $CBET tokens which will be distributed as incentives is 5%
+                      $CFI tokens which will be distributed as incentives is 5%
                       of the total supply (across all Coinbet games).
                     </p>
                   </div>
