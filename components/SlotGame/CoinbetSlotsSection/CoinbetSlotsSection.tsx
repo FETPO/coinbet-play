@@ -59,6 +59,18 @@ const CoinbetSlotsSection = () => {
   const { contracts } = useContractsContext();
   const { updateBalance, wallet } = useWalletContext();
 
+  const startAudio = () => {
+    var audio = document.getElementById("spinAudio") as HTMLAudioElement;
+    audio?.play();
+    setVolumeOn(true);
+  };
+
+  const pauseAudio = () => {
+    var audio = document.getElementById("spinAudio") as HTMLAudioElement;
+    audio?.pause();
+    setVolumeOn(false);
+  };
+
   useEffect(() => {
     init();
   }, []);
@@ -168,7 +180,10 @@ const CoinbetSlotsSection = () => {
         );
         // Check if reward is grater than 0 and the current logged address is equal to the winner address
         // in order to show the win modal
-        if (hexToDecimal(eventData[3]._hex) > 0 && eventData[5].toLowerCase() == wallet?.address.toLowerCase()) {
+        if (
+          hexToDecimal(eventData[3]._hex) > 0 &&
+          eventData[5].toLowerCase() == wallet?.address.toLowerCase()
+        ) {
           setBet({
             firstReel: eventData[0],
             secondReel: eventData[1],
@@ -183,9 +198,9 @@ const CoinbetSlotsSection = () => {
         }
       });
     }
-    return () => { 
+    return () => {
       alchemy.ws.off(filter);
-    }
+    };
   }, [wallet]);
 
   const handleSpinTxn = async () => {
@@ -202,6 +217,12 @@ const CoinbetSlotsSection = () => {
     updateBalance();
   };
 
+  const navigateToContract = () => {
+    window.open(
+      `https://polygonscan.com/address/${process.env.COINBET_SLOT_GAME_CONTRACT}`
+    );
+  };
+
   return (
     <div className={styles["coinbet-slots-section"]}>
       <div className={styles["coinbet-slots-header"]}>
@@ -210,23 +231,26 @@ const CoinbetSlotsSection = () => {
           <div className={styles["coinbet-slots-header-left-icons"]}>
             <div className={styles["icon"]}>
               <InfoIcon />
-              <Tooltip text="Pellentesque nunc nec et vel pellentesque interdum arcu" />
+              <Tooltip text="Built on Polygon, Powered by Chainlink." />
             </div>
             <div className={styles["icon"]}>
-              <TerminalIcon />
+              <div onClick={navigateToContract}>
+                <TerminalIcon />{" "}
+              </div>
               <Tooltip text="View Contract" />
             </div>
             <div className={styles["icon"]}>
+              <audio id="spinAudio">
+                <source src="/spin.mp3" type="audio/mpeg" />
+                Your browser does not support the audio element.
+              </audio>
               {!volumeOn ? (
-                <div
-                  onClick={() => setVolumeOn(true)}
-                  className={styles["volume-icon"]}
-                >
+                <div onClick={startAudio} className={styles["volume-icon"]}>
                   <VolumeOffIcon />
                 </div>
               ) : (
                 <div
-                  onClick={() => setVolumeOn(false)}
+                  onClick={pauseAudio}
                   className={styles["volume-icon"]}
                 >
                   <VolumeOnIcon />
@@ -238,11 +262,11 @@ const CoinbetSlotsSection = () => {
         <div className={styles["coinbet-slots-header-right"]}>
           <div>
             <span>Win chance:</span>
-            <span>{ slotConfig.winChance }</span>
+            <span>{slotConfig.winChance}</span>
           </div>
           <div>
             <span>House edge:</span>
-            <span>{ slotConfig.houseEdge }</span>
+            <span>{slotConfig.houseEdge}</span>
           </div>
         </div>
       </div>
@@ -265,7 +289,7 @@ const CoinbetSlotsSection = () => {
           </div>
           <div className={styles["spin-btn"]}>
             <Button variant="primary" size="medium" onClick={handleSpinTxn}>
-              Spin
+              LFG - Spin Now
             </Button>
           </div>
         </div>
