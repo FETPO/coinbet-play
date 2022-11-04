@@ -34,16 +34,15 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
     const updateConnectionOnFirstLogin = async () => {
       if (typeof window.ethereum !== "undefined") {
         let provider = window.ethereum;
-        const library = new ethers.providers.Web3Provider(provider, "any");
-        const accounts = await library.listAccounts();
-        const network = await library.getNetwork();
-        const balance = await library.getBalance(accounts[0]);
-        if (accounts.length) {
+        if (provider.selectedAddress) {
+          const library = new ethers.providers.Web3Provider(provider, "any");
+          const network = await library.getNetwork();
+          const balance = await library.getBalance(provider.selectedAddress);
           setWallet({
             provider,
             library,
             network,
-            address: accounts[0], // always get the first account (topmost),
+            address: provider.selectedAddress,
             chainId: network.chainId,
             balance: balance,
           });
@@ -54,14 +53,10 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
     updateConnectionOnFirstLogin();
   }, []);
 
-  // retrieves the provider from Web3Modal, and then sets the context wallet
   const connectWallet = async () => {
     try {
       const provider = await web3Modal!.connect();
-      const library = new ethers.providers.Web3Provider(
-        provider,
-        "any" // important for switching networks! https://github.com/NoahZinsmeister/web3-react/issues/127
-      );
+      const library = new ethers.providers.Web3Provider(provider, "any");
       const accounts = await library.listAccounts();
       const network = await library.getNetwork();
       const balance = await library.getBalance(accounts[0]);
@@ -70,7 +65,7 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
           provider,
           library,
           network,
-          address: accounts[0], // always get the first account (topmost),
+          address: accounts[0],
           chainId: network.chainId,
           balance: balance,
         });
@@ -85,9 +80,8 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
     if (!(wallet && wallet.provider.on)) return;
     const balance = await wallet?.library.getBalance(wallet?.address);
     setWallet({ ...wallet, balance: balance });
-  }
+  };
 
-  // sets the wallet context to be undefined.
   const disconnectWallet = () => {
     try {
       web3Modal?.clearCachedProvider();
@@ -98,21 +92,25 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
   useEffect(() => {
     if (!(wallet && wallet.provider.on)) return;
 
-    // account changed
     const handleAccountsChanged = async (accounts: string[]) => {
-      if (!(accounts && accounts.length > 0)) return;
-      const balance = await wallet.library.getBalance(accounts[0]);
-      setWallet({ ...wallet, address: accounts[0], balance: balance });
+      if (accounts && accounts.length > 0) {
+        const balance = await wallet.library.getBalance(accounts[0]);
+        setWallet({ ...wallet, address: accounts[0], balance: balance });
+      } else {
+        try {
+          web3Modal?.clearCachedProvider();
+          setWallet(undefined);
+        } catch (error) {
+          console.log(error);
+        }
+      }
     };
 
-    // network chain changed
     const handleChainChanged = (chainId: number) => {
       const newChainId = hexToDecimal(chainId);
       setWallet({ ...wallet, chainId: newChainId });
-      // @note: you can add a "supported-chain check" here if you want
     };
 
-    // wallet is disconnected from the injected provider
     const handleDisconnect = () => {
       setWallet(undefined);
     };
@@ -126,7 +124,7 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
       wallet.provider.removeListener("chainChanged", handleChainChanged);
       wallet.provider.removeListener("disconnect", handleDisconnect);
     };
-  }, [wallet]);
+  }, [wallet, web3Modal]);
 
   return (
     <WalletContext.Provider
@@ -134,7 +132,7 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
         wallet,
         connectWallet,
         disconnectWallet,
-        updateBalance
+        updateBalance,
       }}
     >
       {children}
@@ -142,7 +140,6 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
   );
 };
 
-// custom hook
 export function useWalletContext() {
   return useContext(WalletContext);
 }

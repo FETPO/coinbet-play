@@ -12,6 +12,7 @@ import { LogoutIcon } from "../../svgs/LogoutIcon";
 import AccountDetailsModal from "../../Modal/AccountDetailsModal/AccountDetailsModal";
 import { formatBigNumber, formatUsdPrice } from "../../../utils/utility";
 import { PolygonScanType } from "../../../types/polygonscan";
+import { useWalletContext } from "../../../context/wallet.context";
 
 interface IAmountOnWalletProps {
   selectedOption: IOption;
@@ -40,6 +41,8 @@ const ConnectWallet = ({
 
   useOnClickOutside(ref, () => setShowAccountDetailsPopover(false));
 
+  const { disconnectWallet } = useWalletContext();
+
   const handleAccountDetailsPopoverClick = () => {
     if (window.screen.width > 576) {
       setShowAccountDetailsPopover(!showAccountDetailsPopover);
@@ -49,8 +52,10 @@ const ConnectWallet = ({
   };
 
   useEffect(() => {
-    if (walletInfo) {
+    if (walletInfo?.address) {
       setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
     }
   }, [walletInfo]);
 
@@ -106,6 +111,7 @@ const ConnectWallet = ({
             variant="secondary"
             size="medium"
             onClick={() => {
+              disconnectWallet();
               setIsLoggedIn(false);
               setShowAccountDetailsPopover(false);
             }}
@@ -138,7 +144,7 @@ const ConnectWallet = ({
           addressCopied={addressCopied}
           setAddressCopied={setAddressCopied}
           setIsLoggedIn={setIsLoggedIn}
-          onDisconnectWallet={() => {console.log("Disconnected")}}
+          onDisconnectWallet={disconnectWallet}
         />
       </Modal>
     </div>
