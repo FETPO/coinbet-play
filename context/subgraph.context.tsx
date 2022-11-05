@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import type { FC, ReactNode } from "react";
-import { WebSocketLink } from "@apollo/client/link/ws";
 import { useWalletContext } from "./wallet.context";
 import { SubgraphContextType, SubgraphType } from "../types/subgraph";
 import {
@@ -8,9 +7,11 @@ import {
   betSettledEntities,
   queryCoinbetSubgraphData,
 } from "../utils/graphql/queries";
+import { processSettledBetsData } from "../utils/utility";
 
 const SubgraphContext = createContext<SubgraphContextType>({
   subgraph: undefined,
+  updateBetsData: async (betResult: any) => {},
 });
 
 export const SubgraphContextWrapper: FC<{ children: ReactNode }> = ({
@@ -19,24 +20,42 @@ export const SubgraphContextWrapper: FC<{ children: ReactNode }> = ({
   const [subgraph, setSubgraph] = useState<SubgraphType>();
   const { wallet } = useWalletContext();
 
+  const updateBetsData = (betResult: any) => {
+    if (subgraph) {
+      const settledBets = subgraph?.settledBets;
+      const betStats = subgraph?.betStatistics;
+
+      // Check if bet exists already
+      const exists = settledBets?.find((obj) => {
+        return obj.id === betResult.id;
+      });
+
+      if (!exists) {
+        settledBets?.unshift(betResult);
+      }
+      const newSettledBets = settledBets || undefined;
+      setSubgraph({ betStatistics: betStats, settledBets: newSettledBets });
+    }
+  };
+
   useEffect(() => {
     const initSubgraph = async () => {
       const betsStats = await queryCoinbetSubgraphData(betsStatisticsEntity());
       const settledBets = await queryCoinbetSubgraphData(betSettledEntities());
       setSubgraph({
-        settledBets: settledBets.betSettledEntities,
+        settledBets: processSettledBetsData(settledBets.betSettledEntities),
         betStatistics: betsStats.betsStatisticsEntity,
       });
     };
 
-      initSubgraph();
-
+    initSubgraph();
   }, [wallet]);
 
   return (
     <SubgraphContext.Provider
       value={{
         subgraph,
+        updateBetsData
       }}
     >
       {children}

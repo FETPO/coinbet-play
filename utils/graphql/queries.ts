@@ -14,7 +14,7 @@ export const betsStatisticsEntity = () => `
 
 export const betSettledEntities = () => `
   query BetSettledEntities {
-    betSettledEntities(first: 50, orderBy: timestamp) {
+    betSettledEntities(first: 50, orderBy: timestamp, orderDirection: desc) {
         first
         second
         third

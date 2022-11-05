@@ -65,7 +65,7 @@ const Header = () => {
   const [selectedOption, setSelectedOption] = useState<IOption>(
     dropdownOptions[0]
   );
-  const [selectedWallet, setSelectedWallet] = useState<IOption | null>(null);
+  const [selectedWallet, setSelectedWallet] = useState<IOption | null>(availableWallets[0]);
   const { wallet } = useWalletContext();
   const { polygonScanData } = usePolygonScanContext();
 

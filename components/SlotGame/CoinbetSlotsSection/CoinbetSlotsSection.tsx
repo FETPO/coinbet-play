@@ -20,9 +20,16 @@ import { useContractsContext } from "../../../context/contract.context";
 import { useWalletContext } from "../../../context/wallet.context";
 import { Alchemy, Network } from "alchemy-sdk";
 import { ethers } from "ethers";
-import { hexToDecimal } from "../../../utils/utility";
+import {
+  constructDate,
+  constructPayout,
+  constructReels,
+  hexToDecimal,
+} from "../../../utils/utility";
 import slotConfig from "../../../coinbet.config.json";
 import { useSubgraphContext } from "../../../context/subgraph.context";
+import uuid from "react-uuid";
+import { formatAddress } from "../../../utils/format";
 
 // TODO :: Refactor to get alchemy provider from separate context
 const settings = {
@@ -59,7 +66,7 @@ const CoinbetSlotsSection = () => {
 
   const { contracts } = useContractsContext();
   const { updateBalance, wallet } = useWalletContext();
-  const { subgraph } = useSubgraphContext();
+  const { subgraph, updateBetsData } = useSubgraphContext();
 
   const startAudio = () => {
     var audio = document.getElementById("spinAudio") as HTMLAudioElement;
@@ -180,6 +187,20 @@ const CoinbetSlotsSection = () => {
           ["uint256", "uint256", "uint256", "uint256", "uint256", "address"],
           log.data
         );
+        // Update data in live feed
+
+        updateBetsData({
+          id: uuid(),
+          playerAddress: formatAddress(eventData[5]),
+          payout: constructPayout(eventData[3]),
+          date: constructDate(Math.floor(Date.now() / 1000)),
+          results: constructReels(
+            eventData[0].toString(),
+            eventData[1].toString(),
+            eventData[2].toString()
+          ),
+        });
+
         // Check if reward is grater than 0 and the current logged address is equal to the winner address
         // in order to show the win modal
         if (

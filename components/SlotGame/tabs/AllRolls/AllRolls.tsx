@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import { useSubgraphContext } from "../../../../context/subgraph.context";
 import { AllRollsDummyData } from "../../../../utils/dummyData/all-rolls";
 import { formatAddress } from "../../../../utils/format";
 import { MaticIcon } from "../../../svgs/MaticIcon";
@@ -10,7 +11,7 @@ interface IAllRollsProps {
 }
 
 const AllRolls = ({ collapseDown }: IAllRollsProps) => {
-  let rollsData = AllRollsDummyData();
+  const {subgraph } = useSubgraphContext();
 
   return (
     <div className={styles["all-rolls-table"]}>
@@ -27,7 +28,7 @@ const AllRolls = ({ collapseDown }: IAllRollsProps) => {
           collapseDown ? styles["collapseDown"] : ""
         }`}
       >
-        {rollsData.map((roll, index) => {
+        {subgraph?.settledBets?.map((roll, index) => {
           return (
             <div
               className={`${styles["tr"]} ${
@@ -39,7 +40,7 @@ const AllRolls = ({ collapseDown }: IAllRollsProps) => {
                 {formatAddress(roll.playerAddress)}
               </div>
               <div className={styles["td"]}>
-                {roll.results.map((r) => {
+                {roll?.results?.map((r: any) => {
                   return <Image src={r.imageURL} alt="NFT" key={r.id} />;
                 })}
               </div>
