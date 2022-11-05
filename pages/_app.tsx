@@ -6,6 +6,7 @@ import { ThemeProvider } from "next-themes";
 import { PolygonScanContextWrapper } from "../context/polygonscan.context";
 import { ContractsContextWrapper } from "../context/contract.context";
 import { AlchemyContextWrapper } from "../context/alchemy.context";
+import { SubgraphContextWrapper } from "../context/subgraph.context";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -16,9 +17,11 @@ export default function App(props: AppProps) {
         <WalletContextWrapper>
           <AlchemyContextWrapper>
             <ContractsContextWrapper>
+              <SubgraphContextWrapper>
               <Layout>
                 <Component {...pageProps} />
               </Layout>
+              </SubgraphContextWrapper>
             </ContractsContextWrapper>
           </AlchemyContextWrapper>
         </WalletContextWrapper>

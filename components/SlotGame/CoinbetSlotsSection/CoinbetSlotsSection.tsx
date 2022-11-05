@@ -22,6 +22,7 @@ import { Alchemy, Network } from "alchemy-sdk";
 import { ethers } from "ethers";
 import { hexToDecimal } from "../../../utils/utility";
 import slotConfig from "../../../coinbet.config.json";
+import { useSubgraphContext } from "../../../context/subgraph.context";
 
 // TODO :: Refactor to get alchemy provider from separate context
 const settings = {
@@ -58,6 +59,7 @@ const CoinbetSlotsSection = () => {
 
   const { contracts } = useContractsContext();
   const { updateBalance, wallet } = useWalletContext();
+  const { subgraph } = useSubgraphContext();
 
   const startAudio = () => {
     var audio = document.getElementById("spinAudio") as HTMLAudioElement;
@@ -249,10 +251,7 @@ const CoinbetSlotsSection = () => {
                   <VolumeOffIcon />
                 </div>
               ) : (
-                <div
-                  onClick={pauseAudio}
-                  className={styles["volume-icon"]}
-                >
+                <div onClick={pauseAudio} className={styles["volume-icon"]}>
                   <VolumeOnIcon />
                 </div>
               )}
@@ -289,7 +288,7 @@ const CoinbetSlotsSection = () => {
           </div>
           <div className={styles["spin-btn"]}>
             <Button variant="primary" size="large" onClick={handleSpinTxn}>
-              Spin Now 
+              Spin Now
             </Button>
           </div>
         </div>
@@ -297,24 +296,38 @@ const CoinbetSlotsSection = () => {
       <div className={styles["coinbet-slots-footer"]}>
         <div>
           <h3>Spins</h3>
-          <p>1,000</p>
+          <p>{subgraph?.betStatistics?.totalBets || 0}</p>
         </div>
         <div>
           <h3>Players</h3>
-          <p>5,000</p>
+          <p>{subgraph?.betStatistics?.playersCount || 0}</p>
         </div>
         <div>
           <h3>Volume</h3>
           <p>
             <MaticIcon />
-            10,000
+            {ethers.utils.commify(
+              parseFloat(
+                ethers.utils.formatUnits(
+                  subgraph?.betStatistics?.totalBetsVolume || 0,
+                  18
+                )
+              ).toFixed(2)
+            )}
           </p>
         </div>
         <div>
           <h3>Rewards</h3>
           <p>
             <MaticIcon />
-            12,000
+            {ethers.utils.commify(
+              parseFloat(
+                ethers.utils.formatUnits(
+                  subgraph?.betStatistics?.totalRewardsVolume || 0,
+                  18
+                )
+              ).toFixed(2)
+            )}
           </p>
         </div>
       </div>
