@@ -9,7 +9,12 @@ import Modal from "../Modal/Modal";
 import { useEffect, useState } from "react";
 import LiquidityModal from "../Modal/LiquidityModal/LiquidityModal";
 import Tooltip from "../Tooltip/Tooltip";
-import { formatBigNumber, formatUsdPrice } from "../../utils/utility";
+import {
+  epochTerm,
+  formatBigNumber,
+  formatUsdPrice,
+  setNewTime,
+} from "../../utils/utils";
 import { usePolygonScanContext } from "../../context/polygonscan.context";
 import { BigNumber, ethers } from "ethers";
 import { useContractsContext } from "../../context/contract.context";
@@ -27,7 +32,12 @@ const RewardPool = () => {
   const [userLpBalance, setUserLpBalance] = useState("0");
   const [userPercentOfPool, setUserPercentOfPool] = useState("0");
   const [lpTokenTotalSupply, setLpTokenTotalSupply] = useState("0");
-
+  const [countdown, setCountdown] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
   const { polygonScanData } = usePolygonScanContext();
   const { contracts } = useContractsContext();
   const { wallet, updateBalance } = useWalletContext();
@@ -75,6 +85,15 @@ const RewardPool = () => {
     housePoolBalance,
     wallet?.address,
   ]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setNewTime(setCountdown, alchemy?.coinbetHousePoolData?.epochEndAt);
+    }, 1000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [alchemy?.coinbetHousePoolData?.epochEndAt]);
 
   const handleModalClose = () => {
     setShowAddLiquidityModal(false);
@@ -138,20 +157,25 @@ const RewardPool = () => {
             <div className={styles["epoch-term"]}>
               <div>Epoch Term</div>
               <div>
-                { `Nov 7 - Nov 13 2022` }
+                {epochTerm(
+                  alchemy?.coinbetHousePoolData?.epochStartedAt,
+                  alchemy?.coinbetHousePoolData?.epochEndAt
+                )}
               </div>
             </div>
             <div className={styles["epoch-ends"]}>
               <div>Epoch ends in</div>
               <div>
-                { `2d 21h 59m 23s` }
+                {`${countdown.days}d ${countdown.hours}h ${countdown.minutes}m ${countdown.seconds}s`}
               </div>
             </div>
             <div className={styles["epoch-period"]}>
               <div>Period</div>
-              <div style={{color: "#00CE9D"}}>
-                { `Epoch Running` }
-              </div>
+              {alchemy?.coinbetHousePoolData?.hasEpochEnded ? (
+                <div style={{ color: "#448BF4" }}>{`Withdrawals`}</div>
+              ) : (
+                <div style={{ color: "#00CE9D" }}>{`Epoch Running`}</div>
+              )}
             </div>
             <div className={styles["actions"]}>
               <Button

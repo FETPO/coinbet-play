@@ -8,7 +8,7 @@ import Tooltip from "../../Tooltip/Tooltip";
 import { useContractsContext } from "../../../context/contract.context";
 import { BigNumber, ethers } from "ethers";
 import { useWalletContext } from "../../../context/wallet.context";
-import { formatBigNumber, formatUsdPrice } from "../../../utils/utility";
+import { formatBigNumber, formatUsdPrice } from "../../../utils/utils";
 import { usePolygonScanContext } from "../../../context/polygonscan.context";
 import slotConfig from "../../../coinbet.config.json";
 

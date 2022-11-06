@@ -25,7 +25,7 @@ import {
   constructPayout,
   constructReels,
   hexToDecimal,
-} from "../../../utils/utility";
+} from "../../../utils/utils";
 import slotConfig from "../../../coinbet.config.json";
 import { useSubgraphContext } from "../../../context/subgraph.context";
 import uuid from "react-uuid";

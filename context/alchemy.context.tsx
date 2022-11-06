@@ -55,12 +55,12 @@ export const AlchemyContextWrapper: FC<{ children: ReactNode }> = ({
     //     await coinbetHousePool.coinbetTokenFeeWaiverThreshold();
     //   const coinbetTokenRewardMultiplier =
     //     await coinbetHousePool.coinbetTokenRewardMultiplier();
-    //   const epochEndAt = await coinbetHousePool.epochEndAt();
-    //   const epochStartedAt = await coinbetHousePool.epochStartedAt();
+      const epochEndAt = await coinbetHousePool.epochEndAt();
+      const epochStartedAt = await coinbetHousePool.epochStartedAt();
     //   const epochSeconds = await coinbetHousePool.epochSeconds();
     //   const exitFeeBps = await coinbetHousePool.exitFeeBps();
     //   const finalizeEpochBonus = await coinbetHousePool.finalizeEpochBonus();
-    //   const hasEpochEnded = await coinbetHousePool.hasEpochEnded();
+      const hasEpochEnded = await coinbetHousePool.hasEpochEnded();
     //   const incentiveMode = await coinbetHousePool.incentiveMode();
     //   const maxBetToPoolRatio = await coinbetHousePool.maxBetToPoolRatio();
     //   const pendingBetsAmount = await coinbetHousePool.pendingBetsAmount();
@@ -87,12 +87,12 @@ export const AlchemyContextWrapper: FC<{ children: ReactNode }> = ({
           availableFundsForPayroll: availableFundsForPayroll,
         //   coinbetTokenFeeWaiverThreshold: _coinbetTokenFeeWaiverThreshold,
         //   coinbetTokenRewardMultiplier: coinbetTokenRewardMultiplier,
-        //   epochEndAt: epochEndAt,
-        //   epochStartedAt: epochStartedAt,
+          epochEndAt: epochEndAt,
+          epochStartedAt: epochStartedAt,
         //   epochSeconds: epochSeconds,
         //   exitFeeBps: exitFeeBps,
         //   finalizeEpochBonus: finalizeEpochBonus,
-        //   hasEpochEnded: hasEpochEnded,
+          hasEpochEnded: hasEpochEnded,
         //   incentiveMode: incentiveMode,
         //   maxBetToPoolRatio: maxBetToPoolRatio,
         //   pendingBetsAmount: pendingBetsAmount,

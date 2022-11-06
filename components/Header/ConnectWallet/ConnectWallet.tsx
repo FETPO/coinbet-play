@@ -10,7 +10,7 @@ import ConnectWalletModal from "../../Modal/ConnectWalletModal/ConnectWalletModa
 import Tooltip from "../../Tooltip/Tooltip";
 import { LogoutIcon } from "../../svgs/LogoutIcon";
 import AccountDetailsModal from "../../Modal/AccountDetailsModal/AccountDetailsModal";
-import { formatBigNumber, formatUsdPrice } from "../../../utils/utility";
+import { formatBigNumber, formatUsdPrice } from "../../../utils/utils";
 import { PolygonScanType } from "../../../types/polygonscan";
 import { useWalletContext } from "../../../context/wallet.context";
 

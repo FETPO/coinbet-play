@@ -2,7 +2,7 @@ import { ethers } from "ethers";
 import React from "react";
 import { IOption } from "../../../types/dropdown";
 import { PolygonScanType } from "../../../types/polygonscan";
-import { formatBigNumber, formatUsdPrice } from "../../../utils/utility";
+import { formatBigNumber, formatUsdPrice } from "../../../utils/utils";
 import styles from "./AmountOnWallet.module.scss";
 
 interface IAmountOnWalletProps {

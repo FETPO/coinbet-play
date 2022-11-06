@@ -4,7 +4,7 @@ import styles from "./CongratulationModal.module.scss";
 import CongratsModalImg from "../../../assets/images/CongratsModalImg.png";
 import Image from "next/image";
 import { MaticIcon } from "../../svgs/MaticIcon";
-import { formatBigNumber, hexToDecimal } from "../../../utils/utility";
+import { formatBigNumber, hexToDecimal } from "../../../utils/utils";
 import { ethers } from "ethers";
 
 interface ICongratulationModalProps {

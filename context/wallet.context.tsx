@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 import type { FC, ReactNode } from "react";
 import Web3Modal from "web3modal";
 import { ethers } from "ethers";
-import { hexToDecimal } from "../utils/utility";
+import { hexToDecimal } from "../utils/utils";
 import type { WalletContextType, WalletType } from "../types/wallet";
 
 const WalletContext = createContext<WalletContextType>({

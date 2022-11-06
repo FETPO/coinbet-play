@@ -7,7 +7,7 @@ import {
   betSettledEntities,
   queryCoinbetSubgraphData,
 } from "../utils/graphql/queries";
-import { processSettledBetsData } from "../utils/utility";
+import { processSettledBetsData } from "../utils/utils";
 
 const SubgraphContext = createContext<SubgraphContextType>({
   subgraph: undefined,

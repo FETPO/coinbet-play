@@ -1,6 +1,6 @@
 import React from "react";
 import { useWalletContext } from "../../../context/wallet.context";
-import { formatBigNumber } from "../../../utils/utility";
+import { formatBigNumber } from "../../../utils/utils";
 import Button from "../../Button/Button";
 import { ChevronIcon } from "../../svgs/ChevronIcon";
 import { MaticIcon } from "../../svgs/MaticIcon";
