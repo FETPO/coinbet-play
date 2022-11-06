@@ -130,9 +130,27 @@ const RewardPool = () => {
               <div>0.00%</div>
             </div>
             <div className={styles["staked-balance"]}>
-              <div>Staked balance</div>
+              <div>My staked balance</div>
               <div>
                 {formatBigNumber(BigNumber.from(userLpBalanceMatic))} MATIC
+              </div>
+            </div>
+            <div className={styles["epoch-term"]}>
+              <div>Epoch Term</div>
+              <div>
+                { `Nov 7 - Nov 13 2022` }
+              </div>
+            </div>
+            <div className={styles["epoch-ends"]}>
+              <div>Epoch ends in</div>
+              <div>
+                { `2d 21h 59m 23s` }
+              </div>
+            </div>
+            <div className={styles["epoch-period"]}>
+              <div>Period</div>
+              <div style={{color: "#00CE9D"}}>
+                { `Epoch Running` }
               </div>
             </div>
             <div className={styles["actions"]}>

@@ -132,7 +132,7 @@
         }
       }
 
-      .staked-balance {
+      .staked-balance, .epoch-term, .epoch-ends, .epoch-period {
         display: flex;
         align-items: center;
         justify-content: space-between;
