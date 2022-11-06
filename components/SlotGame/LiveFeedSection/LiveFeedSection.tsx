@@ -23,7 +23,7 @@ const LiveFeedSection = ({ collapseDown }: ILiveFeedSectionProps) => {
             className={selectedTabIndex === 0 ? styles["active"] : ""}
             onClick={() => setSelectedTabIndex(0)}
           >
-            All Rolls
+            All Bets
           </h3>
           <h3
             className={selectedTabIndex === 1 ? styles["active"] : ""}
@@ -35,7 +35,7 @@ const LiveFeedSection = ({ collapseDown }: ILiveFeedSectionProps) => {
             className={selectedTabIndex === 2 ? styles["active"] : ""}
             onClick={() => setSelectedTabIndex(2)}
           >
-            My Rolls
+            My Bets
           </h3>
         </div>
       </div>

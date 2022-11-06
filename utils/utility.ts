@@ -6,7 +6,7 @@ import NFT3 from "../assets/images/Doodles_6914.png";
 import NFT4 from "../assets/images/MAYC_4849.png";
 import NFT5 from "../assets/images/PUNK_5822.png";
 import NFT6 from "../assets/images/BAYC_8817.png";
-import uuid  from 'react-uuid';
+import uuid from "react-uuid";
 import { formatAddress } from "./format";
 // truncates an address
 export function truncateAddress(acc: string): string {
@@ -74,9 +74,11 @@ export const processSettledBetsData = (bets: any[]) => {
     return {
       id: uuid(),
       playerAddress: formatAddress(bet.player),
+      fullAddress: bet.player,
       payout: constructPayout(bet.reward),
       date: constructDate(bet.timestamp),
       results: constructReels(bet.first, bet.second, bet.third),
+      isJackpot: isJackpot(bet.first, bet.second, bet.third),
     };
   });
 };
@@ -115,4 +117,12 @@ export const constructReels = (
       imageURL: reelMapping[parseInt(third) - 1],
     },
   ];
+};
+
+export const isJackpot = (first: string, second: string, third: string) => {
+  if (first == second && second == third) {
+    return true;
+  } else {
+    return false;
+  }
 };

@@ -1,7 +1,6 @@
 import Image from "next/image";
 import React from "react";
 import { useSubgraphContext } from "../../../../context/subgraph.context";
-import { AllRollsDummyData } from "../../../../utils/dummyData/all-rolls";
 import { formatAddress } from "../../../../utils/format";
 import { MaticIcon } from "../../../svgs/MaticIcon";
 import styles from "./AllRolls.module.scss";
@@ -11,7 +10,7 @@ interface IAllRollsProps {
 }
 
 const AllRolls = ({ collapseDown }: IAllRollsProps) => {
-  const {subgraph } = useSubgraphContext();
+  const { subgraph } = useSubgraphContext();
 
   return (
     <div className={styles["all-rolls-table"]}>

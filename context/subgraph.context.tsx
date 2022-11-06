@@ -49,7 +49,7 @@ export const SubgraphContextWrapper: FC<{ children: ReactNode }> = ({
     };
 
     initSubgraph();
-  }, [wallet]);
+  }, [wallet?.address]);
 
   return (
     <SubgraphContext.Provider

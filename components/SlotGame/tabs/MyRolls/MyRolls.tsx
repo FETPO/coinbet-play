@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
-import { MyRollsDummyData } from "../../../../utils/dummyData/my-rolls";
+import { useSubgraphContext } from "../../../../context/subgraph.context";
+import { useWalletContext } from "../../../../context/wallet.context";
 import { formatAddress } from "../../../../utils/format";
 import { MaticIcon } from "../../../svgs/MaticIcon";
 import styles from "./MyRolls.module.scss";
@@ -10,7 +11,8 @@ interface IMyRollsProps {
 }
 
 const MyRolls = ({ collapseDown }: IMyRollsProps) => {
-  let rollsData = MyRollsDummyData();
+  const { subgraph } = useSubgraphContext();
+  const { wallet } = useWalletContext();
 
   return (
     <div className={styles["my-rolls-table"]}>
@@ -27,30 +29,34 @@ const MyRolls = ({ collapseDown }: IMyRollsProps) => {
           collapseDown ? styles["collapseDown"] : ""
         }`}
       >
-        {rollsData.map((roll, index) => {
-          return (
-            <div
-              className={`${styles["tr"]} ${
-                index % 2 === 0 ? "" : styles["odd"]
-              }`}
-              key={roll.id}
-            >
-              <div className={styles["td"]}>
-                {formatAddress(roll.playerAddress)}
+        {wallet && subgraph?.settledBets
+          ?.filter((val) => {
+            return val.fullAddress == wallet?.address;
+          })
+          .map((roll, index) => {
+            return (
+              <div
+                className={`${styles["tr"]} ${
+                  index % 2 === 0 ? "" : styles["odd"]
+                }`}
+                key={roll.id}
+              >
+                <div className={styles["td"]}>
+                  {formatAddress(roll.playerAddress)}
+                </div>
+                <div className={styles["td"]}>
+                  {roll.results.map((r: any) => {
+                    return <Image src={r.imageURL} alt="NFT" key={r.id} />;
+                  })}
+                </div>
+                <div className={styles["td"]}>{roll.date}</div>
+                <div className={styles["td"]}>
+                  <MaticIcon />
+                  <h3>{roll.payout}</h3>
+                </div>
               </div>
-              <div className={styles["td"]}>
-                {roll.results.map((r) => {
-                  return <Image src={r.imageURL} alt="NFT" key={r.id} />;
-                })}
-              </div>
-              <div className={styles["td"]}>{roll.date}</div>
-              <div className={styles["td"]}>
-                <MaticIcon />
-                <h3>{roll.payout}</h3>
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
     </div>
   );
