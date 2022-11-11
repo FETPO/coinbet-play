@@ -30,8 +30,8 @@ import slotConfig from "../../../coinbet.config.json";
 import { useSubgraphContext } from "../../../context/subgraph.context";
 import uuid from "react-uuid";
 import { formatAddress } from "../../../utils/format";
+import gsap from "gsap";
 
-// TODO :: Refactor to get alchemy provider from separate context
 const settings = {
   apiKey: `${process.env.ALCHEMY_API_KEY}`,
   network: Network.MATIC_MUMBAI,
@@ -48,21 +48,10 @@ const CoinbetSlotsSection = () => {
     MAYC_IMG,
     Moonbirds_IMG,
     PUNK_IMG,
-    BAYC_IMG,
-    CBD_IMG,
-    Doodles_IMG,
-    MAYC_IMG,
-    Moonbirds_IMG,
-    PUNK_IMG,
-    BAYC_IMG,
-    CBD_IMG,
-    Doodles_IMG,
-    MAYC_IMG,
-    Moonbirds_IMG,
-    PUNK_IMG,
   ];
 
   const [bet, setBet] = useState({});
+  const [spin, setSpin] = useState(new gsap.core.Timeline);
 
   const { contracts } = useContractsContext();
   const { updateBalance, wallet } = useWalletContext();
@@ -97,43 +86,24 @@ const CoinbetSlotsSection = () => {
     let slots: any = document.querySelectorAll(".slot");
 
     for (const slot of slots) {
-      if (firstInit) {
-        slot.dataset.spinned = "0";
-      }
 
       const boxes = slot.querySelector(".boxes");
       const boxesClone = boxes.cloneNode(false);
       const pool = [];
 
-      // if (!firstInit) {
       const arr = [];
       for (let n = 0; n < (groups > 0 ? groups : 1); n++) {
         arr.push(...items);
       }
       pool.push(...shuffle(arr));
-
-      boxesClone.addEventListener(
-        "transitionstart",
-        function () {
-          slot.dataset.spinned = "1";
-          // boxesClone.querySelectorAll(".box").forEach((box: HTMLElement) => {
-          //   box.style.filter = "blur(1px)";
-          // });
-        }
-        // { once: true }
-      );
-
-      // boxesClone.addEventListener("transitionend", function () {
-      //   setTimeout(() => setShowCongratulationModal(true), 1000);
-      // });
-      // }
+      // pool.push(...arr);
 
       for (let i = pool.length - 1; i >= 0; i--) {
         const img: HTMLImageElement = document.createElement("img");
         img.src = pool[i].src;
         img.style.width = "100%";
         img.style.height = "100%";
-        img.style.borderRadius = "12px";
+        img.style.objectFit = 'cover'
         const box = document.createElement("div");
         box.classList.add("box");
         box.style.width = slot.clientWidth + "px";
@@ -144,31 +114,50 @@ const CoinbetSlotsSection = () => {
         box.appendChild(img);
         boxesClone.appendChild(box);
       }
-      boxesClone.style.transitionDuration = `${duration > 0 ? duration : 1}s`;
-      if (firstInit) {
-        boxesClone.style.transform = `translateY(${slot.clientHeight / 2}px)`;
-      } else {
-        boxesClone.style.transform = `translateY(-${
-          slot.clientHeight * (pool.length - 8)
-        }px)`;
-      }
+      boxesClone.style.transform = `translateY(${slot.clientHeight / 2}px)`;
+
       slot.replaceChild(boxesClone, boxes);
     }
   };
 
   const handleSpin = async () => {
-    init(false, 1, 2);
-
-    let slots: any = document.querySelectorAll(".slot");
-    if (slots && slots.length) {
-      for (const slot of slots) {
-        const boxes: HTMLElement = slot.querySelector(".boxes");
-        const duration = parseInt(boxes.style.transitionDuration);
-        boxes.style.transform = `translateY(${slot.clientHeight / 2}px)`;
-        await new Promise((resolve) => setTimeout(resolve, duration * 100));
-      }
-    }
+    setSpin(verticalLoop(".boxes .box", 1500).play())
   };
+
+  // speed can be positive or negative (in pixels per second)
+  function verticalLoop(elements: any, speed: any) {
+    elements = gsap.utils.toArray(elements);
+    let firstBounds = elements[0].getBoundingClientRect(),
+      lastBounds = elements[elements.length - 1].getBoundingClientRect(),
+      top = firstBounds.top - firstBounds.height - Math.abs(elements[1].getBoundingClientRect().top - firstBounds.bottom),
+      bottom = lastBounds.top,
+      distance = bottom - top,
+      duration = Math.abs(distance / speed),
+      tl = gsap.timeline({ repeat: -1 }),
+      plus = speed < 0 ? "-=" : "+=",
+      minus = speed < 0 ? "+=" : "-=";
+    elements.forEach((el: any) => {
+      let bounds = el.getBoundingClientRect(),
+        ratio = Math.abs((bottom - bounds.top) / distance);
+      if (speed < 0) {
+        ratio = 1 - ratio;
+      }
+      tl.to(el, {
+        y: plus + distance * ratio,
+        duration: duration * ratio,
+        ease: "none",
+      }, 0);
+      tl.fromTo(el, {
+        y: minus + distance
+      }, {
+        y: plus + (1 - ratio) * distance,
+        ease: "none",
+        duration: (1 - ratio) * duration,
+        immediateRender: false
+      }, duration * ratio)
+    });
+    return tl;
+  }
 
   useEffect(() => {
     // Define the event which Alchemy should listen to
@@ -219,6 +208,8 @@ const CoinbetSlotsSection = () => {
         } else {
           console.log("You lose!");
         }
+        spin.pause();
+        init(false, 1, 2);
       });
     }
     return () => {
@@ -230,9 +221,9 @@ const CoinbetSlotsSection = () => {
     const coinbetTxn = await contracts?.coinbetSlotGame.coinbet({
       value: "10000000000000000",
     });
-    setTimeout(handleSpin, 100);
+    handleSpin();
     await coinbetTxn.wait();
-    setTimeout(updateBalance, 100);
+    updateBalance();
   };
 
   const onModalClose = async () => {
