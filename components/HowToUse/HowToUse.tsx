@@ -26,13 +26,13 @@ const HowToUse = () => {
                 className={selectedTabIndex === 0 ? styles["active"] : ""}
                 onClick={() => setSelectedTabIndex(0)}
               >
-                Info for Rewards Providers
+                Rewards Providers
               </h3>
               <h3
                 className={selectedTabIndex === 1 ? styles["active"] : ""}
                 onClick={() => setSelectedTabIndex(1)}
               >
-                Info for Players
+                Players
               </h3>
             </div>
             <div className={styles["tab-content"]}>

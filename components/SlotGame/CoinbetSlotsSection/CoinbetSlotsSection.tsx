@@ -121,7 +121,7 @@ const CoinbetSlotsSection = () => {
   };
 
   const handleSpin = async () => {
-    setSpin(verticalLoop(".boxes .box", 1500).play())
+    setSpin(verticalLoop(".boxes .box", 3000).play())
   };
 
   // speed can be positive or negative (in pixels per second)
@@ -307,15 +307,15 @@ const CoinbetSlotsSection = () => {
       </div>
       <div className={styles["coinbet-slots-footer"]}>
         <div>
-          <h3>Spins</h3>
+          <h3>Total Spins</h3>
           <p>{subgraph?.betStatistics?.totalBets || 0}</p>
         </div>
         <div>
-          <h3>Players</h3>
+          <h3>Degens Playing</h3>
           <p>{subgraph?.betStatistics?.playersCount || 0}</p>
         </div>
         <div>
-          <h3>Volume</h3>
+          <h3>Total Volume</h3>
           <p>
             <MaticIcon />
             {ethers.utils.commify(
@@ -329,7 +329,7 @@ const CoinbetSlotsSection = () => {
           </p>
         </div>
         <div>
-          <h3>Rewards</h3>
+          <h3>Rewards Paid</h3>
           <p>
             <MaticIcon />
             {ethers.utils.commify(

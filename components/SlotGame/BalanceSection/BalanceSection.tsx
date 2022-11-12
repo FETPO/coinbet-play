@@ -28,14 +28,14 @@ const BalanceSection = ({
     <div className={styles["balance-section"]}>
       <div className={styles["main"]}>
         <div className={styles["main-left"]}>
-          <div>
+          {/* <div>
             <h3>Your Balancе</h3>
             <p>
               <MaticIcon />
               {formatBigNumber(wallet?.balance)}
             </p>
           </div>
-          <div className={styles["divider"]}></div>
+          <div className={styles["divider"]}></div> */}
           <div>
             <h3>Min Bet</h3>
             <p>
@@ -57,7 +57,7 @@ const BalanceSection = ({
           </div>
           <div className={styles["divider"]}></div>
           <div>
-            <h3>Max Spins</h3>
+            <h3>Spins</h3>
             <p>
               {(
                 parseFloat(ethers.utils.formatUnits(wallet?.balance || 0, 18)) /
