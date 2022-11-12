@@ -31,6 +31,7 @@ import { useSubgraphContext } from "../../../context/subgraph.context";
 import uuid from "react-uuid";
 import { formatAddress } from "../../../utils/format";
 import gsap from "gsap";
+import { usePolygonScanContext } from "../../../context/polygonscan.context";
 
 const settings = {
   apiKey: `${process.env.ALCHEMY_API_KEY}`,
@@ -56,6 +57,7 @@ const CoinbetSlotsSection = () => {
   const { contracts } = useContractsContext();
   const { updateBalance, wallet } = useWalletContext();
   const { subgraph, updateBetsData } = useSubgraphContext();
+  const { polygonScanData } = usePolygonScanContext();
 
   const startAudio = () => {
     var audio = document.getElementById("spinAudio") as HTMLAudioElement;
@@ -220,6 +222,7 @@ const CoinbetSlotsSection = () => {
   const handleSpinTxn = async () => {
     const coinbetTxn = await contracts?.coinbetSlotGame.coinbet({
       value: "10000000000000000",
+      gasPrice: ethers.utils.parseUnits(polygonScanData?.gasPrice || '10000000000', 'gwei').toString()
     });
     handleSpin();
     await coinbetTxn.wait();
