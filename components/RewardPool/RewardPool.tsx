@@ -61,7 +61,7 @@ const RewardPool = () => {
       );
       const totalSupply = await contracts?.coinbetHousePool.totalSupply();
       const formatedUserLpBalance =
-        (await contracts?.coinbetHousePool.callStatic.removeRewardsLiquidity(
+        (await contracts?.coinbetHousePool.convertLiquidityToStakedToken(
           lpBalance
         )) || "0";
 
@@ -198,15 +198,15 @@ const RewardPool = () => {
           </div>
           <div className={styles["reward-pool-footer"]}>
             <div>
-              <h3>Your Rewards</h3>
+              <h3>My Balance</h3>
               <p>
                 <MaticIcon />
-                0.00
+                {formatBigNumber(BigNumber.from(userLpBalanceMatic))}
               </p>
             </div>
             <div>
               <Button variant="primary" size="medium">
-                Claim Rewards
+                Withdraw
               </Button>
             </div>
           </div>

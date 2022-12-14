@@ -27,7 +27,7 @@ export const AlchemyContextWrapper: FC<{ children: ReactNode }> = ({
     const initCoinbetGameData = async () => {
       // Init Alchemy Provider
       const alchemyProvider = new ethers.providers.AlchemyProvider(
-        "maticmum",
+        `${process.env.ALCHEMY_NETWORK}`,
         `${process.env.ALCHEMY_API_KEY}`
       );
       // Init contract to fetch data

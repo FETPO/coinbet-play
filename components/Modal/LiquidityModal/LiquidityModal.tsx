@@ -46,14 +46,14 @@ const LiquidityModal = ({
   useEffect(() => {
     const getMaticEquivalentAmount = async () => {
       let maticEquivalentAmount =
-        (await contracts?.coinbetHousePool.callStatic.removeRewardsLiquidity(
+        (await contracts?.coinbetHousePool.convertLiquidityToStakedToken(
           userLpTokenBalance
         )) || "0";
       setMaticEquivalentAmount(maticEquivalentAmount.toString());
     };
 
     getMaticEquivalentAmount();
-  }, [contracts?.coinbetHousePool.callStatic, userLpTokenBalance]);
+  }, [contracts?.coinbetHousePool, userLpTokenBalance]);
 
   const handleChange = (value: string) => {
     setLiquidityValue(value);
