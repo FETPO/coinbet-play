@@ -29,9 +29,10 @@ import {
 import slotConfig from "../../../coinbet.config.json";
 import { useSubgraphContext } from "../../../context/subgraph.context";
 import uuid from "react-uuid";
-import { formatAddress } from "../../../utils/format";
+import { formatAddress, formatErrorString } from "../../../utils/format";
 import gsap from "gsap";
 import { usePolygonScanContext } from "../../../context/polygonscan.context";
+import ErrorModal from "../../Modal/StatusModals/ErrorModal/ErrorModal";
 
 const settings = {
   apiKey: `${process.env.ALCHEMY_API_KEY}`,
@@ -41,6 +42,8 @@ const alchemy = new Alchemy(settings);
 
 const CoinbetSlotsSection = () => {
   const [showCongratulationModal, setShowCongratulationModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorModalMessage, setErrorModalMessage] = useState("");
   const [volumeOn, setVolumeOn] = useState(false);
   const items = [
     BAYC_IMG,
@@ -220,13 +223,18 @@ const CoinbetSlotsSection = () => {
   }, [wallet]);
 
   const handleSpinTxn = async () => {
-    const coinbetTxn = await contracts?.coinbetSlotGame.coinbet({
-      value: "10000000000000000",
-      gasPrice: ethers.utils.parseUnits(polygonScanData?.gasPrice || '10000000000', 'gwei').toString()
-    });
-    handleSpin();
-    await coinbetTxn.wait();
-    updateBalance();
+    try {
+      const coinbetTxn = await contracts?.coinbetSlotGame.coinbet({
+        value: "10000000000000000",
+        gasPrice: ethers.utils.parseUnits(polygonScanData?.gasPrice || '10000000000', 'gwei').toString()
+      });
+      handleSpin();
+      await coinbetTxn.wait();
+      updateBalance();
+    } catch (error: any) {
+      setShowErrorModal(true);
+      setErrorModalMessage(formatErrorString(error.reason));
+    }
   };
 
   const onModalClose = async () => {
@@ -351,6 +359,12 @@ const CoinbetSlotsSection = () => {
         onClose={() => setShowCongratulationModal(false)}
       >
         <CongratulationModal onClose={() => onModalClose()} bet={bet} />
+      </Modal>
+      <Modal
+        open={showErrorModal}
+        onClose={() => setShowErrorModal(false)}
+      >
+        <ErrorModal onClose={() => { setShowErrorModal(false); setErrorModalMessage("") }} errorMessage={errorModalMessage} />
       </Modal>
     </div>
   );

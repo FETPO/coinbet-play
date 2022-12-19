@@ -11,10 +11,12 @@ import { useWalletContext } from "../../../context/wallet.context";
 import { formatBigNumber, formatUsdPrice } from "../../../utils/utils";
 import { usePolygonScanContext } from "../../../context/polygonscan.context";
 import slotConfig from "../../../coinbet.config.json";
+import { formatErrorString } from "../../../utils/format";
 
 interface ILiquidityModalProps {
   onClose: () => void;
   onLoading: () => Promise<void>;
+  onError: (errorMessage: string) => Promise<void>;
   type: "add" | "remove";
   userPercentOfPool: string;
   housePoolBalance: string;
@@ -25,6 +27,7 @@ interface ILiquidityModalProps {
 const LiquidityModal = ({
   onClose,
   onLoading,
+  onError,
   type,
   userPercentOfPool,
   housePoolBalance,
@@ -105,23 +108,31 @@ const LiquidityModal = ({
   };
 
   const handleAddRewardsLiquidityTxn = async () => {
-    const addRewardsLiqidityTxn =
-      await contracts?.coinbetHousePool.addRewardsLiquidity({
-        value: ethers.utils.parseEther(liquidityValue),
-      });
+    try {
+      const addRewardsLiqidityTxn =
+        await contracts?.coinbetHousePool.addRewardsLiquidity({
+          value: ethers.utils.parseEther(liquidityValue),
+        });
       onLoading();
-    await addRewardsLiqidityTxn.wait();
-    onClose();
+      await addRewardsLiqidityTxn.wait();
+      onClose();
+    } catch (error: any) {
+      onError(error.reason);
+    }
   };
 
   const handleWithdrawRewardsLiquidityTxn = async () => {
-    const withdrawRewardsLiqidityTxn =
-      await contracts?.coinbetHousePool.removeRewardsLiquidity(
-        userLpBalanceToWithdraw
-      );
+    try {
+      const withdrawRewardsLiqidityTxn =
+        await contracts?.coinbetHousePool.removeRewardsLiquidity(
+          userLpBalanceToWithdraw
+        );
       onLoading();
-    await withdrawRewardsLiqidityTxn.wait();
-    onClose();
+      await withdrawRewardsLiqidityTxn.wait();
+      onClose();
+    } catch (error: any) {
+      onError(formatErrorString(error.reason));
+    }
   };
 
   return (

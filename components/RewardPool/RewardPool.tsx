@@ -21,10 +21,14 @@ import { useContractsContext } from "../../context/contract.context";
 import { useWalletContext } from "../../context/wallet.context";
 import { useAlchemyContext } from "../../context/alchemy.context";
 import LoadingModal from "../Modal/StatusModals/LoadingModal/LoadingModal";
+import ErrorModal from "../Modal/StatusModals/ErrorModal/ErrorModal";
+import { formatErrorString } from "../../utils/format";
 
 const RewardPool = () => {
   const [showAddLiquidityModal, setShowAddLiquidityModal] = useState(false);
   const [showLoadingModal, setShowLoadingModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorModalMessage, setErrorModalMessage] = useState("");
   const [showRemoveLiquidityModal, setShowRemoveLiquidityModal] =
     useState(false);
   const [housePoolBalance, setHousePoolBalance] = useState("0");
@@ -110,15 +114,26 @@ const RewardPool = () => {
     setShowLoadingModal(true);
   };
 
+  const handleShowErrorModal = async (errorMessage: string) => {
+    setShowErrorModal(true);
+    setErrorModalMessage(errorMessage);
+  };
+
   const withdrawBalance = async () => {
     console.log(userLpBalance);
-    const withdrawRewardsLiqidityTxn =
-      await contracts?.coinbetHousePool.removeRewardsLiquidity(
-        userLpBalance
-      );
+    try {
+      const withdrawRewardsLiqidityTxn =
+        await contracts?.coinbetHousePool.removeRewardsLiquidity(
+          userLpBalance
+        );
       setShowLoadingModal(true);
-    await withdrawRewardsLiqidityTxn.wait();
-    setShowLoadingModal(false);
+      await withdrawRewardsLiqidityTxn.wait();
+      setShowLoadingModal(false);
+    } catch (error: any) {
+      setShowErrorModal(true);
+      setErrorModalMessage(formatErrorString(error.reason));
+    }
+
   };
 
   return (
@@ -226,6 +241,7 @@ const RewardPool = () => {
           <LiquidityModal
             onClose={() => handleModalClose()}
             onLoading={handleShowLoadingModal}
+            onError={(errorMsg) => handleShowErrorModal(errorMsg)}
             type="add"
             userPercentOfPool={userPercentOfPool}
             housePoolBalance={housePoolBalance}
@@ -240,6 +256,7 @@ const RewardPool = () => {
           <LiquidityModal
             onClose={() => handleModalClose()}
             onLoading={handleShowLoadingModal}
+            onError={(errorMsg) => handleShowErrorModal(errorMsg)}
             type="remove"
             userPercentOfPool={userPercentOfPool}
             housePoolBalance={housePoolBalance}
@@ -252,6 +269,12 @@ const RewardPool = () => {
           onClose={() => setShowLoadingModal(false)}
         >
           <LoadingModal onClose={() => onLoadingModalClose()} />
+        </Modal>
+        <Modal
+          open={showErrorModal}
+          onClose={() => setShowErrorModal(false)}
+        >
+          <ErrorModal onClose={() => { setShowErrorModal(false); setErrorModalMessage("") }} errorMessage={errorModalMessage} />
         </Modal>
       </div>
     </>
