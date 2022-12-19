@@ -12,7 +12,7 @@ export default function App(props: AppProps) {
   const { Component, pageProps } = props;
 
   return (
-    <ThemeProvider>
+    <ThemeProvider defaultTheme="dark">
       <PolygonScanContextWrapper>
         <WalletContextWrapper>
           <AlchemyContextWrapper>
