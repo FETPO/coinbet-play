@@ -13,5 +13,6 @@ export type WalletContextType = {
   connectWallet: () => Promise<void>
   disconnectWallet: () => void
   updateBalance: () => Promise<void>
+  switchChain: () => Promise<void>
   wallet: WalletType | undefined
 }

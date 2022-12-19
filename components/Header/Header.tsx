@@ -5,7 +5,7 @@ import Navbar from "./Navbar/Navbar";
 import ConnectWallet from "./ConnectWallet/ConnectWallet";
 import AmountOnWallet from "./AmountOnWallet/AmountOnWallet";
 import Dropdown from "../Dropdown/Dropdown";
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { EthIcon } from "../svgs/EthIcon";
 import { MaticIcon } from "../svgs/MaticIcon";
 import { BSCIcon } from "../svgs/BSCIcon";
@@ -18,6 +18,8 @@ import { MiniLogoIcon } from "../svgs/MiniLogoIcon";
 import DropdownMenu from "./DropdownMenu/DropdownMenu";
 import { useWalletContext } from "../../context/wallet.context";
 import { usePolygonScanContext } from "../../context/polygonscan.context";
+import Modal from "../Modal/Modal";
+import WrongNetworkModal from "../Modal/WrongNetworkModal/WrongNetworkModal";
 
 const Header = () => {
   const router = useRouter();
@@ -66,8 +68,23 @@ const Header = () => {
     dropdownOptions[0]
   );
   const [selectedWallet, setSelectedWallet] = useState<IOption | null>(availableWallets[0]);
+  const [showWrongNetworkModal, setShowWrongNetworkModal] = useState(false);
   const { wallet } = useWalletContext();
   const { polygonScanData } = usePolygonScanContext();
+
+  useEffect(() => {
+    if (wallet?.chainId) {
+      if (wallet.chainId !== parseInt(process.env.CHAIN_ID || "")) {
+        setShowWrongNetworkModal(true);
+      } else {
+        setShowWrongNetworkModal(false);
+      }
+    }
+  }, [wallet?.chainId]);
+
+  const onModalClose = async () => {
+    setShowWrongNetworkModal(false);
+  };
 
   return (
     <div className={styles["header-wrapper"]}>
@@ -105,6 +122,12 @@ const Header = () => {
           <DropdownMenu />
         </div>
       </div>
+      <Modal
+        open={showWrongNetworkModal}
+        onClose={() => setShowWrongNetworkModal(false)}
+      >
+        <WrongNetworkModal onClose={() => onModalClose()} />
+      </Modal>
     </div>
   );
 };

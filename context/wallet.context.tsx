@@ -2,13 +2,15 @@ import { createContext, useContext, useState, useEffect } from "react";
 import type { FC, ReactNode } from "react";
 import Web3Modal from "web3modal";
 import { ethers } from "ethers";
-import { hexToDecimal } from "../utils/utils";
+import { decimalToHex, hexToDecimal } from "../utils/utils";
 import type { WalletContextType, WalletType } from "../types/wallet";
+import { supportedNetworks } from "../utils/supportedNetworks";
 
 const WalletContext = createContext<WalletContextType>({
-  connectWallet: async () => {},
-  disconnectWallet: () => {},
-  updateBalance: async () => {},
+  connectWallet: async () => { },
+  disconnectWallet: () => { },
+  updateBalance: async () => { },
+  switchChain: async () => { },
   wallet: undefined,
 });
 
@@ -90,7 +92,39 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
       web3Modal?.clearCachedProvider();
       setWallet(undefined);
       localStorage.removeItem("coinbet-wallet");
-    } catch (error) {}
+    } catch (error) { }
+  };
+
+  const switchChain = async () => {
+    const { ethereum } = window;
+    try {
+      await ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: `0x${decimalToHex(parseInt(process.env.CHAIN_ID || ""))}` }],
+      });
+
+    } catch (switchError: any) {
+      // This error code indicates that the chain has not been added to MetaMask.
+      if (switchError.code === 4902) {
+        try {
+          const networkToAdd = supportedNetworks.find(network => network.chainId == parseInt(process.env.CHAIN_ID || ""));
+          await ethereum.request({
+            method: 'wallet_addEthereumChain',
+            params: [
+              {
+                chainId: `0x${decimalToHex(parseInt(process.env.CHAIN_ID || ""))}`,
+                chainName: networkToAdd?.chainName,
+                rpcUrls: networkToAdd?.rpcUrls,
+              },
+            ],
+          });
+        } catch (addError) {
+          console.log("Error setting network")
+        }
+      }
+    }
+
+    await connectWallet();
   };
 
   useEffect(() => {
@@ -138,6 +172,7 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
         connectWallet,
         disconnectWallet,
         updateBalance,
+        switchChain
       }}
     >
       {children}

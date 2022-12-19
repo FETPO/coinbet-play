@@ -9,7 +9,8 @@ const nextConfig = {
     COINBET_HOUSE_POOL_CONTRACT: process.env.COINBET_HOUSE_POOL_CONTRACT,
     ALCHEMY_API_KEY: process.env.ALCHEMY_API_KEY,
     COINBET_SUBGRAPH: process.env.COINBET_SUBGRAPH,
-    ALCHEMY_NETWORK: process.env.ALCHEMY_NETWORK
+    ALCHEMY_NETWORK: process.env.ALCHEMY_NETWORK,
+    CHAIN_ID: process.env.CHAIN_ID,
   },
 }
 
