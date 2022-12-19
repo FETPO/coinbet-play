@@ -27,21 +27,21 @@ const Header = () => {
       name: "Polygon",
       icon: <MaticIcon />,
     },
-    {
-      id: useId(),
-      name: "Ethereum",
-      icon: <EthIcon />,
-    },
-    {
-      id: useId(),
-      name: "BSC Mainnet",
-      icon: <BSCIcon />,
-    },
-    {
-      id: useId(),
-      name: "Avalance",
-      icon: <AvalancheIcon />,
-    },
+    // {
+    //   id: useId(),
+    //   name: "Ethereum",
+    //   icon: <EthIcon />,
+    // },
+    // {
+    //   id: useId(),
+    //   name: "BSC Mainnet",
+    //   icon: <BSCIcon />,
+    // },
+    // {
+    //   id: useId(),
+    //   name: "Avalanche",
+    //   icon: <AvalancheIcon />,
+    // },
   ];
 
   const availableWallets = [
@@ -50,16 +50,16 @@ const Header = () => {
       name: "MetaMask",
       icon: <MiniMetamaskIcon />,
     },
-    {
-      id: useId(),
-      name: "Coinbase Wallet",
-      icon: <MiniCoinbaseIcon />,
-    },
-    {
-      id: useId(),
-      name: "WalletConnect",
-      icon: <MiniWalletConnectIcon />,
-    },
+    // {
+    //   id: useId(),
+    //   name: "Coinbase Wallet",
+    //   icon: <MiniCoinbaseIcon />,
+    // },
+    // {
+    //   id: useId(),
+    //   name: "WalletConnect",
+    //   icon: <MiniWalletConnectIcon />,
+    // },
   ];
 
   const [selectedOption, setSelectedOption] = useState<IOption>(
