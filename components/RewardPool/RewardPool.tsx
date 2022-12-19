@@ -110,6 +110,17 @@ const RewardPool = () => {
     setShowLoadingModal(true);
   };
 
+  const withdrawBalance = async () => {
+    console.log(userLpBalance);
+    const withdrawRewardsLiqidityTxn =
+      await contracts?.coinbetHousePool.removeRewardsLiquidity(
+        userLpBalance
+      );
+      setShowLoadingModal(true);
+    await withdrawRewardsLiqidityTxn.wait();
+    setShowLoadingModal(false);
+  };
+
   return (
     <>
       <Head>
@@ -205,7 +216,7 @@ const RewardPool = () => {
               </p>
             </div>
             <div>
-              <Button variant="primary" size="medium">
+              <Button variant="primary" size="medium" onClick={withdrawBalance}>
                 Withdraw
               </Button>
             </div>
