@@ -185,6 +185,33 @@
           grid-column: 1/4;
         }
       }
+      .bet-actions {
+        display: flex;
+        grid-column: 2/3;
+        background-color: var(--deposit-modal-content-background-color);
+        padding: 7px;
+        border-radius: 12px;
+        justify-content: space-between;
+
+        .bet-count {
+          display: grid;
+          grid-column: 2/3;
+          grid-template-columns: 1fr 1fr;
+          grid-gap: 5px;
+          align-items: center;
+          justify-items: center;
+          font-size: 18px;
+          font-weight: 700;
+          svg {
+            width: 24px;
+            height: 24px;
+          }
+        }
+
+        @include sm {
+          grid-column: 1/4;
+        }
+      }
     }
 
     @include sm {

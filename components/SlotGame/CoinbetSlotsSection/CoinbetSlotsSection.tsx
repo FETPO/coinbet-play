@@ -33,6 +33,8 @@ import { formatAddress, formatErrorString } from "../../../utils/format";
 import gsap from "gsap";
 import { usePolygonScanContext } from "../../../context/polygonscan.context";
 import ErrorModal from "../../Modal/StatusModals/ErrorModal/ErrorModal";
+import { PlusIcon } from "../../svgs/PlusIcon";
+import { MinusIcon } from "../../svgs/MinusIcon";
 
 const settings = {
   apiKey: `${process.env.ALCHEMY_API_KEY}`,
@@ -56,6 +58,8 @@ const CoinbetSlotsSection = () => {
 
   const [bet, setBet] = useState({});
   const [spin, setSpin] = useState(new gsap.core.Timeline);
+
+  const [betAmount, setBetAmount] = useState(1);
 
   const { contracts } = useContractsContext();
   const { updateBalance, wallet } = useWalletContext();
@@ -225,7 +229,7 @@ const CoinbetSlotsSection = () => {
   const handleSpinTxn = async () => {
     try {
       const coinbetTxn = await contracts?.coinbetSlotGame.coinbet({
-        value: "10000000000000000",
+        value: ethers.utils.parseUnits(betAmount.toString(), 'ether'),
         gasPrice: ethers.utils.parseUnits(polygonScanData?.gasPrice || '10000000000', 'gwei').toString()
       });
       handleSpin();
@@ -247,6 +251,18 @@ const CoinbetSlotsSection = () => {
       `https://polygonscan.com/address/${process.env.COINBET_SLOT_GAME_CONTRACT}`
     );
   };
+
+  const updateBetAmount = async (operation: string) => {
+    if (operation == "add") {
+      setBetAmount(betAmount + 1);
+    } else if (operation == "subtract"){
+      if (betAmount <= 1) {
+        setBetAmount(betAmount);
+      } else {
+        setBetAmount(betAmount - 1);
+      }
+    }
+  }
 
   return (
     <div className={styles["coinbet-slots-section"]}>
@@ -313,6 +329,29 @@ const CoinbetSlotsSection = () => {
             <Button variant="primary" size="large" onClick={handleSpinTxn}>
               Spin Now
             </Button>
+          </div>
+          <div className={styles["bet-actions"]}>
+            <div>              
+              <Button
+              variant="secondary"
+              size="medium"
+              icon={<MinusIcon />}
+              onClick={() => {updateBetAmount("subtract")}}
+            >
+            </Button>
+            </div>
+            <div className={styles["bet-count"]}>
+              <MaticIcon />
+              { betAmount }
+            </div>
+            <div>
+              <Button
+                variant="secondary"
+                size="medium"
+                icon={<PlusIcon />}
+                onClick={() => {updateBetAmount("add") }}
+              >
+              </Button></div>
           </div>
         </div>
       </div>
