@@ -146,7 +146,7 @@ export const constructPayout = (payout: string) => {
   if (payout == "0") {
     return "0";
   } else {
-    return parseFloat(ethers.utils.formatUnits(payout, 18)).toFixed(3);
+    return parseFloat(ethers.utils.formatUnits(payout, 18)).toFixed(2);
   }
 };
 

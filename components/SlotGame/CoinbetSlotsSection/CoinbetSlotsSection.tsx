@@ -38,7 +38,7 @@ import { MinusIcon } from "../../svgs/MinusIcon";
 
 const settings = {
   apiKey: `${process.env.ALCHEMY_API_KEY}`,
-  network: Network.MATIC_MUMBAI,
+  network: Network.MATIC_MAINNET,
 };
 const alchemy = new Alchemy(settings);
 
@@ -229,8 +229,7 @@ const CoinbetSlotsSection = () => {
   const handleSpinTxn = async () => {
     try {
       const coinbetTxn = await contracts?.coinbetSlotGame.coinbet({
-        value: ethers.utils.parseUnits(betAmount.toString(), 'ether'),
-        gasPrice: ethers.utils.parseUnits(polygonScanData?.gasPrice || '10000000000', 'gwei').toString()
+        value: ethers.utils.parseUnits(betAmount.toString(), 'ether')
       });
       handleSpin();
       await coinbetTxn.wait();
