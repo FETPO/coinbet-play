@@ -41,6 +41,7 @@ const settings = {
   network: Network.MATIC_MAINNET,
 };
 const alchemy = new Alchemy(settings);
+const VISIBLE_TILE_SELECTOR = '.tile-2';
 
 const CoinbetSlotsSection = () => {
   const [showCongratulationModal, setShowCongratulationModal] = useState(false);
@@ -48,12 +49,12 @@ const CoinbetSlotsSection = () => {
   const [errorModalMessage, setErrorModalMessage] = useState("");
   const [volumeOn, setVolumeOn] = useState(false);
   const items = [
-    BAYC_IMG,
     CBD_IMG,
+    Moonbirds_IMG,
     Doodles_IMG,
     MAYC_IMG,
-    Moonbirds_IMG,
     PUNK_IMG,
+    BAYC_IMG,
   ];
 
   const [bet, setBet] = useState({});
@@ -107,7 +108,7 @@ const CoinbetSlotsSection = () => {
       pool.push(...shuffle(arr));
       // pool.push(...arr);
 
-      for (let i = pool.length - 1; i >= 0; i--) {
+      for (let i = 0; i <= pool.length - 1; i++) {
         const img: HTMLImageElement = document.createElement("img");
         img.src = pool[i].src;
         img.style.width = "100%";
@@ -115,6 +116,7 @@ const CoinbetSlotsSection = () => {
         img.style.objectFit = 'cover'
         const box = document.createElement("div");
         box.classList.add("box");
+        box.classList.add(`tile-${i}`);
         box.style.width = slot.clientWidth + "px";
         box.style.height = slot.clientHeight + "px";
         box.style.display = "flex";
@@ -129,7 +131,45 @@ const CoinbetSlotsSection = () => {
     }
   };
 
+  const settleResult = (spinResult: string[]) => {
+    // The tiles which are visible when the spin ends
+    const visibleTiles = document.querySelectorAll(VISIBLE_TILE_SELECTOR);
+
+    // For each visible tile apply the result
+    spinResult.forEach((result, index) => {
+      const tileContainer = visibleTiles[index];
+
+      // Remove the current tile image
+      while (tileContainer.firstChild) {
+        tileContainer.removeChild(tileContainer.firstChild);
+      }
+
+      // Construct the new tile
+      const nextTileIndex = parseInt(result) - 1;
+      const img: HTMLImageElement = document.createElement("img");
+      img.src = items[nextTileIndex].src;
+      img.style.width = "100%";
+      img.style.height = "100%";
+      img.style.objectFit = 'cover'
+
+      // Append the new tile to the tile container
+      tileContainer.appendChild(img);
+    });
+  }
+
+  const blurReels = (blur: boolean) => {
+    // Get all reels
+    const reels = document.querySelectorAll<HTMLElement>('.reel');
+
+    // Construct the blur effect
+    const blurEffect = blur ? 'blur(4px)' : 'blur(0px)';
+
+    // Apply the effect
+    reels.forEach(reel => reel.style.filter = blurEffect);
+  }
+
   const handleSpin = async () => {
+    blurReels(true);
     setSpin(verticalLoop(".boxes .box", 3000).play())
   };
 
@@ -219,6 +259,14 @@ const CoinbetSlotsSection = () => {
         }
         spin.pause();
         init(false, 1, 2);
+
+        // Update the visible tiles on the reels to match the result
+        settleResult([
+          eventData[0].toString(),
+          eventData[1].toString(),
+          eventData[2].toString()
+        ]);
+        blurReels(false);
       });
     }
     return () => {
@@ -309,17 +357,17 @@ const CoinbetSlotsSection = () => {
       </div>
       <div className={styles["coinbet-slots-body"]}>
         <div className={styles["current-slots"]}>
-          <div className={`slot ${styles["slot"]}`}>
+          <div className={`slot ${styles["slot"]} reel`}>
             <div className={`boxes ${styles["boxes"]}`}>
               {/* <Image src={coinImage} alt="coin" /> */}
             </div>
           </div>
-          <div className={`slot ${styles["slot"]}`}>
+          <div className={`slot ${styles["slot"]} reel`}>
             <div className={`boxes ${styles["boxes"]}`}>
               {/* <Image src={coinImage} alt="coin" /> */}
             </div>
           </div>
-          <div className={`slot ${styles["slot"]}`}>
+          <div className={`slot ${styles["slot"]} reel`}>
             <div className={`boxes ${styles["boxes"]}`}>
               {/* <Image src={coinImage} alt="coin" /> */}
             </div>
@@ -330,7 +378,7 @@ const CoinbetSlotsSection = () => {
             </Button>
           </div>
           <div className={styles["bet-actions"]}>
-            <div>              
+            <div>
               <Button
               variant="secondary"
               size="medium"
