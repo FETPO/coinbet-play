@@ -59,8 +59,8 @@ const CoinbetSlotsSection = () => {
 
   const [bet, setBet] = useState({});
   const [spin, setSpin] = useState(new gsap.core.Timeline);
-
-  const [betAmount, setBetAmount] = useState(1);
+  const [inSpin, setInSpin] = useState<boolean>(false);
+  const [betAmount, setBetAmount] = useState();
 
   const { contracts } = useContractsContext();
   const { updateBalance, wallet } = useWalletContext();
@@ -267,6 +267,9 @@ const CoinbetSlotsSection = () => {
           eventData[2].toString()
         ]);
         blurReels(false);
+
+        // Enable Spin button for consequitive spins
+        setInSpin(false);
       });
     }
     return () => {
@@ -276,6 +279,7 @@ const CoinbetSlotsSection = () => {
 
   const handleSpinTxn = async () => {
     try {
+      setInSpin(true);
       const coinbetTxn = await contracts?.coinbetSlotGame.coinbet({
         value: ethers.utils.parseUnits(betAmount.toString(), 'ether')
       });
@@ -285,6 +289,7 @@ const CoinbetSlotsSection = () => {
     } catch (error: any) {
       setShowErrorModal(true);
       setErrorModalMessage(formatErrorString(error.reason));
+      setInSpin(false);
     }
   };
 
@@ -373,7 +378,12 @@ const CoinbetSlotsSection = () => {
             </div>
           </div>
           <div className={styles["spin-btn"]}>
-            <Button variant="primary" size="large" onClick={handleSpinTxn}>
+            <Button
+              variant="primary"
+              size="large"
+              onClick={handleSpinTxn}
+              disabled={inSpin}
+            >
               Spin Now
             </Button>
           </div>
