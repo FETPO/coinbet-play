@@ -2,19 +2,33 @@ import styles from "./Footer.module.scss";
 import { useRouter } from "next/router";
 import { GasIcon } from "../svgs/GasIcon";
 import { ChainLinkIcon } from "../svgs/ChainLinkIcon";
-import { PolygonStudiosDarkIcon } from "../svgs/PolygonStudiosDarkIcon";
+import { PolygonLightLogo } from "../svgs/PolygonLightLogo";
+import { PolygonDarkLogo } from "../svgs/PolygonDarkLogo";
 import { usePolygonScanContext } from "../../context/polygonscan.context";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
-const Footer = () => {
+export const Footer = () => {
   const router = useRouter();
-  const {polygonScanData} = usePolygonScanContext()
+  const { polygonScanData } = usePolygonScanContext()
+  const { theme, setTheme } = useTheme();
+  const [polygonLogo, setPolygonLogo] = useState(<PolygonDarkLogo />);
+  useEffect(() => {
+    if (theme) {
+      if (theme === "dark") {
+        setPolygonLogo(<PolygonDarkLogo />)
+      } else if (theme === "light") {
+        setPolygonLogo(<PolygonLightLogo />)
+      }
+    }
+  }, [theme]);
   return (
     <div className={styles["footer-wrapper"]}>
       <div className="container">
         <div className={styles["powered-by"]}>
           Powered by
+          {polygonLogo}
           <ChainLinkIcon />
-          <PolygonStudiosDarkIcon />
         </div>
         <div className={styles["gas-section"]}>
           <div>

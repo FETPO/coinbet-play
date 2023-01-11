@@ -8,6 +8,7 @@ export const ChainLinkIcon = () => {
       height="40"
       viewBox="0 0 122 40"
       fill="none"
+      className="chainlink-logo"
     >
       <g clipPath="url(#clip0)">
         <path
