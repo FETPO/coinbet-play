@@ -382,7 +382,7 @@ const CoinbetSlotsSection = () => {
               variant="primary"
               size="large"
               onClick={handleSpinTxn}
-              disabled={inSpin}
+              disabled={inSpin || !wallet}
             >
               Spin Now
             </Button>
