@@ -60,7 +60,7 @@ const CoinbetSlotsSection = () => {
   const [bet, setBet] = useState({});
   const [spin, setSpin] = useState(new gsap.core.Timeline);
   const [inSpin, setInSpin] = useState<boolean>(false);
-  const [betAmount, setBetAmount] = useState();
+  const [betAmount, setBetAmount] = useState(1);
 
   const { contracts } = useContractsContext();
   const { updateBalance, wallet } = useWalletContext();
