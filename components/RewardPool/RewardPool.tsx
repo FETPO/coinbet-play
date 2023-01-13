@@ -60,12 +60,12 @@ const RewardPool = () => {
 
   useEffect(() => {
     const userLpBalance = async () => {
-      const lpBalance = await contracts?.coinbetHousePool.balanceOf(
+      const lpBalance = await contracts?.coinbetHousePool?.balanceOf(
         wallet?.address
       );
-      const totalSupply = await contracts?.coinbetHousePool.totalSupply();
+      const totalSupply = await contracts?.coinbetHousePool?.totalSupply();
       const formatedUserLpBalance =
-        (await contracts?.coinbetHousePool.convertLiquidityToStakedToken(
+        (await contracts?.coinbetHousePool?.convertLiquidityToStakedToken(
           lpBalance
         )) || "0";
 
