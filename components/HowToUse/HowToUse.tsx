@@ -74,7 +74,7 @@ const HowToUse = () => {
                       To sustain itself, the Coinbet Protocol takes a small fee (4%) on the amount withdrawn from reward providers who exit the pool. This is also to incentivize reward providers to stay in the pool as long as possible to generate higher returns.
                       <br></br>
                       <br></br>
-                      If the provider has more than 2000 $CFI a the moment of withdrawal, his/hers fee will be waived.
+                      If the provider has more than 2000 $CFI at the moment of withdrawal, his/hers fee will be waived.
                     </p>
                   </div>
                   <div>
@@ -95,35 +95,22 @@ const HowToUse = () => {
                   <div>
                     <h3>What are Coinbet Slots?</h3>
                     <p>
-                      Coinbet Slots is the first of many, truly permissionless
-                      and decentralised blockchain casino games powered by
-                      Coinbet. Players have full transparency in regard to
-                      awarding prizes, using a protocol that runs on fair,
-                      transparent, and immutable smart contracts. The backbone
-                      of Coinbet’s games is Chainlink’s VRF (Verifiable Random
-                      Function), which feeds random numbers to the betting smart
-                      contracts. Users who play our games can be confident that
-                      their rewards will be paid out fully, as everything is
-                      enforced on a smart contract level.
+                      Coinbet Slots is the first of many, truly permissionless and decentralized blockchain casino games powered by Coinbet. Players have full transparency regarding awarding prizes, using a protocol that runs on fair, transparent, and immutable smart contracts. The backbone of Coinbet’s games is Chainlink’s VRF (Verifiable Random Function), which feeds random numbers to the betting smart contracts. Users who play our games can be confident that their rewards will be paid out fully, as everything is enforced on a smart contract level.
                     </p>
                   </div>
                   <div>
                     <h3>How to play?</h3>
                     <p>
-                      Coinbet Slots game is very fun and easy to play. Just
-                      connect your wallet and your balance will be automatically
-                      detected. Currently, one spin costs a fixed amount of 1
-                      MATIC. Once you’re connected, just hit spin to move the
-                      slots and execute a transaction. Once the transaction is
-                      finished, your wallet will be directly credited in case
-                      your bet is winning.
+                      The Coinbet Slots game is very fun and easy to play. Just connect your wallet and your balance will be automatically detected. Currently, the minimum bet amount is 1 MATIC. The maximum bet amount depends on the funds in the Coinbet House Pool. Once you’re connected, just hit spin to move the slots and execute a transaction. Once the transaction is finished, your wallet will be directly credited in case your bet is winning.
                     </p>
                   </div>
                   <div>
                     <h3>Fees</h3>
                     <p>
-                      In order to sustain itself, the Coinbet Slots game charges
-                      a small fee (2%) on each spin/bet.
+                      To sustain itself, the Coinbet Slots game charges a small fee (2%) on each spin/bet.
+                      <br></br>
+                      <br></br>
+                      If the player has more than 2000 $CFI at the moment of betting, his/hers fee will be waived.
                     </p>
                   </div>
                   <div>
@@ -177,11 +164,7 @@ const HowToUse = () => {
                   <div>
                     <h3>Incentives</h3>
                     <p>
-                      In order to incentivise the first players, on every spin 5
-                      $CFI tokens will be credited to players, no matter if
-                      they have a winning or losing bet. The total amount of
-                      $CFI tokens which will be distributed as incentives is 5%
-                      of the total supply (across all Coinbet games).
+                      To incentivize the first players, on every spin 5 $CFI tokens will be credited to players, no matter if they have a winning or losing bet. The total amount of $CFI tokens that will be distributed as incentives is 5% of the total supply (across all Coinbet games).
                     </p>
                   </div>
                   <div>
