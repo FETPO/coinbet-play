@@ -21,21 +21,19 @@ export const SubgraphContextWrapper: FC<{ children: ReactNode }> = ({
   const { wallet } = useWalletContext();
 
   const updateBetsData = (betResult: any) => {
-    if (subgraph) {
-      const settledBets = subgraph?.settledBets;
-      const betStats = subgraph?.betStatistics;
+    const settledBets = subgraph?.settledBets;
+    const betStats = subgraph?.betStatistics;
 
-      // Check if bet exists already
-      const exists = settledBets?.find((obj) => {
-        return obj.id === betResult.id;
-      });
+    // Check if bet exists already
+    const exists = settledBets?.find((obj) => {
+      return obj.id === betResult.id;
+    });
 
-      if (!exists) {
-        settledBets?.unshift(betResult);
-      }
-      const newSettledBets = settledBets || undefined;
-      setSubgraph({ betStatistics: betStats, settledBets: newSettledBets });
+    if (!exists) {
+      settledBets?.unshift(betResult);
     }
+    const newSettledBets = settledBets || undefined;
+    setSubgraph({ betStatistics: betStats, settledBets: newSettledBets });
   };
 
   useEffect(() => {
