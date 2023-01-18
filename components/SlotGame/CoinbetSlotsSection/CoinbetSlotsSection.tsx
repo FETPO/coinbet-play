@@ -261,6 +261,7 @@ const CoinbetSlotsSection = () => {
           setTimeout(() => setShowCongratulationModal(true), 100);
         } else {
           console.log("You lose!");
+          updateBalance();
         }
         spin.pause();
         init(false, 1, 2);
