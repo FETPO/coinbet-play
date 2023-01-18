@@ -46,30 +46,11 @@ const Header = () => {
     // },
   ];
 
-  const availableWallets = [
-    {
-      id: useId(),
-      name: "MetaMask",
-      icon: <MiniMetamaskIcon />,
-    },
-    // {
-    //   id: useId(),
-    //   name: "Coinbase Wallet",
-    //   icon: <MiniCoinbaseIcon />,
-    // },
-    // {
-    //   id: useId(),
-    //   name: "WalletConnect",
-    //   icon: <MiniWalletConnectIcon />,
-    // },
-  ];
-
   const [selectedOption, setSelectedOption] = useState<IOption>(
     dropdownOptions[0]
   );
-  const [selectedWallet, setSelectedWallet] = useState<IOption | null>(availableWallets[0]);
-  const [showWrongNetworkModal, setShowWrongNetworkModal] = useState(false);
   const { wallet } = useWalletContext();
+  const [showWrongNetworkModal, setShowWrongNetworkModal] = useState(false);
   const { polygonScanData } = usePolygonScanContext();
 
   useEffect(() => {
@@ -113,10 +94,6 @@ const Header = () => {
           />
           <ConnectWallet
             selectedOption={selectedOption}
-            availableWallets={availableWallets}
-            selectedWallet={selectedWallet}
-            setSelectedWallet={setSelectedWallet}
-            walletInfo={wallet}
             polygonScanData={polygonScanData}
           />
           <DropdownMenu />

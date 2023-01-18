@@ -63,7 +63,7 @@ const CoinbetSlotsSection = () => {
   const [betAmount, setBetAmount] = useState(1);
 
   const { contracts } = useContractsContext();
-  const { updateBalance, wallet } = useWalletContext();
+  const { updateBalance, wallet, toggleWalletModal } = useWalletContext();
   const { subgraph, updateBetsData } = useSubgraphContext();
   const { polygonScanData } = usePolygonScanContext();
 
@@ -381,8 +381,14 @@ const CoinbetSlotsSection = () => {
             <Button
               variant="primary"
               size="large"
-              onClick={handleSpinTxn}
-              disabled={inSpin || !wallet}
+              onClick={ () => {
+                if (!wallet) {
+                  toggleWalletModal(true);
+                } else {
+                  handleSpinTxn();
+                }
+              }}
+              disabled={inSpin}
             >
               Spin Now
             </Button>

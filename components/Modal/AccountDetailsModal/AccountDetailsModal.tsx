@@ -14,7 +14,6 @@ interface IAccountDetailsModalProps {
   walletAddress: string;
   addressCopied: boolean;
   setAddressCopied: (val: boolean) => void;
-  setIsLoggedIn: (val: boolean) => void;
   onDisconnectWallet: () => void;
 }
 
@@ -25,7 +24,6 @@ const AccountDetailsModal = ({
   walletAddress,
   addressCopied,
   setAddressCopied,
-  setIsLoggedIn,
   onDisconnectWallet,
 }: IAccountDetailsModalProps) => {
   return (
@@ -62,7 +60,6 @@ const AccountDetailsModal = ({
         size="medium"
         onClick={() => {
           onDisconnectWallet();
-          setIsLoggedIn(false);
           onClose();
         }}
         icon={<LogoutIcon />}

@@ -16,24 +16,14 @@ import { useWalletContext } from "../../../context/wallet.context";
 
 interface IAmountOnWalletProps {
   selectedOption: IOption;
-  availableWallets: IOption[];
-  selectedWallet: IOption | null;
-  setSelectedWallet: (wallet: IOption) => void;
-  walletInfo: any;
   polygonScanData: PolygonScanType | undefined;
 }
 
 const ConnectWallet = ({
   selectedOption,
-  availableWallets,
-  selectedWallet,
-  setSelectedWallet,
-  walletInfo,
   polygonScanData,
 }: IAmountOnWalletProps) => {
   const ref = useRef(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showConnectWalletModal, setShowConnectWalletModal] = useState(false);
   const [showAccountDetailsPopover, setShowAccountDetailsPopover] =
     useState(false);
   const [addressCopied, setAddressCopied] = useState(false);
@@ -41,7 +31,7 @@ const ConnectWallet = ({
 
   useOnClickOutside(ref, () => setShowAccountDetailsPopover(false));
 
-  const { disconnectWallet } = useWalletContext();
+  const { disconnectWallet, wallet, selectedWallet, toggleWalletModal } = useWalletContext();
 
   const handleAccountDetailsPopoverClick = () => {
     if (window.screen.width > 576) {
@@ -51,29 +41,22 @@ const ConnectWallet = ({
     }
   };
 
-  useEffect(() => {
-    if (walletInfo?.address) {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-    }
-  }, [walletInfo]);
 
   return (
     <div className={styles["connect-wallet"]} ref={ref}>
-      {isLoggedIn ? (
+      {wallet ? (
         <div
           className={styles["account-address"]}
           onClick={handleAccountDetailsPopoverClick}
         >
           <div className={styles["avatar"]}></div>
-          <span>{formatAddress(walletInfo?.address)}</span>
+          <span>{formatAddress(wallet?.address)}</span>
         </div>
       ) : (
         <Button
           variant="secondary"
           size="medium"
-          onClick={() => setShowConnectWalletModal(true)}
+          onClick={() => toggleWalletModal(true)}
         >
           Connect Wallet
         </Button>
@@ -85,7 +68,7 @@ const ConnectWallet = ({
             <div className={styles["wallet-type-address"]}>
               <p>{selectedOption.name}</p>
               <CopyToClipboard
-                text={walletInfo?.address || ''}
+                text={wallet?.address || ''}
                 onCopy={() => {
                   setAddressCopied(true);
                   setTimeout(() => {
@@ -94,7 +77,7 @@ const ConnectWallet = ({
                 }}
               >
                 <span title="Click to copy to clipboard">
-                  {formatAddress(walletInfo?.address)}
+                  {formatAddress(wallet?.address)}
                   {addressCopied ? <Tooltip text="Copied!" /> : null}
                 </span>
               </CopyToClipboard>
@@ -103,16 +86,15 @@ const ConnectWallet = ({
           <div className={styles["available-amount-section"]}>
             <div>
               {selectedOption.icon}
-              <span>{ formatBigNumber(walletInfo?.balance) }</span>
+              <span>{ formatBigNumber(wallet?.balance) }</span>
             </div>
-            <div>$ { formatUsdPrice(polygonScanData?.maticPriceUsd, walletInfo?.balance) }</div>
+            <div>$ { formatUsdPrice(polygonScanData?.maticPriceUsd, wallet?.balance) }</div>
           </div>
           <Button
             variant="secondary"
             size="medium"
             onClick={() => {
               disconnectWallet();
-              setIsLoggedIn(false);
               setShowAccountDetailsPopover(false);
             }}
             icon={<LogoutIcon />}
@@ -122,17 +104,6 @@ const ConnectWallet = ({
         </div>
       )}
       <Modal
-        open={showConnectWalletModal}
-        onClose={() => setShowConnectWalletModal(false)}
-      >
-        <ConnectWalletModal
-          onClose={() => setShowConnectWalletModal(false)}
-          availableWallets={availableWallets}
-          setSelectedWallet={setSelectedWallet}
-          setIsLoggedIn={setIsLoggedIn}
-        />
-      </Modal>
-      <Modal
         open={showAccountDetailsPopup}
         onClose={() => setShowAccountDetailsPopup(false)}
       >
@@ -140,10 +111,9 @@ const ConnectWallet = ({
           onClose={() => setShowAccountDetailsPopup(false)}
           selectedWallet={selectedWallet}
           selectedOption={selectedOption}
-          walletAddress={walletInfo?.address || ''}
+          walletAddress={wallet?.address || ''}
           addressCopied={addressCopied}
           setAddressCopied={setAddressCopied}
-          setIsLoggedIn={setIsLoggedIn}
           onDisconnectWallet={disconnectWallet}
         />
       </Modal>

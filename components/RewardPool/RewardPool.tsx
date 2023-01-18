@@ -44,7 +44,7 @@ const RewardPool = () => {
   });
   const { polygonScanData } = usePolygonScanContext();
   const { contracts } = useContractsContext();
-  const { wallet, updateBalance } = useWalletContext();
+  const { wallet, updateBalance, toggleWalletModal } = useWalletContext();
   const { alchemy } = useAlchemyContext();
 
   useEffect(() => {
@@ -208,7 +208,13 @@ const RewardPool = () => {
                 variant="primary"
                 size="medium"
                 icon={<PlusIcon />}
-                onClick={() => setShowAddLiquidityModal(true)}
+                onClick={() => {
+                  if (!wallet) {
+                    toggleWalletModal(true);
+                  } else {
+                    setShowAddLiquidityModal(true)
+                  }
+                }}
               >
                 Add Liquidity
               </Button>
@@ -216,7 +222,13 @@ const RewardPool = () => {
                 variant="secondary"
                 size="medium"
                 icon={<MinusIcon />}
-                onClick={() => setShowRemoveLiquidityModal(true)}
+                onClick={() => {
+                  if (!wallet) {
+                    toggleWalletModal(true);
+                  } else {
+                    setShowRemoveLiquidityModal(true)
+                  }
+                }}
               >
                 Withdraw Liquidity
               </Button>
@@ -231,7 +243,13 @@ const RewardPool = () => {
               </p>
             </div>
             <div>
-              <Button variant="primary" size="medium" onClick={withdrawBalance}>
+              <Button variant="primary" size="medium" onClick={() => {
+                if (!wallet) {
+                  toggleWalletModal(true);
+                } else {
+                  withdrawBalance();
+                }
+              }}>
                 Withdraw
               </Button>
             </div>

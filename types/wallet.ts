@@ -14,5 +14,19 @@ export type WalletContextType = {
   disconnectWallet: () => void
   updateBalance: () => Promise<void>
   switchChain: () => Promise<void>
-  wallet: WalletType | undefined
+  wallet: WalletType | undefined,
+  showWalletModal: boolean,
+  toggleWalletModal: (v: boolean) => void
+  availableWallets: AvailableWallet[],
+  selectedWallet: AvailableWallet | null,
+  setSelectedWallet: (v: AvailableWallet) => void,
+  showInstallWalletModal: boolean,
+  setShowInstallWalletModal: (v: boolean) => void,
 }
+
+// Indicating available wallets for wallet modal
+export type AvailableWallet = {
+  id: string
+  name: string
+  icon?: JSX.Element
+};

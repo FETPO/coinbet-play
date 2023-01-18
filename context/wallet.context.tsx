@@ -1,10 +1,13 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useId } from "react";
 import type { FC, ReactNode } from "react";
 import Web3Modal from "web3modal";
 import { ethers } from "ethers";
 import { decimalToHex, hexToDecimal } from "../utils/utils";
-import type { WalletContextType, WalletType } from "../types/wallet";
+import type { WalletContextType, WalletType, AvailableWallet } from "../types/wallet";
 import { supportedNetworks } from "../utils/supportedNetworks";
+import { MiniMetamaskIcon } from "../components/svgs/MiniMetamaskIcon";
+import { MiniCoinbaseIcon } from "../components/svgs/MiniCoinbaseIcon";
+import { MiniWalletConnectIcon } from "../components/svgs/MiniWalletConnectIcon";
 
 const WalletContext = createContext<WalletContextType>({
   connectWallet: async () => { },
@@ -12,6 +15,13 @@ const WalletContext = createContext<WalletContextType>({
   updateBalance: async () => { },
   switchChain: async () => { },
   wallet: undefined,
+  showWalletModal: false,
+  toggleWalletModal: () => {},
+  availableWallets: [],
+  selectedWallet: null,
+  setSelectedWallet: () => {},
+  showInstallWalletModal: false,
+  setShowInstallWalletModal: () => {}
 });
 
 export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
@@ -19,12 +29,32 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
 }) => {
   const [web3Modal, setWeb3Modal] = useState<Web3Modal>();
   const [wallet, setWallet] = useState<WalletType>();
+  const [showWalletModal, setShowWalletModal] = useState<boolean>(false);
+  const [showInstallWalletModal, setShowInstallWalletModal] = useState<boolean>(false);
+  const availableWallets = [
+    {
+      id: useId(),
+      name: "MetaMask",
+      icon: <MiniMetamaskIcon />,
+    },
+    {
+      id: useId(),
+      name: "Coinbase Wallet",
+      icon: <MiniCoinbaseIcon />,
+    },
+    // {
+    //   id: useId(),
+    //   name: "WalletConnect",
+    //   icon: <MiniWalletConnectIcon />,
+    // },
+  ];
+  const [selectedWallet, setSelectedWallet] = useState<AvailableWallet | null>(availableWallets[0]);
+
+
 
   useEffect(() => {
     setWeb3Modal(
-      new Web3Modal({
-        cacheProvider: true,
-      })
+      new Web3Modal()
     );
 
     return () => {
@@ -85,6 +115,15 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
     if (!(wallet && wallet.provider.on)) return;
     const balance = await wallet?.library.getBalance(wallet?.address);
     setWallet({ ...wallet, balance: balance });
+  };
+
+  const toggleWalletModal = async (v: boolean) => {
+    if (v && typeof window.ethereum === "undefined") {
+      setShowInstallWalletModal(true);
+      return;
+    }
+
+    setShowWalletModal(v);
   };
 
   const disconnectWallet = () => {
@@ -148,6 +187,7 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
     const handleChainChanged = (chainId: number) => {
       const newChainId = hexToDecimal(chainId);
       setWallet({ ...wallet, chainId: newChainId });
+      // TODO:: we should triggering wrong Network modal from here instead of Header.tsx!
     };
 
     const handleDisconnect = () => {
@@ -172,7 +212,14 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
         connectWallet,
         disconnectWallet,
         updateBalance,
-        switchChain
+        switchChain,
+        toggleWalletModal,
+        showWalletModal,
+        availableWallets,
+        selectedWallet,
+        setSelectedWallet,
+        showInstallWalletModal,
+        setShowInstallWalletModal,
       }}
     >
       {children}

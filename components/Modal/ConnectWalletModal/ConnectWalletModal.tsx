@@ -7,14 +7,12 @@ interface IConnectWalletModalProps {
   onClose: () => void;
   availableWallets: IOption[];
   setSelectedWallet: (wallet: IOption) => void;
-  setIsLoggedIn: (val: boolean) => void;
 }
 
 const ConnectWalletModal = ({
   onClose,
   availableWallets,
   setSelectedWallet,
-  setIsLoggedIn,
 }: IConnectWalletModalProps) => {
   const { connectWallet } = useWalletContext();
   return (
@@ -28,7 +26,6 @@ const ConnectWalletModal = ({
               onClick={async () => {
                 await connectWallet();
                 setSelectedWallet(wallet);
-                setIsLoggedIn(true);
                 onClose();
               }}
             >
