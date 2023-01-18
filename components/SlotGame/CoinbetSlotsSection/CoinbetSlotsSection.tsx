@@ -8,7 +8,12 @@ import { VolumeOnIcon } from "../../svgs/VolumeOnIcon";
 import Tooltip from "../../Tooltip/Tooltip";
 import styles from "./CoinbetSlotsSection.module.scss";
 import coinImage from "../../../assets/images/coin.png";
-import BAYC_IMG from "../../../assets/images/BAYC_8817.png";
+import BAYC_8817 from "../../../assets/images/BAYC_8817.png";
+import BAYC_5562 from "../../../assets/images/BAYC_5562.png";
+import BAYC_2280 from "../../../assets/images/BAYC_2280.png";
+import BAYC_8585 from "../../../assets/images/BAYC_8585.png";
+import BAYC_4160 from "../../../assets/images/BAYC_4160.png";
+import BAYC_1837 from "../../../assets/images/BAYC_1837.png";
 import CBD_IMG from "../../../assets/images/CBD_139.png";
 import Doodles_IMG from "../../../assets/images/Doodles_6914.png";
 import MAYC_IMG from "../../../assets/images/MAYC_4849.png";
@@ -49,12 +54,12 @@ const CoinbetSlotsSection = () => {
   const [errorModalMessage, setErrorModalMessage] = useState("");
   const [volumeOn, setVolumeOn] = useState(false);
   const items = [
-    CBD_IMG,
-    Moonbirds_IMG,
-    Doodles_IMG,
-    MAYC_IMG,
-    PUNK_IMG,
-    BAYC_IMG,
+    BAYC_1837,
+    BAYC_4160,
+    BAYC_8585,
+    BAYC_2280,
+    BAYC_5562,
+    BAYC_8817,
   ];
 
   const [bet, setBet] = useState({});
@@ -320,7 +325,7 @@ const CoinbetSlotsSection = () => {
     <div className={styles["coinbet-slots-section"]}>
       <div className={styles["coinbet-slots-header"]}>
         <div className={styles["coinbet-slots-header-left"]}>
-          <h3>NFT Degen Slots</h3>
+          <h3>BAYC Slot Machine</h3>
           <div className={styles["coinbet-slots-header-left-icons"]}>
             <div className={styles["icon"]}>
               <InfoIcon />
@@ -428,7 +433,7 @@ const CoinbetSlotsSection = () => {
           <p>{subgraph?.betStatistics?.playersCount || 0}</p>
         </div>
         <div>
-          <h3>Total Volume</h3>
+          <h3>Total Bets</h3>
           <p>
             <MaticIcon />
             {ethers.utils.commify(

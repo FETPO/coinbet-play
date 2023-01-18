@@ -1,11 +1,11 @@
 import { BigNumber, ethers } from "ethers";
 import { formatAddress } from "./format";
 
-import NFT1 from "../assets/images/CBD_139.png";
-import NFT2 from "../assets/images/Moonbirds_2018.png";
-import NFT3 from "../assets/images/Doodles_6914.png";
-import NFT4 from "../assets/images/MAYC_4849.png";
-import NFT5 from "../assets/images/PUNK_5822.png";
+import NFT1 from "../assets/images/BAYC_1837.png";
+import NFT2 from "../assets/images/BAYC_4160.png";
+import NFT3 from "../assets/images/BAYC_8585.png";
+import NFT4 from "../assets/images/BAYC_2280.png";
+import NFT5 from "../assets/images/BAYC_5562.png";
 import NFT6 from "../assets/images/BAYC_8817.png";
 import uuid from "react-uuid";
 

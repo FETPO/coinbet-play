@@ -7,7 +7,7 @@ const Home: NextPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    router.replace("/slot-game");
+    router.replace("/games");
   });
 
   return (

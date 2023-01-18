@@ -14,10 +14,10 @@ const Navbar = () => {
       case "/":
         setSelectedMenuIndex(0);
         break;
-      case "/reward-pool":
+      case "/pools":
         setSelectedMenuIndex(1);
         break;
-      case "/how-to-use":
+      case "/faq":
         setSelectedMenuIndex(2);
         break;
       default:
@@ -35,25 +35,25 @@ const Navbar = () => {
         }}
       >
         <SlotGameIcon />
-        <span>Slot Game</span>
+        <span>Games</span>
       </div>
       <div
         className={selectedMenuIndex === 1 ? styles["active"] : ""}
         onClick={() => {
-          router.push("/reward-pool");
+          router.push("/pools");
         }}
       >
         <RewardPoolIcon />
-        <span>House Pool</span>
+        <span>House Pools</span>
       </div>
       <div
         className={selectedMenuIndex === 2 ? styles["active"] : ""}
         onClick={() => {
-          router.push("/how-to-use");
+          router.push("/faq");
         }}
       >
         <HowToUseIcon />
-        <span>How to use</span>
+        <span>FAQ</span>
       </div>
     </div>
   );

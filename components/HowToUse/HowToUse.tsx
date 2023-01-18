@@ -2,12 +2,12 @@ import styles from "./HowToUse.module.scss";
 import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
-import BAYC_IMG from "../../assets/images/BAYC_8817.png";
-import CBD_IMG from "../../assets/images/CBD_139.png";
-import Doodles_IMG from "../../assets/images/Doodles_6914.png";
-import MAYC_IMG from "../../assets/images/MAYC_4849.png";
-import Moonbirds_IMG from "../../assets/images/Moonbirds_2018.png";
-import PUNK_IMG from "../../assets/images/PUNK_5822.png";
+import BAYC_8817 from "../../assets/images/BAYC_8817.png";
+import BAYC_1837 from "../../assets/images/BAYC_1837.png";
+import BAYC_8585 from "../../assets/images/BAYC_8585.png";
+import BAYC_2280 from "../../assets/images/BAYC_2280.png";
+import BAYC_4160 from "../../assets/images/BAYC_4160.png";
+import BAYC_5562 from "../../assets/images/BAYC_5562.png";
 import slotConfig from "../../coinbet.config.json";
 
 const HowToUse = () => {
@@ -89,6 +89,12 @@ const HowToUse = () => {
                       Our smart contracts have been thoroughly tested and audited by high-ranking private auditors. The smart contract code can be checked through Etherscan, via the link provided in the Slot Game tab. However, please note this is an experimental technology and Coinbet does not take responsibility for any lost funds and smart contract bugs. It is important to note that, when you provide liquidity, in the short term it is possible to experience a deduction in your stake due to winning bets, so we advise you to leave your funds for at least a week. In other words, the generated yield grows proportionally to the number of bets taken.
                     </p>
                   </div>
+                  <div>
+                    <h3>Non-Affiliation Disclaimer</h3>
+                    <p>
+                      This web site is not endorsed by, directly affiliated with, maintained, authorized, or sponsored by Yuga Labs, Polygon Technologies and Chainlink Labs. All product and company names are the registered trademarks of their original owners. The use of any trade name or trademark is for identification and reference purposes only and does not imply any association with the trademark holder of their product brand.
+                    </p>
+                  </div>
                 </div>
               ) : (
                 <div className={styles["wrapper"]}>
@@ -122,39 +128,39 @@ const HowToUse = () => {
                       </h3>
                       <div className={styles["grid"]}>
                         <div className={styles["column"]}>
-                          <Image src={BAYC_IMG} alt="BAYC" />
-                          <Image src={BAYC_IMG} alt="BAYC" />
-                          <Image src={BAYC_IMG} alt="BAYC" />
+                          <Image src={BAYC_8817} alt="BAYC #8817" />
+                          <Image src={BAYC_8817} alt="BAYC #8817" />
+                          <Image src={BAYC_8817} alt="BAYC #8817" />
                           <p>- x40 reward</p>
                         </div>
                         <div className={styles["column"]}>
-                          <Image src={Doodles_IMG} alt="Doodles" />
-                          <Image src={Doodles_IMG} alt="Doodles" />
-                          <Image src={Doodles_IMG} alt="Doodles" />
+                          <Image src={BAYC_8585} alt="BAYC #8585" />
+                          <Image src={BAYC_8585} alt="BAYC #8585" />
+                          <Image src={BAYC_8585} alt="BAYC #8585" />
                           <p>- x15 reward</p>
                         </div>
                         <div className={styles["column"]}>
-                          <Image src={PUNK_IMG} alt="PUNK" />
-                          <Image src={PUNK_IMG} alt="PUNK" />
-                          <Image src={PUNK_IMG} alt="PUNK" />
+                          <Image src={BAYC_5562} alt="BAYC #5562" />
+                          <Image src={BAYC_5562} alt="BAYC #5562" />
+                          <Image src={BAYC_5562} alt="BAYC #5562" />
                           <p>- x30 reward</p>
                         </div>
                         <div className={styles["column"]}>
-                          <Image src={Moonbirds_IMG} alt="Moonbirds" />
-                          <Image src={Moonbirds_IMG} alt="Moonbirds" />
-                          <Image src={Moonbirds_IMG} alt="Moonbirds" />
+                          <Image src={BAYC_4160} alt="BAYC #4160" />
+                          <Image src={BAYC_4160} alt="BAYC #4160" />
+                          <Image src={BAYC_4160} alt="BAYC #4160" />
                           <p>- x10 reward</p>
                         </div>
                         <div className={styles["column"]}>
-                          <Image src={MAYC_IMG} alt="MAYC" />
-                          <Image src={MAYC_IMG} alt="MAYC" />
-                          <Image src={MAYC_IMG} alt="MAYC" />
+                          <Image src={BAYC_2280} alt="BAYC #2280" />
+                          <Image src={BAYC_2280} alt="BAYC #2280" />
+                          <Image src={BAYC_2280} alt="BAYC #280" />
                           <p>- x20 reward</p>
                         </div>
                         <div className={styles["column"]}>
-                          <Image src={CBD_IMG} alt="CBD" />
-                          <Image src={CBD_IMG} alt="CBD" />
-                          <Image src={CBD_IMG} alt="CBD" />
+                          <Image src={BAYC_1837} alt="BAYC #1837" />
+                          <Image src={BAYC_1837} alt="BAYC #1837" />
+                          <Image src={BAYC_1837} alt="BAYC $1837" />
                           <p>- x5 reward</p>
                         </div>
                       </div>
@@ -179,6 +185,12 @@ const HowToUse = () => {
                       when you place a bet, your reward will be fully paid. If
                       there is insufficient liquidity for rewards, the spin
                       won’t be executed.
+                    </p>
+                  </div>
+                  <div>
+                    <h3>Non-Affiliation Disclaimer</h3>
+                    <p>
+                      This web site is not endorsed by, directly affiliated with, maintained, authorized, or sponsored by Yuga Labs, Polygon Technologies and Chainlink Labs. All product and company names are the registered trademarks of their original owners. The use of any trade name or trademark is for identification and reference purposes only and does not imply any association with the trademark holder of their product brand.
                     </p>
                   </div>
                 </div>
