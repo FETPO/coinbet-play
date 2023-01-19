@@ -30,7 +30,6 @@ import {
   constructPayout,
   constructReels,
   hexToDecimal,
-  sleep,
 } from "../../../utils/utils";
 import slotConfig from "../../../coinbet.config.json";
 import { useSubgraphContext } from "../../../context/subgraph.context";
@@ -224,17 +223,14 @@ const CoinbetSlotsSection = () => {
         ),
       ],
     };
-    if (wallet?.address) {
-      alchemy.ws.on(filter, async (log) => {
+    if (wallet) {
+      alchemy.ws.on(filter, (log) => {
         // Decode the raw event data to readable data
         const eventData = ethers.utils.defaultAbiCoder.decode(
           ["uint256", "uint256", "uint256", "uint256", "uint256", "address"],
           log.data
         );
         // Update data in live feed
-
-        // Wait a bit in order to give some time to the RPC provider, to update the user amount
-        await sleep(3);
 
         updateBetsData({
           id: uuid(),
@@ -264,6 +260,7 @@ const CoinbetSlotsSection = () => {
           });
           setTimeout(() => setShowCongratulationModal(true), 100);
         } else {
+          console.log("You lose!");
           updateBalance();
         }
         spin.pause();
@@ -284,7 +281,7 @@ const CoinbetSlotsSection = () => {
     return () => {
       alchemy.ws.off(filter);
     };
-  }, [wallet?.address]);
+  }, [wallet]);
 
   const handleSpinTxn = async () => {
     try {

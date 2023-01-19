@@ -24,12 +24,12 @@ export const SubgraphContextWrapper: FC<{ children: ReactNode }> = ({
     if (subgraph) {
       const settledBets = subgraph?.settledBets;
       const betStats = subgraph?.betStatistics;
-
+  
       // Check if bet exists already
       const exists = settledBets?.find((obj) => {
         return obj.id === betResult.id;
       });
-
+  
       if (!exists) {
         settledBets?.unshift(betResult);
       }
@@ -49,7 +49,7 @@ export const SubgraphContextWrapper: FC<{ children: ReactNode }> = ({
     };
 
     initSubgraph();
-  }, []);
+  }, [wallet?.address]);
 
   return (
     <SubgraphContext.Provider
