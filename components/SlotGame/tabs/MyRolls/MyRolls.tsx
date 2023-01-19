@@ -31,7 +31,7 @@ const MyRolls = ({ collapseDown }: IMyRollsProps) => {
       >
         {wallet && subgraph?.settledBets
           ?.filter((val) => {
-            return val.fullAddress == wallet?.address;
+            return val.fullAddress?.toLowerCase() === wallet?.address?.toLowerCase();
           })
           .map((roll, index) => {
             return (

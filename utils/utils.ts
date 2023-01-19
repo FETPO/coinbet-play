@@ -192,3 +192,12 @@ export const epochTerm = (
     month[epochEndDate.getMonth()]
   } ${epochEndDate.getDate()}  ${epochEndDate.getFullYear()}`;
 };
+
+
+export const sleep = (timeSeconds: number) => {
+  return new Promise((res) => {
+    setTimeout(() => {
+      res(true);
+    }, timeSeconds * 1000);
+  })
+}
