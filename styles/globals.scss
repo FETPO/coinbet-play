@@ -3,65 +3,65 @@
 :root {
   --background: #ffffff;
   --foreground: #15151c;
-  --app-background: #F3F5F8;
+  --app-background: #f3f5f8;
   --app-menu-background: #ffffff;
-  --app-menu-item-hover: #F8F9FC;
-  --mobile-menu-background: #F3F5F8;
+  --app-menu-item-hover: #f8f9fc;
+  --mobile-menu-background: #f3f5f8;
   --mobile-menu-shadow: rgba(76, 80, 89, 0.3);
   --account-details-background: #ffffff;
-  --border-color: #E3E4EC;
+  --border-color: #e3e4ec;
   --secondary-button-background: #ffffff;
-  --secondary-button-border-color: #E3E4EC;
-  --secondary-button-hover-color: #F8F9FC;
+  --secondary-button-border-color: #e3e4ec;
+  --secondary-button-hover-color: #f8f9fc;
   --secondary-button-disabled-color: transparent;
   --outlined-button-background: transparent;
-  --outlined-button-border-color: #E3E4EC;
-  --outlined-button-hover-color: #F8F9FC;
+  --outlined-button-border-color: #e3e4ec;
+  --outlined-button-hover-color: #f8f9fc;
   --outlined-button-disabled-color: transparent;
-  --transparent-button-hover-color: #F8F9FC;
-  --select-wallet-hover-color: #F8F9FC;
-  --select-wallet-border-color: #EEF1F8;
-  --deposit-modal-content-background-color: #F8F9FC;
-  --gray: #67707B;
+  --transparent-button-hover-color: #f8f9fc;
+  --select-wallet-hover-color: #f8f9fc;
+  --select-wallet-border-color: #eef1f8;
+  --deposit-modal-content-background-color: #f8f9fc;
+  --gray: #67707b;
   --slot-statistics-background: rgba(248, 249, 252, 0.6);
   --slot-background: #ffffff;
-  --slot-wrapper-background: url('../assets/images/slot-game-bg-light.png');
-  --error-color: #FA4440;
-  --primary-color: #7451FF;
-  --input-disabled-border-color: #ECEDF3;
-  --input-disabled-background-color: #FBFBFD;
+  --slot-wrapper-background: url("../assets/images/slot-game-bg-light.png");
+  --error-color: #fa4440;
+  --primary-color: #7451ff;
+  --input-disabled-border-color: #ecedf3;
+  --input-disabled-background-color: #fbfbfd;
 }
 
-[data-theme='dark'] {
+[data-theme="dark"] {
   --background: #15151c;
   --foreground: #ffffff;
   --app-background: #15151c;
-  --app-menu-background: #20222A;
+  --app-menu-background: #20222a;
   --app-menu-item-hover: #333744;
   --mobile-menu-background: #333744;
   --mobile-menu-shadow: rgba(21, 21, 28, 0.32);
-  --account-details-background: #282A35;
+  --account-details-background: #282a35;
   --border-color: #333744;
   --secondary-button-background: #333744;
   --secondary-button-border-color: transparent;
-  --secondary-button-hover-color: #2A2E39;
-  --secondary-button-disabled-color: #15191E;
+  --secondary-button-hover-color: #2a2e39;
+  --secondary-button-disabled-color: #15191e;
   --outlined-button-background: transparent;
   --outlined-button-border-color: #333744;
-  --outlined-button-hover-color: #2A2E39;
-  --outlined-button-disabled-color: #15191E;
-  --transparent-button-hover-color: #1D2129;
-  --select-wallet-hover-color: #20222A;
-  --select-wallet-border-color: #282A35;
-  --deposit-modal-content-background-color: #282A35;
-  --gray: #ADB4BD;
+  --outlined-button-hover-color: #2a2e39;
+  --outlined-button-disabled-color: #15191e;
+  --transparent-button-hover-color: #1d2129;
+  --select-wallet-hover-color: #20222a;
+  --select-wallet-border-color: #282a35;
+  --deposit-modal-content-background-color: #282a35;
+  --gray: #adb4bd;
   --slot-statistics-background: rgba(32, 34, 42, 0.46);
-  --slot-background: #B0B4D0;
-  --slot-wrapper-background: url('../assets/images/slot-game-bg-dark.png');
-  --error-color: #FA4440;
-  --primary-color: #7451FF;
-  --input-disabled-border-color: #15191E;
-  --input-disabled-background-color: #15191E;
+  --slot-background: #b0b4d0;
+  --slot-wrapper-background: url("../assets/images/slot-game-bg-dark.png");
+  --error-color: #fa4440;
+  --primary-color: #7451ff;
+  --input-disabled-border-color: #15191e;
+  --input-disabled-background-color: #15191e;
 }
 
 * {
@@ -76,7 +76,7 @@
 
 body {
   background-color: var(--app-background);
-  font-family: 'Satoshi', sans-serif;
+  font-family: "Satoshi", sans-serif;
 }
 
 .container {
@@ -121,4 +121,53 @@ body {
 a {
   color: var(--foreground);
   text-decoration: none;
+}
+
+/* Progress bar styles */
+
+/* Make clicks pass-through */
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  background: #7451ff;
+
+  position: fixed;
+  z-index: 1031;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 5px;
+}
+
+/* Fancy blur effect */
+#nprogress .peg {
+  display: block;
+  position: absolute;
+  right: 0px;
+  width: 100px;
+  height: 100%;
+  box-shadow: 0 0 10px #7451ff, 0 0 5px #7451ff;
+  opacity: 1;
+
+  -webkit-transform: rotate(3deg) translate(0px, -4px);
+  -ms-transform: rotate(3deg) translate(0px, -4px);
+  transform: rotate(3deg) translate(0px, -4px);
+}
+
+/* Remove these to get rid of the spinner */
+#nprogress .spinner {
+  display: block;
+  /* position: fixed; */
+  z-index: 1031;
+  /* top: 15px;
+  left: 15px; */
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
 }
