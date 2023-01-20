@@ -11,7 +11,7 @@ import BAYC_5562 from "../../assets/images/BAYC_5562.png";
 import slotConfig from "../../coinbet.config.json";
 
 const HowToUse = () => {
-  const [selectedTabIndex, setSelectedTabIndex] = useState(0);
+  const [selectedTabIndex, setSelectedTabIndex] = useState(1);
   return (
     <>
       <Head>
@@ -23,16 +23,16 @@ const HowToUse = () => {
           <div className={styles["grid-container"]}>
             <div className={styles["tabs"]}>
               <h3
-                className={selectedTabIndex === 0 ? styles["active"] : ""}
-                onClick={() => setSelectedTabIndex(0)}
-              >
-                Rewards Providers
-              </h3>
-              <h3
                 className={selectedTabIndex === 1 ? styles["active"] : ""}
                 onClick={() => setSelectedTabIndex(1)}
               >
                 Players
+              </h3>
+              <h3
+                className={selectedTabIndex === 0 ? styles["active"] : ""}
+                onClick={() => setSelectedTabIndex(0)}
+              >
+                Rewards Providers
               </h3>
             </div>
             <div className={styles["tab-content"]}>
@@ -73,8 +73,7 @@ const HowToUse = () => {
                     <p>
                       To sustain itself, the Coinbet Protocol takes a small fee (4%) on the amount withdrawn from reward providers who exit the pool. This is also to incentivize reward providers to stay in the pool as long as possible to generate higher returns.
                       <br></br>
-                      <br></br>
-                      If the provider has more than 2000 $CFI at the moment of withdrawal, his/hers fee will be waived.
+                      If a provider has more than 2000 $CFI at the moment of withdrawal, his/hers fee will be waived.
                     </p>
                   </div>
                   <div>
@@ -114,7 +113,6 @@ const HowToUse = () => {
                     <h3>Fees</h3>
                     <p>
                       To sustain itself, the Coinbet Slots game charges a small fee (2%) on each spin/bet.
-                      <br></br>
                       <br></br>
                       If the player has more than 2000 $CFI at the moment of betting, his/hers fee will be waived.
                     </p>
