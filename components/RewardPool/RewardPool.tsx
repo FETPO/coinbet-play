@@ -138,10 +138,6 @@ const RewardPool = () => {
 
   return (
     <>
-      <Head>
-        <title>Coinbet Play - House Pool</title>
-        <meta name="description" content="House Pool description" />
-      </Head>
       <div className={styles["reward-pool-wrapper"]}>
         <div className={styles["reward-pool-container"]}>
           <div className={styles["reward-pool-header"]}>

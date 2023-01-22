@@ -13,10 +13,6 @@ const SlotGame = () => {
 
   return (
     <>
-      <Head>
-        <title>Coinbet Play - Slot Game</title>
-        <meta name="description" content="Slot Game description" />
-      </Head>
       <div className={styles["slot-game-wrapper"]}>
         <div className="container">
           <div className={styles["slot-game-grid"]}>

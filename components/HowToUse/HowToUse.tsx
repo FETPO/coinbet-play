@@ -14,10 +14,6 @@ const HowToUse = () => {
   const [selectedTabIndex, setSelectedTabIndex] = useState(1);
   return (
     <>
-      <Head>
-        <title>Coinbet Play - How to use</title>
-        <meta name="description" content="How to use description" />
-      </Head>
       <div className={styles["how-to-use-wrapper"]}>
         <div className="container">
           <div className={styles["grid-container"]}>
