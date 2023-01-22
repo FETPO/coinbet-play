@@ -62,6 +62,11 @@ export const formatBigNumber = (number: BigNumber | undefined): string => {
   return (+ethers.utils.formatEther(number || 0)).toFixed(3);
 };
 
+// formats big numbers to string
+export const formatBigNumberTwoDecimals = (number: BigNumber | undefined): string => {
+  return (+ethers.utils.formatEther(number || 0)).toFixed(2);
+};
+
 // formats USD price
 export const formatUsdPrice = (
   usdPricePerCoin: string | undefined,

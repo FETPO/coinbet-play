@@ -20,6 +20,7 @@ import { useWalletContext } from "../../context/wallet.context";
 import { usePolygonScanContext } from "../../context/polygonscan.context";
 import Modal from "../Modal/Modal";
 import WrongNetworkModal from "../Modal/WrongNetworkModal/WrongNetworkModal";
+import CoinbetTokenAmountOnWallet from "./CoinbetTokenAmountOnWallet/CoinbetTokenAmountOnWallet";
 
 const Header = () => {
   const router = useRouter();
@@ -91,6 +92,9 @@ const Header = () => {
             selectedOption={selectedOption}
             balance={wallet?.balance}
             polygonScanData={polygonScanData}
+          />
+          <CoinbetTokenAmountOnWallet
+            balance={wallet?.coinbetTokenBalance}
           />
           <ConnectWallet
             selectedOption={selectedOption}

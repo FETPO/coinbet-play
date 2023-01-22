@@ -8,6 +8,7 @@ export type WalletType = {
   library: ethers.providers.Web3Provider // Web3Provider library
   address: string // Address of this wallet (i.e. account)
   balance: ethers.BigNumber | undefined// The account balance in native currency
+  coinbetTokenBalance: ethers.BigNumber | undefined// The account balance in $CFI
 }
 export type WalletContextType = {
   connectWallet: () => Promise<void>

@@ -1,7 +1,8 @@
-import { createContext, useContext, useState, useEffect, useId } from "react";
+import { createContext, useContext, useState, useEffect, useId, useMemo } from "react";
 import type { FC, ReactNode } from "react";
 import Web3Modal from "web3modal";
-import { ethers } from "ethers";
+import CoinbetTokenContract from "../contracts/CoinbetToken.json";
+import { Contract, ethers } from "ethers";
 import { decimalToHex, hexToDecimal } from "../utils/utils";
 import type { WalletContextType, WalletType, AvailableWallet } from "../types/wallet";
 import { supportedNetworks } from "../utils/supportedNetworks";
@@ -16,12 +17,12 @@ const WalletContext = createContext<WalletContextType>({
   switchChain: async () => { },
   wallet: undefined,
   showWalletModal: false,
-  toggleWalletModal: () => {},
+  toggleWalletModal: () => { },
   availableWallets: [],
   selectedWallet: null,
-  setSelectedWallet: () => {},
+  setSelectedWallet: () => { },
   showInstallWalletModal: false,
-  setShowInstallWalletModal: () => {}
+  setShowInstallWalletModal: () => { }
 });
 
 export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
@@ -50,7 +51,20 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
   ];
   const [selectedWallet, setSelectedWallet] = useState<AvailableWallet | null>(availableWallets[0]);
 
+  const alchemyProvider = useMemo(() => {
+    return new ethers.providers.AlchemyProvider(
+      `${process.env.ALCHEMY_NETWORK}`,
+      `${process.env.ALCHEMY_API_KEY}`
+    )
+  }, []);
 
+  const coinbetToken = useMemo(() => {
+    return new Contract(
+      process.env.COINBET_TOKEN_CONTRACT as any,
+      CoinbetTokenContract?.abi,
+      alchemyProvider
+    )
+  }, [alchemyProvider]);
 
   useEffect(() => {
     setWeb3Modal(
@@ -70,7 +84,11 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
         if (selectedAddress) {
           const library = new ethers.providers.Web3Provider(provider, "any");
           const network = await library.getNetwork();
-          const balance = await library.getBalance(provider.selectedAddress);
+
+          // Fetch this info through Alchemy, for better performance
+          const balance = await alchemyProvider.getBalance(provider.selectedAddress);
+          const coinbetTokenBalance = await coinbetToken.balanceOf(provider.selectedAddress);
+
           setWallet({
             provider,
             library,
@@ -78,6 +96,7 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
             address: provider.selectedAddress,
             chainId: network.chainId,
             balance: balance,
+            coinbetTokenBalance: coinbetTokenBalance
           });
         } else {
           console.log("No Web3 Provider detected");
@@ -85,7 +104,7 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
       }
     };
     updateConnectionOnRefresh();
-  }, []);
+  }, [alchemyProvider, coinbetToken]);
 
   const connectWallet = async () => {
     try {
@@ -93,7 +112,8 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
       const library = new ethers.providers.Web3Provider(provider, "any");
       const accounts = await library.listAccounts();
       const network = await library.getNetwork();
-      const balance = await library.getBalance(accounts[0]);
+      const balance = await alchemyProvider.getBalance(accounts[0]);
+      const coinbetTokenBalance = await coinbetToken.balanceOf(accounts[0]);
       if (accounts) {
         setWallet({
           provider,
@@ -102,6 +122,7 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
           address: accounts[0],
           chainId: network.chainId,
           balance: balance,
+          coinbetTokenBalance: coinbetTokenBalance
         });
         localStorage.setItem("coinbet-wallet", accounts[0]);
       } else {
@@ -114,7 +135,8 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
   const updateBalance = async () => {
     if (!(wallet && wallet.provider.on)) return;
     const balance = await wallet?.library.getBalance(wallet?.address);
-    setWallet({ ...wallet, balance: balance });
+    const coinbetTokenBalance = await coinbetToken.balanceOf(wallet?.address);
+    setWallet({ ...wallet, balance: balance, coinbetTokenBalance: coinbetTokenBalance });
   };
 
   const toggleWalletModal = async (v: boolean) => {
@@ -172,7 +194,8 @@ export const WalletContextWrapper: FC<{ children: ReactNode }> = ({
     const handleAccountsChanged = async (accounts: string[]) => {
       if (accounts && accounts.length > 0) {
         const balance = await wallet.library.getBalance(accounts[0]);
-        setWallet({ ...wallet, address: accounts[0], balance: balance });
+        const coinbetTokenBalance = await coinbetToken.balanceOf(accounts[0]);
+        setWallet({ ...wallet, address: accounts[0], balance: balance, coinbetTokenBalance: coinbetTokenBalance });
       } else {
         try {
           web3Modal?.clearCachedProvider();
