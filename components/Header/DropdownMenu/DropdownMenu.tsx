@@ -6,6 +6,7 @@ import DropdownMenuModal from "../../Modal/DropdownMenuModal/DropdownMenuModal";
 import Modal from "../../Modal/Modal";
 import { DarkModeIcon } from "../../svgs/DarkModeIcon";
 import { DiscordIcon } from "../../svgs/DiscordIcon";
+import DocumentationIcon from "../../svgs/DocumentationIcon";
 import { LightModeIcon } from "../../svgs/LightModeIcon";
 import { TwitterIcon } from "../../svgs/TwitterIcon";
 import { WebsiteIcon } from "../../svgs/WebsiteIcon";
@@ -55,6 +56,14 @@ const DropdownMenu = () => {
               <p>
                 <Link href={"https://coinbet.finance"}>
                   <a target={"_blank"}>Website</a>
+                </Link>
+              </p>
+            </div>
+            <div className={styles["dropdown-menu-item"]}>
+              <DocumentationIcon />
+              <p>
+                <Link href={"https://docs.coinbet.finance"}>
+                  <a target={"_blank"}>Docs</a>
                 </Link>
               </p>
             </div>
