@@ -21,7 +21,13 @@ const Dropdown = ({
   const [showDropdown, setShowDropdown] = useState(false);
   const [showDropdownPopup, setShowDropdownPopup] = useState(false);
 
-  useOnClickOutside(ref, () => setShowDropdown(false));
+  useOnClickOutside(ref, () => {
+    if (window.screen.width > 576) {
+      setShowDropdown(false);
+    } else {
+      setShowDropdownPopup(false);
+    }
+  });
 
   const handleClick = () => {
     if (window.screen.width > 576) {

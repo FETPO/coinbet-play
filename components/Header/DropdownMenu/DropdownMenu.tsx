@@ -6,7 +6,7 @@ import DropdownMenuModal from "../../Modal/DropdownMenuModal/DropdownMenuModal";
 import Modal from "../../Modal/Modal";
 import { DarkModeIcon } from "../../svgs/DarkModeIcon";
 import { DiscordIcon } from "../../svgs/DiscordIcon";
-import DocumentationIcon from "../../svgs/DocumentationIcon";
+import { DocumentationIcon } from "../../svgs/DocumentationIcon";
 import { LightModeIcon } from "../../svgs/LightModeIcon";
 import { TwitterIcon } from "../../svgs/TwitterIcon";
 import { WebsiteIcon } from "../../svgs/WebsiteIcon";
@@ -19,7 +19,13 @@ const DropdownMenu = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  useOnClickOutside(ref, () => setShowDropdownMenu(false));
+  useOnClickOutside(ref, () => {
+    if (window.screen.width > 576) {
+      setShowDropdownMenu(false);
+    } else {
+      // setShowDropdownMenuPopup(false);
+    }
+  });
 
   const handleClick = () => {
     if (window.screen.width > 576) {
@@ -40,9 +46,8 @@ const DropdownMenu = () => {
   return (
     <>
       <div
-        className={`${styles["dropdown-menu-wrapper"]} ${
-          showDropdownMenu ? styles["open"] : ""
-        }`}
+        className={`${styles["dropdown-menu-wrapper"]} ${showDropdownMenu ? styles["open"] : ""
+          }`}
         onClick={handleClick}
         ref={ref}
       >

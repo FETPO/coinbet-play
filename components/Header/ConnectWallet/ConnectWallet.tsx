@@ -29,7 +29,13 @@ const ConnectWallet = ({
   const [addressCopied, setAddressCopied] = useState(false);
   const [showAccountDetailsPopup, setShowAccountDetailsPopup] = useState(false);
 
-  useOnClickOutside(ref, () => setShowAccountDetailsPopover(false));
+  useOnClickOutside(ref, () => {
+    if (window.screen.width > 576) {
+      setShowAccountDetailsPopover(false);
+    } else {
+      setShowAccountDetailsPopup(false);
+    }
+  });
 
   const { disconnectWallet, wallet, selectedWallet, toggleWalletModal } = useWalletContext();
 
@@ -86,9 +92,9 @@ const ConnectWallet = ({
           <div className={styles["available-amount-section"]}>
             <div>
               {selectedOption.icon}
-              <span>{ formatBigNumber(wallet?.balance) }</span>
+              <span>{formatBigNumber(wallet?.balance)}</span>
             </div>
-            <div>$ { formatUsdPrice(polygonScanData?.maticPriceUsd, wallet?.balance) }</div>
+            <div>$ {formatUsdPrice(polygonScanData?.maticPriceUsd, wallet?.balance)}</div>
           </div>
           <Button
             variant="secondary"

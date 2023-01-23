@@ -2,7 +2,7 @@ import { useTheme } from "next-themes";
 import React from "react";
 import { DarkModeIcon } from "../../svgs/DarkModeIcon";
 import { DiscordIcon } from "../../svgs/DiscordIcon";
-import DocumentationIcon from "../../svgs/DocumentationIcon";
+import { DocumentationIcon } from "../../svgs/DocumentationIcon";
 import { LightModeIcon } from "../../svgs/LightModeIcon";
 import { TwitterIcon } from "../../svgs/TwitterIcon";
 import { WebsiteIcon } from "../../svgs/WebsiteIcon";

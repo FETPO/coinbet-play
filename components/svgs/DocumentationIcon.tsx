@@ -1,6 +1,6 @@
 import React from "react";
 
-const DocumentationIcon = () => {
+export const DocumentationIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -20,5 +20,3 @@ const DocumentationIcon = () => {
     </svg>
   );
 };
-
-export default DocumentationIcon;
